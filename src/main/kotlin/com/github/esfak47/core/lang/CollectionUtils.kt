@@ -16,7 +16,6 @@
 
 package com.github.esfak47.core.lang
 
-import java.util.ArrayList
 
 /**
  * @author Tony
@@ -30,7 +29,7 @@ object CollectionUtils {
      * @param collection 集合
      * @return 如果集合为{@code null}或为空是则返回`true`，否则返回`false`
      */
-    fun isEmpty(collection: Collection<*>?): Boolean {
+    @JvmStatic fun isEmpty(collection: Collection<*>?): Boolean {
         return collection == null || collection.isEmpty()
     }
 
@@ -41,7 +40,7 @@ object CollectionUtils {
      * @param map map集合
      * @return 如果map为{@code null}或为空是则返回`true`，否则返回`false`
      */
-    fun isEmpty(map: Map<*, *>?): Boolean {
+    @JvmStatic fun isEmpty(map: Map<*, *>?): Boolean {
         return map == null || map.isEmpty()
     }
 

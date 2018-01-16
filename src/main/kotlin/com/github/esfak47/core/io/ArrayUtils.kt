@@ -38,7 +38,7 @@ object ArrayUtils {
      * @param obj 对象
      * @return 如果是数组类型则返回{@code true},否则返回`false`
      */
-    fun isArray(obj: Any?): Boolean {
+    @JvmStatic fun isArray(obj: Any?): Boolean {
         return obj != null && obj.javaClass.isArray
     }
 
@@ -48,8 +48,8 @@ object ArrayUtils {
      * @param array 数组
      * @return 当数组为空或{@code null}时返回`true`
      */
-    fun isEmpty(array: CharArray?): Boolean {
-        return array == null || array.size == 0
+    @JvmStatic fun isEmpty(array: CharArray?): Boolean {
+        return array == null || array.isEmpty()
     }
 
     /**
@@ -59,7 +59,7 @@ object ArrayUtils {
      * @return 当数组为空或{@code null}时返回`true`
      */
     @JvmStatic fun isEmpty(array: BooleanArray?): Boolean {
-        return array == null || array.size == 0
+        return array == null || array.isEmpty()
     }
 
     /**
@@ -69,7 +69,7 @@ object ArrayUtils {
      * @return 当数组为空或{@code null}时返回`true`
      */
     @JvmStatic fun isEmpty(array: ByteArray?): Boolean {
-        return array == null || array.size == 0
+        return array == null || array.isEmpty()
     }
 
     /**
@@ -78,8 +78,8 @@ object ArrayUtils {
      * @param array 数组
      * @return 当数组为空或{@code null}时返回`true`
      */
-    fun isEmpty(array: ShortArray?): Boolean {
-        return array == null || array.size == 0
+    @JvmStatic fun isEmpty(array: ShortArray?): Boolean {
+        return array == null || array.isEmpty()
     }
 
     /**
@@ -88,8 +88,8 @@ object ArrayUtils {
      * @param array 数组
      * @return 当数组为空或{@code null}时返回`true`
      */
-    fun isEmpty(array: IntArray?): Boolean {
-        return array == null || array.size == 0
+    @JvmStatic fun isEmpty(array: IntArray?): Boolean {
+        return array == null || array.isEmpty()
     }
 
     /**
@@ -98,8 +98,8 @@ object ArrayUtils {
      * @param array 数组
      * @return 当数组为空或{@code null}时返回`true`
      */
-    fun isEmpty(array: LongArray?): Boolean {
-        return array == null || array.size == 0
+    @JvmStatic fun isEmpty(array: LongArray?): Boolean {
+        return array == null || array.isEmpty()
     }
 
     /**
@@ -109,7 +109,7 @@ object ArrayUtils {
      * @return 当数组为空或{@code null}时返回`true`
      */
     fun isEmpty(array: FloatArray?): Boolean {
-        return array == null || array.size == 0
+        return array == null || array.isEmpty()
     }
 
     /**
@@ -119,7 +119,7 @@ object ArrayUtils {
      * @return 当数组为空或{@code null}时返回`true`
      */
     fun isEmpty(array: DoubleArray?): Boolean {
-        return array == null || array.size == 0
+        return array == null || array.isEmpty()
     }
 
     /**
@@ -130,7 +130,7 @@ object ArrayUtils {
      * @return 当数组为空或{@code null}时返回`true`
     </T> */
     fun <T> isEmpty(array: Array<T?>?): Boolean {
-        return array == null || array.size == 0
+        return array == null || array.isEmpty()
     }
 
     /**
@@ -141,7 +141,7 @@ object ArrayUtils {
      * @return 当数组不为空且不是{@code null}时返回`true`
     </T> */
     fun <T> isNotEmpty(array: Array<T>?): Boolean {
-        return array != null && array.size != 0
+        return array != null && array.isNotEmpty()
     }
 
     /**

@@ -68,7 +68,7 @@ object IOUtils {
      *
      * @param closeable the object to close, may be null or already closed
      */
-    fun closeQuietly(closeable: Closeable?) {
+    @JvmOverloads fun closeQuietly(closeable: Closeable?) {
         if (closeable != null) {
             try {
                 closeable.close()
@@ -85,7 +85,7 @@ object IOUtils {
      * @param in 输入流
      * @return 如果转换成功则返回字节数组，否则返回`null`
      */
-    fun toByteArray(`in`: InputStream): ByteArray? {
+    @JvmOverloads fun toByteArray(`in`: InputStream): ByteArray? {
         Assert.notNull(`in`, "Input stream must not be null.")
         val out = ByteArrayOutputStream(1024)
         return if (copy(`in`, out) == -1) {
@@ -101,7 +101,7 @@ object IOUtils {
      * @param encoding 编码
      * @return 转换异常时返回{@code null}，否则返回字节数组
      */
-    fun toByteArray(reader: Reader, encoding: String): ByteArray? {
+    @JvmOverloads fun toByteArray(reader: Reader, encoding: String): ByteArray? {
         return toByteArray(reader, if (StringUtils.isEmpty(encoding)) Charset.defaultCharset() else Charset.forName(encoding))
     }
 
@@ -113,7 +113,7 @@ object IOUtils {
      * @return 转换异常时返回{@code null}，否则返回字节数组
      */
     @JvmOverloads
-    fun toByteArray(reader: Reader, encoding: Charset? = Charset.defaultCharset()): ByteArray? {
+    @JvmStatic fun toByteArray(reader: Reader, encoding: Charset? = Charset.defaultCharset()): ByteArray? {
         var encoding = encoding
         Assert.notNull(reader, "Reader must not be null.")
         if (encoding == null) {
@@ -127,12 +127,12 @@ object IOUtils {
 
 
 
-    fun toString(`in`: InputStream, encoding: String): String? {
+    @JvmStatic fun toString(`in`: InputStream, encoding: String): String? {
         return toString(`in`, if (StringUtils.isEmpty(encoding)) Charset.defaultCharset() else Charset.forName(encoding))
     }
 
     @JvmOverloads
-    fun toString(`in`: InputStream, encoding: Charset = Charset.defaultCharset()): String? {
+    @JvmStatic fun toString(`in`: InputStream, encoding: Charset = Charset.defaultCharset()): String? {
         Assert.notNull(`in`, "InputStream must not be null.")
         val writer = StringWriter()
         return if (!copy(`in`, writer, encoding)) {
@@ -140,7 +140,7 @@ object IOUtils {
         } else writer.toString()
     }
 
-    fun toString(reader: Reader): String? {
+    @JvmStatic fun toString(reader: Reader): String? {
         Assert.notNull(reader, "Reader must not be null.")
         val writer = StringWriter()
         return if (copy(reader, writer) == -1) {
@@ -159,7 +159,7 @@ object IOUtils {
      * @param out 输出流
      * @return 返回流大小，如果拷贝失败或流过大均返回-1
      */
-    fun copy(`in`: InputStream, out: OutputStream): Int {
+    @JvmStatic fun copy(`in`: InputStream, out: OutputStream): Int {
         val count = copyLarge(`in`, out)
         return if (count > Integer.MAX_VALUE) {
             -1
@@ -175,7 +175,7 @@ object IOUtils {
      * @return 返回流大小，如果拷贝失败则返回-1
      */
     @JvmOverloads
-    fun copyLarge(`in`: InputStream, out: OutputStream, buffer: ByteArray = ByteArray(DEFAULT_BUFFER_SIZE)): Long {
+    @JvmStatic fun copyLarge(`in`: InputStream, out: OutputStream, buffer: ByteArray = ByteArray(DEFAULT_BUFFER_SIZE)): Long {
         Assert.notNull(`in`, "InputStream must not be null.")
         Assert.notNull(out, "OutputStream must not be null.")
         Assert.notEmpty(buffer, "The buffer array must not null or empty.")
@@ -203,7 +203,7 @@ object IOUtils {
      * @param encoding 字符编码，如果为空则使用平台默认编码
      * @return 拷贝成功则返回{@code true},否则返回`false`
      */
-    fun copy(`in`: InputStream, writer: Writer, encoding: String): Boolean {
+    @JvmStatic fun copy(`in`: InputStream, writer: Writer, encoding: String): Boolean {
         return copy(`in`, writer, if (StringUtils.isEmpty(encoding)) Charset.defaultCharset() else Charset.forName(encoding))
     }
 
@@ -216,7 +216,7 @@ object IOUtils {
      * @return 拷贝成功则返回{@code true},否则返回`false`
      */
     @JvmOverloads
-    fun copy(`in`: InputStream, writer: Writer, encoding: Charset? = Charset.defaultCharset()): Boolean {
+    @JvmStatic fun copy(`in`: InputStream, writer: Writer, encoding: Charset? = Charset.defaultCharset()): Boolean {
         Assert.notNull(`in`, "Input stream must not be null.")
         val reader = InputStreamReader(`in`, encoding ?: Charset.defaultCharset())
         return copy(reader, writer) > 0
@@ -233,7 +233,7 @@ object IOUtils {
      * @param writer 字符输出流
      * @return 拷贝失败或流超过2GB则返回-1，否则返回流的大小
      */
-    fun copy(reader: Reader, writer: Writer): Int {
+    @JvmStatic fun copy(reader: Reader, writer: Writer): Int {
         val count = copyLarge(reader, writer)
         return if (count > Integer.MAX_VALUE) {
             -1
@@ -249,7 +249,7 @@ object IOUtils {
      * @return 拷贝成功则返回流的大小，否则返回-1
      */
     @JvmOverloads
-    fun copyLarge(reader: Reader, writer: Writer, buffer: CharArray = CharArray(DEFAULT_BUFFER_SIZE)): Long {
+    @JvmStatic fun copyLarge(reader: Reader, writer: Writer, buffer: CharArray = CharArray(DEFAULT_BUFFER_SIZE)): Long {
         var count: Long = 0
         var n = 0
         try {
@@ -276,7 +276,7 @@ object IOUtils {
      * @param encoding 编码
      * @return 拷贝成功则返回{@code true},否则返回`false`
      */
-    fun copy(reader: Reader, out: OutputStream, encoding: String): Boolean {
+    @JvmStatic fun copy(reader: Reader, out: OutputStream, encoding: String): Boolean {
         return copy(reader, out, if (StringUtils.isEmpty(encoding)) Charset.defaultCharset() else Charset.forName(encoding))
     }
 
@@ -289,7 +289,7 @@ object IOUtils {
      * @return 拷贝成功则返回{@code true},否则返回`false`
      */
     @JvmOverloads
-    fun copy(reader: Reader, out: OutputStream, encoding: Charset? = Charset.defaultCharset()): Boolean {
+    @JvmStatic fun copy(reader: Reader, out: OutputStream, encoding: Charset? = Charset.defaultCharset()): Boolean {
         var encoding = encoding
         Assert.notNull(reader, "Reader must not be null.")
         Assert.notNull(out, "Output stream must not be null.")
@@ -318,7 +318,7 @@ object IOUtils {
      * @return 读取的内容
      */
     @JvmOverloads
-    fun readLines(`in`: InputStream, charset: Charset = Charset.defaultCharset()): List<String> {
+    @JvmStatic fun readLines(`in`: InputStream, charset: Charset = Charset.defaultCharset()): List<String> {
         Assert.notNull(`in`, "The parameter[in] is null.")
         val reader = InputStreamReader(`in`, charset)
         return readLines(reader)
@@ -330,7 +330,7 @@ object IOUtils {
      * @param reader 待读取的流
      * @return 读取的内容
      */
-    fun readLines(reader: Reader): List<String> {
+    @JvmStatic fun readLines(reader: Reader): List<String> {
         val bufferedReader = to(reader)
         val lines = ArrayList<String>()
         try {
@@ -350,44 +350,3 @@ object IOUtils {
         return reader as? BufferedReader ?: BufferedReader(reader)
     }
 }
-/**
- * 将`Reader`的内容转为字节数组，否转换异常则返回`null`
- *
- * @param reader read from
- * @return 转换异常时返回{@code null}，否则返回字节数组
- */
-/**
- * 流的拷贝，如果拷贝流失败则返回-1.
- *
- * @param in  输入流
- * @param out 输出流
- * @return 返回流大小，如果拷贝失败则返回-1
- */
-/**
- * 将输入流的字节数组转换为`Writer`字符内容，使用系统默认编码。
- *
- * @param in     字节输入流
- * @param writer 字符输出流
- * @return 拷贝成功则返回{@code true},否则返回`false`
- */
-/**
- * 字符流的拷贝，支持大字符流(超过2GB)拷贝
- *
- * @param reader 字符输入流
- * @param writer 字符输出流
- * @return 拷贝成功则返回流的大小，否则返回-1
- */
-/**
- * 将字符输入流转为字节输出流，使用平台默认编码
- *
- * @param reader 字符输入流
- * @param out    字节输出流
- * @return 拷贝成功则返回{@code true},否则返回`false`
- */// readLines
-//-----------------------------------------------------------------------
-/**
- * 从输入流中读取，采用平台默认编码
- *
- * @param in 待读取的流
- * @return 读取的内容
- */
