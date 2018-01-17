@@ -15,6 +15,8 @@
  */
 package com.github.esfak47.core.digest;
 
+
+
 import com.github.esfak47.core.io.ArrayUtils;
 import com.github.esfak47.core.utils.StringUtils;
 
@@ -36,7 +38,7 @@ import java.util.Objects;
  *
  * @author mzlion on 2016/6/22.
  */
-public final class Base64 {
+public class Base64 {
 
     private Base64() {
         throw new UnsupportedOperationException();
@@ -335,7 +337,7 @@ public final class Base64 {
         static final Encoder RFC4648_URLSAFE = new Encoder(true, null, -1, true);
         static final Encoder RFC2045 = new Encoder(false, CRLF, MIMELINEMAX, true);
 
-        private int outLength(int srclen) {
+        private final int outLength(int srclen) {
             int len = 0;
             if (doPadding) {
                 len = 4 * ((srclen + 2) / 3);
@@ -493,8 +495,9 @@ public final class Base64 {
          * padding character at the end
          */
         public Encoder withoutPadding() {
-            if (!doPadding)
+            if (!doPadding) {
                 return this;
+            }
             return new Encoder(isURL, newline, linemax, false);
         }
 

@@ -23,6 +23,11 @@ import org.slf4j.LoggerFactory
 import java.io.*
 import java.nio.charset.Charset
 import java.util.*
+import com.github.esfak47.core.digest.DigestUtils
+import com.github.esfak47.core.digest.MD5
+import java.io.FileInputStream
+
+
 
 
 
@@ -92,7 +97,24 @@ object IOUtils {
         } else out.toByteArray()
     }
 
-
+    /**
+     * 流的md5，结果由16进制字符串返回
+     *
+     * @param in 输入流
+     * @return md5之后的16进制字符串
+     */
+    @JvmStatic  fun md5Hex(`in`: InputStream): String {
+        return MD5.digestHex(`in`)
+    }
+    /**
+     * 流的SHA-1，结果由16进制字符串返回
+     *
+     * @param in 输入流
+     * @return SHA-1之后的16进制字符串
+     */
+    @JvmStatic fun sha1Hex(`in`: FileInputStream): String {
+        return DigestUtils.sha1Hex(`in`)
+    }
     /**
      * 将`Reader`的内容转为字节数组，否转换异常则返回`null`
      *
@@ -250,7 +272,7 @@ object IOUtils {
     @JvmOverloads
     @JvmStatic fun copyLarge(reader: Reader, writer: Writer, buffer: CharArray = CharArray(DEFAULT_BUFFER_SIZE)): Long {
         var count: Long = 0
-        var n = 0
+        var n: Int
         try {
             do {
                 n = reader.read(buffer)

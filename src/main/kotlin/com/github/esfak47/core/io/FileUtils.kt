@@ -23,6 +23,10 @@ import com.github.esfak47.core.utils.StringUtils
 import java.io.*
 import java.nio.channels.FileChannel
 import java.nio.charset.Charset
+import java.io.FileInputStream
+import java.io.File
+
+
 
 /**
  * @author Tony
@@ -509,16 +513,37 @@ object FileUtils {
 
     }
 
+    /**
+     * 计算文件的MD5值
+     *
+     * @param file 文件
+     * @return 返回文件的md5
+     */
+    @JvmStatic fun md5Hex(file: File): String {
+        var `in`: FileInputStream? = null
+        try {
+            `in` = openFileInputStream(file)
+            return IOUtils.md5Hex(`in`)
+        } finally {
+            IOUtils.closeQuietly(`in`)
+        }
+    }
 
-    //region--------------------------------checksum-----------------------------
-
-
-
-
-    //endregion-----------------------------checksum-----------------------------
-
-    //region--------------------------------others-------------------------------
-
+    /**
+     * 计算文件的SHA-1值
+     *
+     * @param file 文件
+     * @return 返回文件的sha-1
+     */
+    @JvmStatic fun sha1Hex(file: File): String {
+        var `in`: FileInputStream? = null
+        try {
+            `in` = openFileInputStream(file)
+            return IOUtils.sha1Hex(`in`)
+        } finally {
+            IOUtils.closeQuietly(`in`)
+        }
+    }
     /**
      * 将文件大小格式化输出
      *

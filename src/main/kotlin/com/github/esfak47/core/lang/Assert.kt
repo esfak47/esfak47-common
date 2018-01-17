@@ -29,7 +29,7 @@ object Assert {
      * @param message    the detail message.
      * @throws IllegalArgumentException An invalid parameter exception.
      */
-    fun isTrue(expression: Boolean, message: String) {
+    @JvmStatic fun isTrue(expression: Boolean, message: String) {
         if (!expression) {
             throw IllegalArgumentException(message)
         }
@@ -43,7 +43,7 @@ object Assert {
      * @param message the detail message.
      * @throws IllegalArgumentException An invalid parameter exception.
      */
-    fun notNull(data: Any?, message: String) {
+    @JvmStatic fun notNull(data: Any?, message: String) {
         if (data == null) {
             throw IllegalArgumentException(message)
         }
@@ -57,7 +57,7 @@ object Assert {
      * @param message the detail message.
      * @throws IllegalArgumentException An invalid parameter exception.
      */
-    fun hasLength(text: String, message: String) {
+    @JvmStatic fun hasLength(text: String, message: String) {
         if (StringUtils.isEmpty(text)) {
             throw IllegalArgumentException(message)
         }
@@ -71,7 +71,7 @@ object Assert {
      * @param message    the detail message.
      * @throws IllegalArgumentException An invalid parameter exception.
      */
-    fun notEmpty(collection: Collection<*>, message: String) {
+    @JvmStatic fun notEmpty(collection: Collection<*>, message: String) {
         if (CollectionUtils.isEmpty(collection)) {
             throw IllegalArgumentException(message)
         }
@@ -85,7 +85,7 @@ object Assert {
      * @param message the detail message.
      * @throws IllegalArgumentException An invalid parameter exception.
      */
-    fun notEmpty(map: Map<*, *>, message: String) {
+    @JvmStatic fun notEmpty(map: Map<*, *>, message: String) {
         if (CollectionUtils.isEmpty(map)) {
             throw IllegalArgumentException(message)
         }
@@ -100,7 +100,7 @@ object Assert {
      * @param <T>     generic type
      * @throws IllegalArgumentException An invalid parameter exception.
     </T> */
-    fun <T> notEmpty(array: Array<T>?, message: String) {
+    @JvmStatic fun <T> notEmpty(array: Array<T>?, message: String) {
         if (null == array || array.isEmpty()) {
             throw IllegalArgumentException(message)
         }
@@ -114,7 +114,7 @@ object Assert {
      * @param message the detail message.
      * @throws IllegalArgumentException An invalid parameter exception.
      */
-    fun notEmpty(array: CharArray?, message: String) {
+    @JvmStatic fun notEmpty(array: CharArray?, message: String) {
         if (null == array || array.isEmpty()) {
             throw IllegalArgumentException(message)
         }
@@ -128,7 +128,7 @@ object Assert {
      * @param message the detail message.
      * @throws IllegalArgumentException An invalid parameter exception.
      */
-    fun notEmpty(array: BooleanArray?, message: String) {
+    @JvmStatic fun notEmpty(array: BooleanArray?, message: String) {
         if (null == array || array.isEmpty()) {
             throw IllegalArgumentException(message)
         }
@@ -142,7 +142,7 @@ object Assert {
      * @param message the detail message.
      * @throws IllegalArgumentException An invalid parameter exception.
      */
-    fun notEmpty(array: ByteArray?, message: String) {
+    @JvmStatic fun notEmpty(array: ByteArray?, message: String) {
         if (null == array || array.size == 0) {
             throw IllegalArgumentException(message)
         }
@@ -156,7 +156,7 @@ object Assert {
      * @param message the detail message.
      * @throws IllegalArgumentException An invalid parameter exception.
      */
-    fun notEmpty(array: ShortArray?, message: String) {
+    @JvmStatic fun notEmpty(array: ShortArray?, message: String) {
         if (null == array || array.isEmpty()) {
             throw IllegalArgumentException(message)
         }
@@ -170,7 +170,7 @@ object Assert {
      * @param message the detail message.
      * @throws IllegalArgumentException An invalid parameter exception.
      */
-    fun notEmpty(array: IntArray?, message: String) {
+    @JvmStatic fun notEmpty(array: IntArray?, message: String) {
         if (null == array || array.size == 0) {
             throw IllegalArgumentException(message)
         }
@@ -184,7 +184,7 @@ object Assert {
      * @param message the detail message.
      * @throws IllegalArgumentException An invalid parameter exception.
      */
-    fun notEmpty(array: LongArray?, message: String) {
+    @JvmStatic fun notEmpty(array: LongArray?, message: String) {
         if (null == array || array.isEmpty()) {
             throw IllegalArgumentException(message)
         }
@@ -198,7 +198,7 @@ object Assert {
      * @param message the detail message.
      * @throws IllegalArgumentException An invalid parameter exception.
      */
-    fun notEmpty(array: FloatArray?, message: String) {
+    @JvmStatic fun notEmpty(array: FloatArray?, message: String) {
         if (null == array || array.size == 0) {
             throw IllegalArgumentException(message)
         }
@@ -212,7 +212,7 @@ object Assert {
      * @param message the detail message.
      * @throws IllegalArgumentException An invalid parameter exception.
      */
-    fun notEmpty(array: DoubleArray?, message: String) {
+    @JvmStatic fun notEmpty(array: DoubleArray?, message: String) {
         if (null == array || array.isEmpty()) {
             throw IllegalArgumentException(message)
         }
