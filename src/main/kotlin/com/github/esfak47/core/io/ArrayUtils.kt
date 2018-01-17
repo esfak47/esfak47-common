@@ -1,5 +1,5 @@
 /*
- *    Copyright 2018 esfak47
+ *    Copyright 2018 esfak47(esfak47@qq.com)
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -534,57 +534,3 @@ object ArrayUtils {
     }
 
 }
-/**
- * 将数组转为字符串，使用英文半角逗号连接
- *
- * @param array 数组
- * @return 如果数组为空则返回空字符串
- */
-/**
- * 将数组转为字符串，使用`delimiter`将元素连接起来
- *
- * @param array 数组
- * @return 如果数组为空则返回空字符串
- */
-/**
- * 将数组转为字符串，使用`delimiter`将元素连接起来
- *
- * @param array 数组
- * @return 如果数组为空则返回空字符串
- */
-/**
- * 将数组转为字符串，使用`delimiter`将元素连接起来
- *
- * @param array 数组
- * @return 如果数组为空则返回空字符串
- */
-/**
- * 将数组转为字符串，使用`delimiter`将元素连接起来
- *
- * @param array 数组
- * @return 如果数组为空则返回空字符串
- */
-/**
- * 将数组转为字符串，使用英文半角逗号连接
- *
- * @param array 数组
- * @return 如果数组为空则返回空字符串
- */
-/**
- * 将数组转为字符串，使用英文半角逗号连接
- *
- * @param array 数组
- * @return 如果数组为空则返回空字符串
- */
-/**
- * 将数组转为字符串，使用`delimiter`将元素连接起来
- *
- * @param array 数组
- * @return 如果数组为空则返回空字符串
- */
-/**
- * 将数组转为字符串，使用`delimiter`将元素连接起来
- *
- * @param array 数组
- * @return 如果数组为空则返回空字符串
- */

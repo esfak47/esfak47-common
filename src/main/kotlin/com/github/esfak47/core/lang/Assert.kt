@@ -1,5 +1,5 @@
 /*
- *    Copyright 2018 esfak47
+ *    Copyright 2018 esfak47(esfak47@qq.com)
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package com.github.esfak47.core.lang
 
+import com.github.esfak47.core.utils.CollectionUtils
 import com.github.esfak47.core.utils.StringUtils
 
 object Assert {
