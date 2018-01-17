@@ -77,4 +77,38 @@ object StringUtils {
         }
         return false
     }
+
+    /**
+     *
+     *
+     * 将字符串中所有出现`oldPattern`替换为`newPattern`.
+     *
+     * <pre class="code">
+     * StringUtils.replace("com.mzlion.utility.","l","x"); //--- "hexxo worxd"
+    </pre> *
+     *
+     * @param str        字符串
+     * @param oldPattern 需要替换的字符串
+     * @param newPattern 新的字符串
+     * @return 返回替换后的字符串
+     */
+    @JvmStatic fun replace(str: String, oldPattern: String, newPattern: String?): String {
+        if (!hasLength(str) || !hasLength(oldPattern) || null == newPattern) {
+            return str
+        }
+
+        val sb = StringBuilder()
+        var pos = 0
+        var index = str.indexOf(oldPattern, pos)
+        val patternLen = oldPattern.length
+
+        while (index >= 0) {
+            sb.append(str.substring(pos, index))
+            sb.append(newPattern)
+            pos = index + patternLen
+            index = str.indexOf(oldPattern, pos)
+        }
+        sb.append(str.substring(pos))
+        return sb.toString()
+    }
 }

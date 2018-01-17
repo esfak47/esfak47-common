@@ -108,17 +108,43 @@ object ArrayUtils {
      * @param array 数组
      * @return 当数组为空或{@code null}时返回`true`
      */
-    fun isEmpty(array: FloatArray?): Boolean {
+    @JvmStatic fun isEmpty(array: FloatArray?): Boolean {
         return array == null || array.isEmpty()
     }
 
+    /**
+     *
+     * 判断数组中是否包含了指定的元素
+     * <pre class="code">
+     * ObjectUtils.containsElement(new String[]{"aaaa","bbb","cc",null},null); //--- true
+     * ObjectUtils.containsElement(new String[]{"aaaa","bbb","cc"},"cc"); //--- true
+     * ObjectUtils.containsElement(new String[]{"aaaa","bbb","cc",null},"xx"); //--- false
+    </pre> *
+     *
+     * @param array   数组
+     * @param element 检查的元素对象
+     * @param <T>     泛型类型声明
+     * @return 如果数组中存在则返回{@code true},否则返回`false`
+     * @see ObjectUtils.nullSafeEquals
+    </T> */
+    @JvmStatic fun <T> containsElement(array: Array<T?>, element: T): Boolean {
+        if (isEmpty(array)) {
+            return false
+        }
+        for (arrayEle in array) {
+            if (Objects.equals(arrayEle, element)) {
+                return true
+            }
+        }
+        return false
+    }
     /**
      * 判断是否为空或者为`null`
      *
      * @param array 数组
      * @return 当数组为空或{@code null}时返回`true`
      */
-    fun isEmpty(array: DoubleArray?): Boolean {
+    @JvmStatic fun isEmpty(array: DoubleArray?): Boolean {
         return array == null || array.isEmpty()
     }
 
@@ -129,7 +155,7 @@ object ArrayUtils {
      * @param <T>   泛型类
      * @return 当数组为空或{@code null}时返回`true`
     </T> */
-    fun <T> isEmpty(array: Array<T?>?): Boolean {
+    @JvmStatic fun <T> isEmpty(array: Array<T?>?): Boolean {
         return array == null || array.isEmpty()
     }
 
@@ -140,7 +166,7 @@ object ArrayUtils {
      * @param <T>   泛型类
      * @return 当数组不为空且不是{@code null}时返回`true`
     </T> */
-    fun <T> isNotEmpty(array: Array<T>?): Boolean {
+    @JvmStatic fun <T> isNotEmpty(array: Array<T>?): Boolean {
         return array != null && array.isNotEmpty()
     }
 
@@ -151,7 +177,7 @@ object ArrayUtils {
      * @param <T>   泛型类
      * @return 如果数组的元素中存在{@code null}或空则返回`true`
     </T> */
-    fun <T> isEmptyElement(array: Array<T?>): Boolean {
+    @JvmStatic fun <T> isEmptyElement(array: Array<T?>): Boolean {
         var empty = isEmpty(array)
         if (!empty) {
             empty = false
@@ -179,7 +205,7 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun <T> toString(array: Array<T?>, d: String? = ","): String {
+    @JvmStatic fun <T> toString(array: Array<T?>, d: String? = ","): String {
         var delimiter = d
         if (isEmpty(array)) {
             return ""
@@ -208,7 +234,7 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun toString(array: CharArray, d: String? = ","): String {
+    @JvmStatic fun toString(array: CharArray, d: String? = ","): String {
         var delimiter = d
         if (isEmpty(array)) {
             return ""
@@ -237,7 +263,7 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun toString(array: BooleanArray, d: String? = ","): String {
+    @JvmStatic fun toString(array: BooleanArray, d: String? = ","): String {
         var delimiter = d
         if (isEmpty(array)) {
             return ""
@@ -266,7 +292,7 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun toString(array: ByteArray, d: String? = ","): String {
+    @JvmStatic fun toString(array: ByteArray, d: String? = ","): String {
         var delimiter = d
         if (isEmpty(array)) {
             return ""
@@ -295,7 +321,7 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun toString(array: ShortArray, d: String? = ","): String {
+    @JvmStatic fun toString(array: ShortArray, d: String? = ","): String {
         var delimiter = d
         if (isEmpty(array)) {
             return ""
@@ -324,7 +350,7 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun toString(array: IntArray, d: String? = ","): String {
+    @JvmStatic fun toString(array: IntArray, d: String? = ","): String {
         var delimiter = d
         if (isEmpty(array)) {
             return ""
@@ -353,7 +379,7 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun toString(array: LongArray, d: String? = ","): String {
+    @JvmStatic fun toString(array: LongArray, d: String? = ","): String {
         var delimiter = d
         if (isEmpty(array)) {
             return ""
@@ -382,7 +408,7 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun toString(array: FloatArray, d: String? = ","): String {
+    @JvmStatic fun toString(array: FloatArray, d: String? = ","): String {
         var delimiter = d
         if (isEmpty(array)) {
             return ""
@@ -411,7 +437,7 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun toString(array: DoubleArray, d: String? = ","): String {
+    @JvmStatic fun toString(array: DoubleArray, d: String? = ","): String {
         var delimiter = d
         if (isEmpty(array)) {
             return ""
@@ -447,7 +473,7 @@ object ArrayUtils {
      * @param addStr 追加的字符串
      * @return 返回一个新的数组，该数组永远不为`null`
      */
-    fun addStringToArray(array: Array<String?>, addStr: String): Array<String?> {
+    @JvmStatic fun addStringToArray(array: Array<String?>, addStr: String): Array<String?> {
         if (ArrayUtils.isEmpty(array)) {
             return arrayOf(addStr)
         }
@@ -470,7 +496,7 @@ object ArrayUtils {
      * @param arr2 数组
      * @return 返回一个新的字符串数组
      */
-    fun concatStringArrays(arr1: Array<String?>, arr2: Array<String?>): Array<String?> {
+    @JvmStatic fun concatStringArrays(arr1: Array<String?>, arr2: Array<String?>): Array<String?> {
         if (ArrayUtils.isEmpty(arr1)) {
             return arr2
         }
@@ -496,7 +522,7 @@ object ArrayUtils {
      * @param array2 数组
      * @return 返回合并后的新数组
      */
-    fun mergeStringArrays(array1: Array<String?>, array2: Array<String?>): Array<String?> {
+    @JvmStatic fun mergeStringArrays(array1: Array<String?>, array2: Array<String?>): Array<String?> {
         if (ArrayUtils.isEmpty(array1)) {
             return array2
         }
@@ -525,7 +551,7 @@ object ArrayUtils {
      * @param array 数组
      * @return 排序后的字符串数组
      */
-    fun sortStringArray(array: Array<String?>): Array<String?> {
+    @JvmStatic fun sortStringArray(array: Array<String?>): Array<String?> {
         if (ArrayUtils.isEmpty(array)) {
             return arrayOfNulls(0)
         }
