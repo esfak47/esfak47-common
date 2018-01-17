@@ -335,7 +335,7 @@ public final class Base64 {
         static final Encoder RFC4648_URLSAFE = new Encoder(true, null, -1, true);
         static final Encoder RFC2045 = new Encoder(false, CRLF, MIMELINEMAX, true);
 
-        private final int outLength(int srclen) {
+        private int outLength(int srclen) {
             int len = 0;
             if (doPadding) {
                 len = 4 * ((srclen + 2) / 3);
@@ -389,9 +389,10 @@ public final class Base64 {
          */
         public int encode(byte[] src, byte[] dst) {
             int len = outLength(src.length);         // dst array size
-            if (dst.length < len)
+            if (dst.length < len) {
                 throw new IllegalArgumentException(
                         "Output byte array is too small for encoding all input bytes");
+            }
             return encode0(src, 0, src.length, dst);
         }
 
