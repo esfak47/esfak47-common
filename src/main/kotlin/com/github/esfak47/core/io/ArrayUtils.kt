@@ -179,8 +179,8 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun <T> toString(array: Array<T?>, delimiter: String? = ","): String {
-        var delimiter = delimiter
+    fun <T> toString(array: Array<T?>, d: String? = ","): String {
+        var delimiter = d
         if (isEmpty(array)) {
             return ""
         }
@@ -208,8 +208,8 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun toString(array: CharArray, delimiter: String? = ","): String {
-        var delimiter = delimiter
+    fun toString(array: CharArray, d: String? = ","): String {
+        var delimiter = d
         if (isEmpty(array)) {
             return ""
         }
@@ -237,8 +237,8 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun toString(array: BooleanArray, delimiter: String? = ","): String {
-        var delimiter = delimiter
+    fun toString(array: BooleanArray, d: String? = ","): String {
+        var delimiter = d
         if (isEmpty(array)) {
             return ""
         }
@@ -266,8 +266,8 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun toString(array: ByteArray, delimiter: String? = ","): String {
-        var delimiter = delimiter
+    fun toString(array: ByteArray, d: String? = ","): String {
+        var delimiter = d
         if (isEmpty(array)) {
             return ""
         }
@@ -295,8 +295,8 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun toString(array: ShortArray, delimiter: String? = ","): String {
-        var delimiter = delimiter
+    fun toString(array: ShortArray, d: String? = ","): String {
+        var delimiter = d
         if (isEmpty(array)) {
             return ""
         }
@@ -324,8 +324,8 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun toString(array: IntArray, delimiter: String? = ","): String {
-        var delimiter = delimiter
+    fun toString(array: IntArray, d: String? = ","): String {
+        var delimiter = d
         if (isEmpty(array)) {
             return ""
         }
@@ -353,8 +353,8 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun toString(array: LongArray, delimiter: String? = ","): String {
-        var delimiter = delimiter
+    fun toString(array: LongArray, d: String? = ","): String {
+        var delimiter = d
         if (isEmpty(array)) {
             return ""
         }
@@ -382,8 +382,8 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun toString(array: FloatArray, delimiter: String? = ","): String {
-        var delimiter = delimiter
+    fun toString(array: FloatArray, d: String? = ","): String {
+        var delimiter = d
         if (isEmpty(array)) {
             return ""
         }
@@ -411,8 +411,8 @@ object ArrayUtils {
      * @return 如果数组为空则返回空字符串
      */
     @JvmOverloads
-    fun toString(array: DoubleArray, delimiter: String? = ","): String {
-        var delimiter = delimiter
+    fun toString(array: DoubleArray, d: String? = ","): String {
+        var delimiter = d
         if (isEmpty(array)) {
             return ""
         }

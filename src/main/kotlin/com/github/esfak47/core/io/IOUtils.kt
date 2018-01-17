@@ -23,7 +23,6 @@ import org.slf4j.LoggerFactory
 import java.io.*
 import java.nio.charset.Charset
 import java.util.*
-import sun.security.provider.MD5
 
 
 
@@ -68,7 +67,7 @@ object IOUtils {
      *
      * @param closeable the object to close, may be null or already closed
      */
-    @JvmOverloads fun closeQuietly(closeable: Closeable?) {
+    @JvmStatic fun closeQuietly(closeable: Closeable?) {
         if (closeable != null) {
             try {
                 closeable.close()
@@ -85,7 +84,7 @@ object IOUtils {
      * @param in 输入流
      * @return 如果转换成功则返回字节数组，否则返回`null`
      */
-    @JvmOverloads fun toByteArray(`in`: InputStream): ByteArray? {
+    @JvmStatic fun toByteArray(`in`: InputStream): ByteArray? {
         Assert.notNull(`in`, "Input stream must not be null.")
         val out = ByteArrayOutputStream(1024)
         return if (copy(`in`, out) == -1) {
@@ -101,7 +100,7 @@ object IOUtils {
      * @param encoding 编码
      * @return 转换异常时返回{@code null}，否则返回字节数组
      */
-    @JvmOverloads fun toByteArray(reader: Reader, encoding: String): ByteArray? {
+    @JvmStatic fun toByteArray(reader: Reader, encoding: String): ByteArray? {
         return toByteArray(reader, if (StringUtils.isEmpty(encoding)) Charset.defaultCharset() else Charset.forName(encoding))
     }
 
@@ -113,8 +112,8 @@ object IOUtils {
      * @return 转换异常时返回{@code null}，否则返回字节数组
      */
     @JvmOverloads
-    @JvmStatic fun toByteArray(reader: Reader, encoding: Charset? = Charset.defaultCharset()): ByteArray? {
-        var encoding = encoding
+    @JvmStatic fun toByteArray(reader: Reader, e: Charset? = Charset.defaultCharset()): ByteArray? {
+        var encoding = e
         Assert.notNull(reader, "Reader must not be null.")
         if (encoding == null) {
             encoding = Charset.defaultCharset()
@@ -289,8 +288,8 @@ object IOUtils {
      * @return 拷贝成功则返回{@code true},否则返回`false`
      */
     @JvmOverloads
-    @JvmStatic fun copy(reader: Reader, out: OutputStream, encoding: Charset? = Charset.defaultCharset()): Boolean {
-        var encoding = encoding
+    @JvmStatic fun copy(reader: Reader, out: OutputStream, e: Charset? = Charset.defaultCharset()): Boolean {
+        var encoding = e
         Assert.notNull(reader, "Reader must not be null.")
         Assert.notNull(out, "Output stream must not be null.")
         encoding = if (encoding == null) Charset.defaultCharset() else encoding

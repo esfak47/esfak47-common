@@ -101,7 +101,7 @@ object Assert {
      * @throws IllegalArgumentException An invalid parameter exception.
     </T> */
     fun <T> notEmpty(array: Array<T>?, message: String) {
-        if (null == array || array.size == 0) {
+        if (null == array || array.isEmpty()) {
             throw IllegalArgumentException(message)
         }
     }
@@ -115,7 +115,7 @@ object Assert {
      * @throws IllegalArgumentException An invalid parameter exception.
      */
     fun notEmpty(array: CharArray?, message: String) {
-        if (null == array || array.size == 0) {
+        if (null == array || array.isEmpty()) {
             throw IllegalArgumentException(message)
         }
     }
@@ -129,7 +129,7 @@ object Assert {
      * @throws IllegalArgumentException An invalid parameter exception.
      */
     fun notEmpty(array: BooleanArray?, message: String) {
-        if (null == array || array.size == 0) {
+        if (null == array || array.isEmpty()) {
             throw IllegalArgumentException(message)
         }
     }
@@ -157,7 +157,7 @@ object Assert {
      * @throws IllegalArgumentException An invalid parameter exception.
      */
     fun notEmpty(array: ShortArray?, message: String) {
-        if (null == array || array.size == 0) {
+        if (null == array || array.isEmpty()) {
             throw IllegalArgumentException(message)
         }
     }
@@ -185,7 +185,7 @@ object Assert {
      * @throws IllegalArgumentException An invalid parameter exception.
      */
     fun notEmpty(array: LongArray?, message: String) {
-        if (null == array || array.size == 0) {
+        if (null == array || array.isEmpty()) {
             throw IllegalArgumentException(message)
         }
     }
@@ -213,7 +213,7 @@ object Assert {
      * @throws IllegalArgumentException An invalid parameter exception.
      */
     fun notEmpty(array: DoubleArray?, message: String) {
-        if (null == array || array.size == 0) {
+        if (null == array || array.isEmpty()) {
             throw IllegalArgumentException(message)
         }
     }

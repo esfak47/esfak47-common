@@ -320,7 +320,7 @@ object FileUtils {
      * @param destFile 目标文件
      * @throws FileException 文件处理异常
      */
-    @JvmOverloads @JvmStatic fun moveFile(srcFile: File, destFile: File) {
+     @JvmStatic fun moveFile(srcFile: File, destFile: File) {
         Assert.notNull(srcFile, "Source must not be null.")
         Assert.notNull(destFile, "Destination must not be null.")
         if (!srcFile.exists()) {
@@ -361,7 +361,7 @@ object FileUtils {
      * @param destDir 目标目录
      * @throws FileException 文件处理异常
      */
-    @JvmOverloads @JvmStatic fun moveDirectory(source: File, destDir: File) {
+     @JvmStatic fun moveDirectory(source: File, destDir: File) {
         moveDirectory(source, destDir, false)
     }
 
@@ -373,7 +373,7 @@ object FileUtils {
      * @param toDir   如果目录不存在，是否创建
      * @throws FileException 文件处理异常
      */
-    @JvmOverloads @JvmStatic fun moveDirectory(srcDir: File, destDir: File, toDir: Boolean) {
+     @JvmStatic fun moveDirectory(srcDir: File, destDir: File, toDir: Boolean) {
         Assert.notNull(srcDir, "Source must not be null.")
         Assert.notNull(destDir, "Destination must not be null.")
         if (!srcDir.exists()) {
@@ -597,31 +597,5 @@ object FileUtils {
         }
 
     }
-    //endregion-----------------------------others-------------------------------
-}//region======================== readLines ========================
-/**
- * 将文件的内容全部读取,采用系统默认编码
- *
- * @param file 待读的文件
- * @return 文件内容
- */
-/**
- * 文件拷贝
- *
- * @param srcFile  原文件
- * @param destFile 目标文件
- *///endregion==========================================================
-//--------------------------------Directory copy--------------------------------
-/**
- * 目录复制
- *
- * @param srcDir  原目录
- * @param destDir 目标目录
- */
-/**
- * 目录复制
- *
- * @param srcDir       原目录
- * @param destDir      目标目录
- * @param holdFileDate 保持最后修改日期不变
- */
+}
+
