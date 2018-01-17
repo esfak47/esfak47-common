@@ -22,7 +22,7 @@
 
     <groupId>com.github.esfak47</groupId>
     <artifactId>core</artifactId>
-    <version>0.0.7-RELEASE</version>
+    <version>0.0.8-RELEASE</version>
     <properties>
         <kotlin.version>1.2.10</kotlin.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
@@ -111,8 +111,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
