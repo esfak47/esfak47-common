@@ -31,7 +31,6 @@ import java.net.URL;
  * @author mzlion on 2016/4/11.
  */
 public class ResourceUtils {
-    //log
     private static Logger logger = LoggerFactory.getLogger(ResourceUtils.class);
 
     public static final String CLASSPATH_URL_PREFIX = "classpath:";

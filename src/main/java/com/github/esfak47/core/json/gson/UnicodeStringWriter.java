@@ -37,14 +37,6 @@ class UnicodeStringWriter extends StringWriter {
         /* Others (and some within that range too) have explicit shorter
          * sequences
          */
-        //table['"'] = '"';
-        //table['\\'] = '\\';
-        // Escaping of slash is optional, so let's not add it
-        //table[0x08] = 'b';
-        //table[0x09] = 't';
-        //table[0x0C] = 'f';
-        //table[0x0A] = 'n';
-        //table[0x0D] = 'r';
         table['/'] = '/';
         ESCAPE_CODES = table;
     }
@@ -57,7 +49,7 @@ class UnicodeStringWriter extends StringWriter {
         //https://github.com/google/gson/issues/388
 
         String src = super.toString();
-        StringBuffer builder = new StringBuffer(src.length() * 4);
+        StringBuilder builder = new StringBuilder(src.length() * 4);
         for (char c : src.toCharArray()) {
             if (c >= 0x80) {
                 // 为所有非ASCII字符生成转义的unicode字符
@@ -80,7 +72,7 @@ class UnicodeStringWriter extends StringWriter {
         return builder.toString();
     }
 
-    private void writeUnicodeEscape(StringBuffer builder, char c) {
+    private void writeUnicodeEscape(StringBuilder builder, char c) {
         builder.append("\\u");
         builder.append(HEX_CHARS[(c >> 12) & 0xF]);
         builder.append(HEX_CHARS[(c >> 8) & 0xF]);

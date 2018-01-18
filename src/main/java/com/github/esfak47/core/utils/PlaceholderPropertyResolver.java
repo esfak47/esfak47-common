@@ -251,10 +251,6 @@ public class PlaceholderPropertyResolver implements PropertyResolver {
             return (T) new Float(value);
         } else if (targetType == float.class) {
             return (T) new Float(value);
-        } else if (targetType == Long.class) {
-            return (T) new Long(value);
-        } else if (targetType == long.class) {
-            return (T) new Long(value);
         } else if (targetType == Double.class) {
             return (T) new Double(value);
         } else if (targetType == double.class) {

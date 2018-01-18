@@ -49,11 +49,6 @@ public final class JsonUtil {
     private JsonUtil() {
         throw new UnsupportedOperationException();
     }
-
-    //---------------------------------------------------------------------
-    // convert Java instance to JSON String
-    // ---------------------------------------------------------------------
-
     /**
      * 将对象转为Json字符串,中文自动转为Unicode码
      *

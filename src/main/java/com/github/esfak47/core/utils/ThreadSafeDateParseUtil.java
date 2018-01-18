@@ -30,17 +30,14 @@ import java.util.Map;
  *
  * @author mzlion on 2016-04-14
  */
-class ThreadSafeDateParse {
+final class ThreadSafeDateParseUtil {
+
+    private ThreadSafeDateParseUtil(){}
     //logger
-    private static final Logger logger = LoggerFactory.getLogger(ThreadSafeDateParse.class);
+    private static final Logger logger = LoggerFactory.getLogger(ThreadSafeDateParseUtil.class);
 
     //线程
-    private static final ThreadLocal<Map<String, DateFormat>> PARSERS = new ThreadLocal<Map<String, DateFormat>>() {
-        @Override
-        protected Map<String, DateFormat> initialValue() {
-            return new HashMap<>();
-        }
-    };
+    private static final ThreadLocal<Map<String, DateFormat>> PARSERS = ThreadLocal.withInitial(HashMap::new);
 
 
     /**
@@ -51,13 +48,12 @@ class ThreadSafeDateParse {
      */
     private static DateFormat getParser(String pattern) {
         Map<String, DateFormat> parserMap = PARSERS.get();
-        DateFormat df = parserMap.get(pattern);
-        if (df == null) {
+
+        return parserMap.computeIfAbsent(pattern, s -> {
             logger.debug("Date Format Pattern {} was not found in the current thread:{}", pattern, Thread.currentThread().getId());
-            df = new SimpleDateFormat(pattern);
-            parserMap.put(pattern, df);
-        }
-        return df;
+            return new SimpleDateFormat(pattern);
+
+        });
     }
 
     /**

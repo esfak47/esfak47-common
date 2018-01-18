@@ -72,7 +72,7 @@ object DateUtils {
     fun formatDate(date: Date?, pattern: String): String? {
         return if (date == null || !StringUtils.hasLength(pattern)) {
             null
-        } else ThreadSafeDateParse.format(date, pattern)
+        } else ThreadSafeDateParseUtil.format(date, pattern)
     }
 
     /**
@@ -87,7 +87,7 @@ object DateUtils {
     fun formatDate(date: Long, pattern: String = PATTERN_FULL): String? {
         return if (date <= 0L || !StringUtils.hasLength(pattern)) {
             null
-        } else ThreadSafeDateParse.format(date, pattern)
+        } else ThreadSafeDateParseUtil.format(date, pattern)
     }
 
     /**
@@ -104,7 +104,7 @@ object DateUtils {
             return null
         }
         try {
-            return ThreadSafeDateParse.parse(strDate, pattern)
+            return ThreadSafeDateParseUtil.parse(strDate, pattern)
         } catch (e: ParseException) {
             throw IllegalArgumentException(e.message)
         }

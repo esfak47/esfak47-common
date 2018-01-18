@@ -113,12 +113,7 @@ public class JsonUtil {
         if (ArrayUtils.isEmpty(propertyNames)) {
             return JSON.toJSONString(value, serializerFeatures);
         }
-        return JSON.toJSONString(value, new PropertyFilter() {
-            @Override
-            public boolean apply(Object object, String name, Object value) {
-                return !ArrayUtils.containsElement(propertyNames, name);
-            }
-        }, serializerFeatures);
+        return JSON.toJSONString(value, (PropertyFilter) (object, name, value1) -> !ArrayUtils.containsElement(propertyNames, name), serializerFeatures);
     }
 
     /**
@@ -135,12 +130,9 @@ public class JsonUtil {
      * @return json字符串
      */
     public static String toJson(Object value, final Map<Class<?>, List<String>> classOfProps) {
-        return JSON.toJSONString(value, new PropertyFilter() {
-            @Override
-            public boolean apply(Object object, String name, Object value) {
-                List<String> props = classOfProps.get(object.getClass());
-                return !props.contains(name);
-            }
+        return JSON.toJSONString(value, (PropertyFilter) (object, name, value1) -> {
+            List<String> props = classOfProps.get(object.getClass());
+            return !props.contains(name);
         }, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.BrowserCompatible);
     }
 
@@ -166,26 +158,6 @@ public class JsonUtil {
         Assert.notNull(features, "Array SerializerFeature is null or empty.");
         return JSON.toJSONString(value, features);
     }
-
-//
-//    /**
-//     * 将Java对象转换为json字符串，可以自定义日期格式
-//     *
-//     * @param value       Java对象
-//     * @param datePattern 输出的日期格式
-//     * @return json字符串
-//     */
-//    public static String toJsonWithDateFormat(Object value, String datePattern) {
-//        return JSON.toJSONStringWithDateFormat(value, datePattern,
-//                SerializerFeature.DisableCircularReferenceDetect,
-//                SerializerFeature.BrowserCompatible);
-//    }
-
-
-    //---------------------------------------------------------------------
-    // convert JSON String to Java instance
-    // ---------------------------------------------------------------------
-
     /**
      * 将json字符串转为Java对象
      *
@@ -210,12 +182,4 @@ public class JsonUtil {
         return JSON.parseObject(json, typeRef.getType());
     }
 
-    /**
-     * 向控制台打印格式化过的json字符串
-     *
-     * @param value Java对象
-     */
-    public static void println(Object value) {
-        System.out.println(toJson(value, SerializerFeature.PrettyFormat, SerializerFeature.BrowserCompatible));
-    }
 }

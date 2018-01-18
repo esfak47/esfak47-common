@@ -16,7 +16,6 @@
 package com.github.esfak47.core.utils;
 
 
-
 import com.github.esfak47.core.lang.Assert;
 
 import java.lang.reflect.*;
@@ -28,7 +27,8 @@ import java.util.Map;
  *
  * @author mzlion on 2016/5/23.
  */
-public class ClassUtils {
+public final class ClassUtils {
+    private ClassUtils(){}
     /**
      * Map with primitive wrapper type as key and corresponding primitive
      * type as value, for example: Integer.class -> int.class.

@@ -25,8 +25,9 @@ import java.io.File;
  *
  * @author mzlion on 2016-06-05 09:25
  */
-public class FilenameUtils {
+public final class FilenameUtils {
 
+    private  FilenameUtils(){}
     //---------------------------------------------------------------------
     // constant fields
     // ---------------------------------------------------------------------
