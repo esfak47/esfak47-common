@@ -1,22 +1,25 @@
 language: java
 jdk:
-  - openjdk8
+- openjdk8
 addons:
   sonarcloud:
-    organization: "esfak47"
+    organization: esfak47
     token:
-      secure: "beaJM3no947WnDOhtKMRid9JPI+wzmdeGNXDrKetwsJGqyCGdbAq2zObtcntV9vvFiN5fLBIa9AmJ+wevUeMAoIXy58QZiPjCfxc1pUCDBe+cSX71zJ5wcwipsZ86QeMDL3VSEWHjBGbSOaEhQD+MML3wnxS7/iiWZVuHnvNfLc4z0+eYOTlhmsZFcExdWgBkfKBr3X/XTaXXnzWJMX7p8BB1544WiIpxhLKUZoNXFx76OgoIVf3PtmWcjhHnRSi/1eW+zLZHeiEdT2YSbl9tcjcfKnELjk//TZ81InwcFvlUyIbA/G+5v3YHEn9Hlq1MYY4Sy6Y5rVUoDfh3KCBm9Fzg6cV31mZbdoB4Xp0+h4IFVBzJAoR8MYGRNO7MTKRgsmnKv8Xwic8B1JiMiCV46bZnJ2/ItUO2nRFgRU2EmiJVfXHHCV6k4DJ55ecU4oS3BcMykrl7scSuMJHBumlFXIL2Qz/070dr4725qgWGzlFhCjJGhY08ilJqVRFNd5yYZYZIvvz/MCtQ89xCFTUI8RM1SL2JEqXqA1Q9BXAyMqZNnerjj0WTs/euRznaChkNVU0kSAGPIV7s5uiguH2YKwuaoRSipoI2KfXP3mSCCaLnCMNaI/Vbehq9ycYQRk1ZUS2NMjoXk1xlvSMJw6BFYWUrB1lxD1giJskSXAJ+Ps="
+      secure: Ni5R/2uHbnFO3HTZA1buSCUn8u9LwjQZ6vaEuZcyAsF049hsQWsBfT+vkl6y24nrU4kTFvLqlfEHRGUU5TMYw7js9D4CoJaZXG2DdzyysvL41scxXZQXCJvSRvwnAwuqHXxtVQa7+9rP6MFuWgfFSl72L/D47cb1d9pn/kq7CRXnLzfQosSUYa3olxPw1zC4xUZg6CKdt092xpACXMoOlpAFpYfF113SfSOb9OMTmU0EQp4fz0EHwaEdZSrGBRhYSpJDrf8K1g+7cdkq17jALNqagoKDHj6ZfoosU7k/TQhCxoQCBSNiyXozfTaMT/KDD5BqYtDHgTS7TPvlRmLsC02YCdSM3AkAST3oKphMvdgsO9PWAJyGHnm2552HVrZg6TK0ed0VCnjj/InZZLjV4PSamg7rZYalTr0w77y+/G7kfvjwDyaFgjgxNPjX6uir6tYuydDWVvIAch0Ukqo6d6AfAUxMHNzJRfhAP72pUKzTDFxULvIAya4Dn0yADEEGLgVtVjOp5hn/Xuo932UQyRmEC8g2k9EudS8MzaXaN5xiBbvYSVUO/pcQiv3xm62wVisIIrshM8IX3H5TCWvhoRgzptn8xUikBYIzpg/G08H82w8NJSwcuLKIZQRKr1UWOiRiSVpVnnV2XNiHb/0IVbYIH1yaUhrP7Dj/oCJwy1c=
 before_install:
-   - "echo skipped"
+- echo skipped
 install:
-  - "echo skipped"
+- echo skipped
 script:
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
 cache:
   directories:
-    - '$HOME/.m2/repository'
-    - '$HOME/.sonar/cache'
+  - "$HOME/.m2/repository"
+  - "$HOME/.sonar/cache"
 notifications:
   email:
     recipients:
-      - esfak47@qq.com
+    - esfak47@qq.com
+env:
+  global:
+  - secure: Ni5R/2uHbnFO3HTZA1buSCUn8u9LwjQZ6vaEuZcyAsF049hsQWsBfT+vkl6y24nrU4kTFvLqlfEHRGUU5TMYw7js9D4CoJaZXG2DdzyysvL41scxXZQXCJvSRvwnAwuqHXxtVQa7+9rP6MFuWgfFSl72L/D47cb1d9pn/kq7CRXnLzfQosSUYa3olxPw1zC4xUZg6CKdt092xpACXMoOlpAFpYfF113SfSOb9OMTmU0EQp4fz0EHwaEdZSrGBRhYSpJDrf8K1g+7cdkq17jALNqagoKDHj6ZfoosU7k/TQhCxoQCBSNiyXozfTaMT/KDD5BqYtDHgTS7TPvlRmLsC02YCdSM3AkAST3oKphMvdgsO9PWAJyGHnm2552HVrZg6TK0ed0VCnjj/InZZLjV4PSamg7rZYalTr0w77y+/G7kfvjwDyaFgjgxNPjX6uir6tYuydDWVvIAch0Ukqo6d6AfAUxMHNzJRfhAP72pUKzTDFxULvIAya4Dn0yADEEGLgVtVjOp5hn/Xuo932UQyRmEC8g2k9EudS8MzaXaN5xiBbvYSVUO/pcQiv3xm62wVisIIrshM8IX3H5TCWvhoRgzptn8xUikBYIzpg/G08H82w8NJSwcuLKIZQRKr1UWOiRiSVpVnnV2XNiHb/0IVbYIH1yaUhrP7Dj/oCJwy1c=
