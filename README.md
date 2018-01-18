@@ -1,4 +1,4 @@
 # core
-[![0.0.8-RELEASE](https://jitpack.io/v/User/Repo.svg)]
+[![Release](https://jitpack.io/v/esfak47/java-core.svg)]
 (https://jitpack.io/#esfak47/java-core)
 core utils for java
