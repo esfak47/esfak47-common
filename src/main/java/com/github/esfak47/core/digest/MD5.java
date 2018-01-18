@@ -29,7 +29,10 @@ import java.nio.charset.StandardCharsets;
  *
  * @author mzlion on 2016/12/1.
  */
-public class MD5 {
+public final class MD5 {
+    private MD5(){}
+
+    public static final String THE_DATA_IS_NULL_OR_EMPTY = "The data is null or empty.";
 
     /**
      * md5计算
@@ -38,7 +41,7 @@ public class MD5 {
      * @return md5计算结果
      */
     public static byte[] digest(final byte[] data) {
-        Assert.notEmpty(data, "The data is null or empty.");
+        Assert.notEmpty(data, THE_DATA_IS_NULL_OR_EMPTY);
         return DigestUtils.getMd5Digest().digest(data);
     }
 
@@ -75,7 +78,7 @@ public class MD5 {
      * @return 16进制的字符串
      */
     public static String digestHex(final String data, final Charset charset) {
-        Assert.hasLength(data, "The data is null or empty.");
+        Assert.hasLength(data, THE_DATA_IS_NULL_OR_EMPTY);
         byte[] salt = data.getBytes(charset == null ? StandardCharsets.UTF_8 : charset);
         byte[] md5Data = digest(salt);
         return Hex.encode2String(md5Data);
@@ -109,7 +112,7 @@ public class MD5 {
      * @return BASE64的字符串
      */
     public static String digestBase64(final String data, final Charset charset) {
-        Assert.hasLength(data, "The data is null or empty.");
+        Assert.hasLength(data, THE_DATA_IS_NULL_OR_EMPTY);
         byte[] salt = data.getBytes(charset == null ? StandardCharsets.UTF_8 : charset);
         byte[] md5Data = digest(salt);
         return Base64.encode(md5Data);

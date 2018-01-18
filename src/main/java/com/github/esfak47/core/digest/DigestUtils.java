@@ -32,13 +32,17 @@ import java.security.NoSuchAlgorithmException;
  *
  * @author mzlion on 2016-04-16
  */
-public class DigestUtils {
+public final class DigestUtils {
+    private DigestUtils(){}
 
     public static final String ALGORITHM_MD5 = "MD5";
     public static final String ALGORITHM_SHA_1 = "SHA-1";
     public static final String ALGORITHM_SHA_256 = "SHA-256";
     public static final String ALGORITHM_SHA_384 = "SHA-384";
     public static final String ALGORITHM_SHA_512 = "SHA-512";
+    public static final String THE_DATA_IS_NULL_OR_EMPTY = "The data is null or empty.";
+    public static final String THE_INPUT_STREAM_DATA_IS_NULL = "The inputStream data is null.";
+    public static final String ENCODING_IS_NULL = "Encoding is null.";
 
 
     /**
@@ -111,7 +115,7 @@ public class DigestUtils {
      * @return 计算后的数据
      */
     public static byte[] sha1(final byte[] data) {
-        Assert.notEmpty(data, "The data is null or empty.");
+        Assert.notEmpty(data, THE_DATA_IS_NULL_OR_EMPTY);
         return getSha1Digest().digest(data);
     }
 
@@ -122,7 +126,7 @@ public class DigestUtils {
      * @return 计算后的数据
      */
     public static byte[] sha1(final InputStream data) {
-        Assert.notNull(data, "The inputStream data is null.");
+        Assert.notNull(data, THE_INPUT_STREAM_DATA_IS_NULL);
         try {
             return digest(getSha1Digest(), data);
         } catch (IOException e) {
@@ -148,7 +152,7 @@ public class DigestUtils {
      * @return 16进制的字符串
      */
     public static String sha1Hex(final String data, final Charset encoding) {
-        Assert.hasLength(data, "The data is null or empty.");
+        Assert.hasLength(data, THE_DATA_IS_NULL_OR_EMPTY);
         Assert.notNull(encoding, "The encoding is null.");
         return sha1Hex(data.getBytes(encoding));
     }
@@ -183,7 +187,7 @@ public class DigestUtils {
      * @return 计算后的数据
      */
     public static byte[] sha256(final String data) {
-        Assert.hasLength(data, "The data is null or empty.");
+        Assert.hasLength(data, THE_DATA_IS_NULL_OR_EMPTY);
         return sha256(data.getBytes(StandardCharsets.UTF_8));
     }
 
@@ -194,7 +198,7 @@ public class DigestUtils {
      * @return 计算后的数据
      */
     public static byte[] sha256(final byte[] data) {
-        Assert.notEmpty(data, "The data is null or empty.");
+        Assert.notEmpty(data, THE_DATA_IS_NULL_OR_EMPTY);
         return getSha256Digest().digest(data);
     }
 
@@ -205,7 +209,7 @@ public class DigestUtils {
      * @return 计算后的数据
      */
     public static byte[] sha256(final InputStream data) {
-        Assert.notNull(data, "The inputStream data is null.");
+        Assert.notNull(data, THE_INPUT_STREAM_DATA_IS_NULL);
         try {
             return digest(getSha256Digest(), data);
         } catch (IOException e) {
@@ -231,8 +235,8 @@ public class DigestUtils {
      * @return 16进制的字符串
      */
     public static String sha256Hex(final String data, final Charset encoding) {
-        Assert.hasLength(data, "The data is null or empty.");
-        Assert.notNull(encoding, "Encoding is null.");
+        Assert.hasLength(data, THE_DATA_IS_NULL_OR_EMPTY);
+        Assert.notNull(encoding, ENCODING_IS_NULL);
         return sha256Hex(data.getBytes(encoding));
     }
 
@@ -279,8 +283,8 @@ public class DigestUtils {
      * @return 计算后的数据
      */
     public static byte[] sha384(final String data, final Charset encoding) {
-        Assert.notNull(encoding, "Encoding is null.");
-        Assert.hasLength(data, "The data is null or empty.");
+        Assert.notNull(encoding, ENCODING_IS_NULL);
+        Assert.hasLength(data, THE_DATA_IS_NULL_OR_EMPTY);
         return sha384(data.getBytes(encoding));
     }
 
@@ -291,7 +295,7 @@ public class DigestUtils {
      * @return 计算后的数据
      */
     public static byte[] sha384(final byte[] data) {
-        Assert.notEmpty(data, "The data is null or empty.");
+        Assert.notEmpty(data, THE_DATA_IS_NULL_OR_EMPTY);
         return getSha384Digest().digest(data);
     }
 
@@ -302,7 +306,7 @@ public class DigestUtils {
      * @return 计算后的数据
      */
     public static byte[] sha384(final InputStream data) {
-        Assert.notNull(data, "The inputStream data is null.");
+        Assert.notNull(data, THE_INPUT_STREAM_DATA_IS_NULL);
         try {
             return digest(getSha384Digest(), data);
         } catch (IOException e) {
@@ -373,8 +377,8 @@ public class DigestUtils {
      * @return 计算后的数据
      */
     public static byte[] sha512(final String data, final Charset encoding) {
-        Assert.notNull(encoding, "Encoding is null.");
-        Assert.hasLength(data, "The data is null or empty.");
+        Assert.notNull(encoding, ENCODING_IS_NULL);
+        Assert.hasLength(data, THE_DATA_IS_NULL_OR_EMPTY);
         return sha512(data.getBytes(encoding));
     }
 
@@ -385,7 +389,7 @@ public class DigestUtils {
      * @return 计算后的数据
      */
     public static byte[] sha512(final byte[] data) {
-        Assert.notEmpty(data, "The data is null or empty.");
+        Assert.notEmpty(data, THE_DATA_IS_NULL_OR_EMPTY);
         return getSha512Digest().digest(data);
     }
 
@@ -396,7 +400,7 @@ public class DigestUtils {
      * @return 计算后的数据
      */
     public static byte[] sha512(final InputStream data) {
-        Assert.notNull(data, "The inputStream data is null.");
+        Assert.notNull(data, THE_INPUT_STREAM_DATA_IS_NULL);
         try {
             return digest(getSha512Digest(), data);
         } catch (IOException e) {

@@ -16,7 +16,6 @@
 package com.github.esfak47.core.digest;
 
 
-
 import com.github.esfak47.core.io.ArrayUtils;
 import com.github.esfak47.core.utils.StringUtils;
 
@@ -38,10 +37,14 @@ import java.util.Objects;
  *
  * @author mzlion on 2016/6/22.
  */
-public class Base64 {
+public final class Base64 {
+
+    public static final String STREAM_IS_CLOSED = "Stream is closed";
+
+    public static final byte[] EMPTY = new byte[0];
 
     private Base64() {
-        throw new UnsupportedOperationException();
+
     }
 
     /**
@@ -51,7 +54,6 @@ public class Base64 {
      * @return 待BASE64编码的字符串
      */
     public static String encode(final byte[] data) {
-        //return DatatypeConverter.printBase64Binary(data);
         return encode(data, false);
     }
 
@@ -123,8 +125,6 @@ public class Base64 {
         if (encoding == null) {
             return null;
         }
-        //        Charset charset = StringUtils.isEmpty(encoding) ? StandardCharsets.UTF_8 : Charset.forName(encoding);
-//        return DatatypeConverter.printBase64Binary(data.getBytes(charset));
         return encode(data.getBytes(encoding), isUrlSafe);
     }
 
@@ -135,8 +135,6 @@ public class Base64 {
      * @return 返回原始数据的字节数组形式
      */
     public static byte[] decode(final String base64Data) {
-//        Assert.hasLength(base64Data, "The Base64 data is null.");
-//        return DatatypeConverter.parseBase64Binary(base64Data);
         return decode(base64Data, false);
     }
 
@@ -149,7 +147,7 @@ public class Base64 {
      */
     public static byte[] decode(final String base64Data, final boolean isUrlSafe) {
         if (StringUtils.isEmpty(base64Data)) {
-            return null;
+            return EMPTY;
         }
         return isUrlSafe ? getUrlDecoder().decode(base64Data) : getDecoder().decode(base64Data);
     }
@@ -292,18 +290,8 @@ public class Base64 {
      */
     public static class Encoder {
 
-        private final byte[] newline;
-        private final int linemax;
-        private final boolean isURL;
-        private final boolean doPadding;
-
-        private Encoder(boolean isURL, byte[] newline, int linemax, boolean doPadding) {
-            this.isURL = isURL;
-            this.newline = newline;
-            this.linemax = linemax;
-            this.doPadding = doPadding;
-        }
-
+        static final Encoder RFC4648 = new Encoder(false, null, -1, true);
+        static final Encoder RFC4648_URLSAFE = new Encoder(true, null, -1, true);
         /**
          * This array is a lookup table that translates 6-bit positive integer
          * index values into their "Base64 Alphabet" equivalents as specified
@@ -316,7 +304,6 @@ public class Base64 {
                 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'
         };
-
         /**
          * It's the lookup table for "URL and Filename safe Base64" as specified
          * in Table 2 of the RFC 4648, with the '+' and '/' changed to '-' and
@@ -329,13 +316,19 @@ public class Base64 {
                 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '_'
         };
-
         private static final int MIMELINEMAX = 76;
         private static final byte[] CRLF = new byte[]{'\r', '\n'};
-
-        static final Encoder RFC4648 = new Encoder(false, null, -1, true);
-        static final Encoder RFC4648_URLSAFE = new Encoder(true, null, -1, true);
         static final Encoder RFC2045 = new Encoder(false, CRLF, MIMELINEMAX, true);
+        private final byte[] newline;
+        private final int linemax;
+        private final boolean isURL;
+        private final boolean doPadding;
+        private Encoder(boolean isURL, byte[] newline, int linemax, boolean doPadding) {
+            this.isURL = isURL;
+            this.newline = newline;
+            this.linemax = linemax;
+            this.doPadding = doPadding;
+        }
 
         private final int outLength(int srclen) {
             int len = 0;
@@ -530,7 +523,8 @@ public class Base64 {
                     }
                 }
             }
-            if (sp < end) {               // 1 or 2 leftover bytes
+            // 1 or 2 leftover bytes
+            if (sp < end) {
                 int b0 = src[sp++] & 0xff;
                 dst[dp++] = (byte) base64[b0 >> 2];
                 if (sp == end) {
@@ -582,14 +576,9 @@ public class Base64 {
      */
     public static class Decoder {
 
-        private final boolean isURL;
-        private final boolean isMIME;
-
-        private Decoder(boolean isURL, boolean isMIME) {
-            this.isURL = isURL;
-            this.isMIME = isMIME;
-        }
-
+        static final Decoder RFC4648 = new Decoder(false, false);
+        static final Decoder RFC4648_URLSAFE = new Decoder(true, false);
+        static final Decoder RFC2045 = new Decoder(false, true);
         /**
          * Lookup table for decoding unicode characters drawn from the
          * "Base64 Alphabet" (as specified in Table 1 of RFC 2045) into
@@ -598,6 +587,11 @@ public class Base64 {
          * the array are encoded to -1.
          */
         private static final int[] fromBase64 = new int[256];
+        /**
+         * Lookup table for decoding "URL and Filename safe Base64 Alphabet"
+         * as specified in Table2 of the RFC 4648.
+         */
+        private static final int[] fromBase64URL = new int[256];
 
         static {
             Arrays.fill(fromBase64, -1);
@@ -607,12 +601,6 @@ public class Base64 {
             fromBase64['='] = -2;
         }
 
-        /**
-         * Lookup table for decoding "URL and Filename safe Base64 Alphabet"
-         * as specified in Table2 of the RFC 4648.
-         */
-        private static final int[] fromBase64URL = new int[256];
-
         static {
             Arrays.fill(fromBase64URL, -1);
             for (int i = 0; i < Encoder.toBase64URL.length; i++) {
@@ -621,9 +609,12 @@ public class Base64 {
             fromBase64URL['='] = -2;
         }
 
-        static final Decoder RFC4648 = new Decoder(false, false);
-        static final Decoder RFC4648_URLSAFE = new Decoder(true, false);
-        static final Decoder RFC2045 = new Decoder(false, true);
+        private final boolean isURL;
+        private final boolean isMIME;
+        private Decoder(boolean isURL, boolean isMIME) {
+            this.isURL = isURL;
+            this.isMIME = isMIME;
+        }
 
         /**
          * Decodes all bytes from the input byte array using the {@link Base64}
@@ -778,7 +769,7 @@ public class Base64 {
                         len -= (sl - sp + 1);
                         break;
                     }
-                    if ((b = base64[b]) == -1) {
+                    if (base64[b] == -1) {
                         n++;
                     }
                 }
@@ -866,14 +857,13 @@ public class Base64 {
      */
     private static class EncOutputStream extends FilterOutputStream {
 
-        private int leftover = 0;
-        private int b0, b1, b2;
-        private boolean closed = false;
-
         private final char[] base64;    // byte->base64 mapping
         private final byte[] newline;   // line separator, if needed
         private final int linemax;
         private final boolean doPadding;// whether or not to pad
+        private int leftover = 0;
+        private int b0, b1, b2;
+        private boolean closed = false;
         private int linepos = 0;
 
         EncOutputStream(OutputStream os, char[] base64,
@@ -902,7 +892,7 @@ public class Base64 {
         @Override
         public void write(byte[] b, int off, int len) throws IOException {
             if (closed) {
-                throw new IOException("Stream is closed");
+                throw new IOException(STREAM_IS_CLOSED);
             }
             if (off < 0 || len < 0 || off + len > b.length) {
                 throw new ArrayIndexOutOfBoundsException();
@@ -979,26 +969,24 @@ public class Base64 {
     /*
      * An input stream for decoding Base64 bytes
      */
+
     private static class DecInputStream extends InputStream {
 
         private final InputStream is;
         private final boolean isMIME;
-        private final int[] base64;      // base64 -> byte mapping
-        private int bits = 0;            // 24-bit buffer for decoding
-        private int nextin = 18;         // next available "off" in "bits" for input;
-        // -> 18, 12, 6, 0
-        private int nextout = -8;        // next available "off" in "bits" for output;
-        // -> 8, 0, -8 (no byte for output)
+        private final int[] base64;
+        private int bits = 0;
+        private int nextin = 18;
+        private int nextout = -8;
         private boolean eof = false;
         private boolean closed = false;
+        private byte[] sbBuf = new byte[1];
 
         DecInputStream(InputStream is, int[] base64, boolean isMIME) {
             this.is = is;
             this.base64 = base64;
             this.isMIME = isMIME;
         }
-
-        private byte[] sbBuf = new byte[1];
 
         @Override
         public int read() throws IOException {
@@ -1008,17 +996,16 @@ public class Base64 {
         @Override
         public int read(byte[] b, int off, int len) throws IOException {
             if (closed) {
-                throw new IOException("Stream is closed");
+                throw new IOException(STREAM_IS_CLOSED);
             }
-            if (eof && nextout < 0)    // eof and no leftover
-            {
+            if (eof && nextout < 0) {
                 return -1;
             }
             if (off < 0 || len < 0 || len > b.length - off) {
                 throw new IndexOutOfBoundsException();
             }
             int oldOff = off;
-            if (nextout >= 0) {       // leftover output byte(s) in bits buf
+            if (nextout >= 0) {
                 do {
                     if (len == 0) {
                         return off - oldOff;
@@ -1041,9 +1028,9 @@ public class Base64 {
                         // same logic as v == '=' below
                         b[off++] = (byte) (bits >> (16));
                         len--;
-                        if (nextin == 0) {           // only one padding byte
-                            if (len == 0) {          // no enough output space
-                                bits >>= 8;          // shift to lowest byte
+                        if (nextin == 0) {
+                            if (len == 0) {
+                                bits >>= 8;
                                 nextout = 0;
                             } else {
                                 b[off++] = (byte) (bits >> 8);
@@ -1056,20 +1043,16 @@ public class Base64 {
                         return off - oldOff;
                     }
                 }
-                if (v == '=') {                  // padding byte(s)
-                    // =     shiftto==18 unnecessary padding
-                    // x=    shiftto==12 dangling x, invalid unit
-                    // xx=   shiftto==6 && missing last '='
-                    // xx=y  or last is not '='
+                if (v == '=') {
                     if (nextin == 18 || nextin == 12 ||
                             nextin == 6 && is.read() != '=') {
                         throw new IOException("Illegal base64 ending sequence:" + nextin);
                     }
                     b[off++] = (byte) (bits >> (16));
                     len--;
-                    if (nextin == 0) {           // only one padding byte
-                        if (len == 0) {          // no enough output space
-                            bits >>= 8;          // shift to lowest byte
+                    if (nextin == 0) {
+                        if (len == 0) {
+                            bits >>= 8;
                             nextout = 0;
                         } else {
                             b[off++] = (byte) (bits >> 8);
@@ -1079,8 +1062,7 @@ public class Base64 {
                     break;
                 }
                 if ((v = base64[v]) == -1) {
-                    if (isMIME)                 // skip if for rfc2045
-                    {
+                    if (isMIME) {
                         continue;
                     } else {
                         throw new IOException("Illegal base64 character " +
@@ -1089,13 +1071,13 @@ public class Base64 {
                 }
                 bits |= (v << nextin);
                 if (nextin == 0) {
-                    nextin = 18;    // clear for next
+                    nextin = 18;
                     nextout = 16;
                     while (nextout >= 0) {
                         b[off++] = (byte) (bits >> nextout);
                         len--;
                         nextout -= 8;
-                        if (len == 0 && nextout >= 0) {  // don't clean "bits"
+                        if (len == 0 && nextout >= 0) {
                             return off - oldOff;
                         }
                     }
@@ -1110,9 +1092,9 @@ public class Base64 {
         @Override
         public int available() throws IOException {
             if (closed) {
-                throw new IOException("Stream is closed");
+                throw new IOException(STREAM_IS_CLOSED);
             }
-            return is.available();   // TBD:
+            return is.available();
         }
 
         @Override
