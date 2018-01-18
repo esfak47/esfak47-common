@@ -44,7 +44,6 @@ public abstract class AbstractResourceDescriptor implements ResourceDescriptor {
         try {
             file = this.getFile();
         } catch (IOException e) {
-            e.printStackTrace();
             return false;
         }
         if (file == null) {
@@ -53,7 +52,6 @@ public abstract class AbstractResourceDescriptor implements ResourceDescriptor {
                 in.close();
                 return true;
             } catch (IOException e) {
-                e.printStackTrace();
                 return false;
             }
         }

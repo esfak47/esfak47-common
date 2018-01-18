@@ -37,11 +37,9 @@ import java.util.*;
  * @author mzlion on 2016/4/11
  */
 public class PlaceholderPropertyResolver implements PropertyResolver {
+    private static final String PLACEHOLDER_PREFIX = "${";
     //log
     private Logger logger = LoggerFactory.getLogger(PlaceholderPropertyResolver.class);
-
-    private static final String PLACEHOLDER_PREFIX = "${";
-
     private Map<String, String> propertyStringValue;
 
     private PlaceholderPropertyResolver(Builder builder) {
@@ -123,31 +121,30 @@ public class PlaceholderPropertyResolver implements PropertyResolver {
         StringBuilder buffer = new StringBuilder();
         final char[] chars = value.toCharArray();
         for (int pos = 0, length = chars.length; pos < length; pos++) {
-            if (chars[pos] == '$') {
-                // peek ahead
-                if (chars[pos + 1] == '{') {
-                    StringBuilder placeholder = new StringBuilder(100);
-                    int x = pos + 2;
-                    for (; x < length && chars[x] != '}'; x++) {
-                        placeholder.append(chars[x]);
-                        if (x == length - 1) {
-                            return value;
-                        }
-                    }
-                    //step1.首先从当前属性文件中查找
-                    String extractValue = stringValueMap.get(placeholder.toString());
-                    //step2.然后从系统环境变量查找
-                    if (StringUtils.isEmpty(extractValue)) {
-                        extractValue = extractFromSystem(placeholder.toString());
-                    }
-                    logger.debug("占位符[{}]对应的值为[{}}", placeholder.toString(), extractValue);
-                    buffer.append(extractValue == null ? "" : extractValue);
-                    pos = x + 1;
-                    // make sure spinning forward did not put us past the end of the buffer...
-                    if (pos >= chars.length) {
-                        break;
+            if (chars[pos] == '$' && chars[pos + 1] == '{') {
+
+                StringBuilder placeholder = new StringBuilder(100);
+                int x = pos + 2;
+                for (; x < length && chars[x] != '}'; x++) {
+                    placeholder.append(chars[x]);
+                    if (x == length - 1) {
+                        return value;
                     }
                 }
+                //step1.首先从当前属性文件中查找
+                String extractValue = stringValueMap.get(placeholder.toString());
+                //step2.然后从系统环境变量查找
+                if (StringUtils.isEmpty(extractValue)) {
+                    extractValue = extractFromSystem(placeholder.toString());
+                }
+                logger.debug("占位符[{}]对应的值为[{}}", placeholder, extractValue);
+                buffer.append(extractValue == null ? "" : extractValue);
+                pos = x + 1;
+                // make sure spinning forward did not put us past the end of the buffer...
+                if (pos >= chars.length) {
+                    break;
+                }
+
             }
             buffer.append(chars[pos]);
         }
@@ -240,9 +237,9 @@ public class PlaceholderPropertyResolver implements PropertyResolver {
         } else if (targetType == byte.class) {
             return (T) new Byte(value);
         } else if (targetType == Character.class) {
-            return (T) new Character(value.toCharArray()[0]);
+            return (T) Character.valueOf(value.toCharArray()[0]);
         } else if (targetType == char.class) {
-            return (T) new Character(value.toCharArray()[0]);
+            return (T) Character.valueOf(value.toCharArray()[0]);
         } else if (targetType == Long.class) {
             return (T) new Long(value);
         } else if (targetType == long.class) {

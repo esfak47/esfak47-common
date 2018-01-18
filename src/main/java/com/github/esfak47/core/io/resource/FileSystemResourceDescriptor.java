@@ -70,7 +70,6 @@ import java.net.URL;
         try {
             return new FileInputStream(file);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
             return null;
         }
     }

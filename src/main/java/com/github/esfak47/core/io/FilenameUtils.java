@@ -27,24 +27,24 @@ import java.io.File;
  */
 public final class FilenameUtils {
 
-    private  FilenameUtils(){}
-    //---------------------------------------------------------------------
-    // constant fields
-    // ---------------------------------------------------------------------
     /**
      * LINUX系统下目录分隔符
      */
     public static final String LINUX_SEPARATOR = "/";
-
+    //---------------------------------------------------------------------
+    // constant fields
+    // ---------------------------------------------------------------------
     /**
      * Windows下的目录分隔符
      */
     public static final String WINDOWS_SEPARATOR = "\\";
-
     /**
      * 文件名和文件类型的分隔符
      */
     public static final String EXTENSION_SEPARATOR = ".";
+
+    private FilenameUtils() {
+    }
 
     /**
      * 从文件路径中提取文件名,不支持Windows系统下的路径
@@ -76,7 +76,11 @@ public final class FilenameUtils {
      * @return 返回文件后缀名或者返回{@code null}如果为空时
      */
     public static String getFileExt(String path) {
+
         String filename = getFilename(path);
+        if (filename == null) {
+            throw new IllegalArgumentException("can't not get filename");
+        }
         if (StringUtils.isEmpty(filename)) {
             return null;
         }

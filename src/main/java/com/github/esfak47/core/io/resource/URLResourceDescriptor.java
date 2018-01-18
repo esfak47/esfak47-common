@@ -56,7 +56,6 @@ public class URLResourceDescriptor extends AbstractResourceDescriptor {
             con = this.url.openConnection();
             return con.getInputStream();
         } catch (IOException e) {
-            e.printStackTrace();
             if (con instanceof HttpURLConnection) {
                 ((HttpURLConnection) con).disconnect();
             }
