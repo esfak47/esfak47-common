@@ -1,0 +1,15 @@
+language: java
+jdk:
+  - openjdk8
+before_install:
+   - "echo skipped"
+install:
+  - "echo skipped"
+script:
+  - mvn install -Dmaven.javadoc.skip=true
+notifications:
+  email:
+    recipients:
+      - esfak47@qq.com
+    on_success: [always|never|change]  default: change
+    on_failure: [always|never|change]  default: always
