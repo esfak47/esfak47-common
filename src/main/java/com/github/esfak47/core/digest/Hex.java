@@ -146,7 +146,7 @@ public class Hex {
      */
     private static byte[] doDecode(final char[] data) {
         final int length = data.length;
-        if ((length & 0x01) != 0) {
+        if (isOdd(length)) {
             throw new DecodeException("Odd number of characters.");
         }
 
@@ -161,6 +161,10 @@ public class Hex {
             out[i] = (byte) (temp & 0XFF);
         }
         return out;
+    }
+
+    private static boolean isOdd(int data) {
+        return (data & 0x01) != 0;
     }
 
     /**
