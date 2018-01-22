@@ -21,31 +21,9 @@ class HexTest {
     @Test
     @Throws(Exception::class)
     fun encode() {
-    }
-
-    @Test
-    @Throws(Exception::class)
-    fun encode1() {
-    }
-
-    @Test
-    @Throws(Exception::class)
-    fun decode2String() {
-    }
-
-    @Test
-    @Throws(Exception::class)
-    fun decode2String1() {
-    }
-
-    @Test
-    @Throws(Exception::class)
-    fun decode() {
-    }
-
-    @Test
-    @Throws(Exception::class)
-    fun decode1() {
+        val encode:CharArray = Hex.encode("hello".toByteArray())
+        val string = String(Hex.decode(encode))
+        assertEquals("hello", string)
     }
 
 }

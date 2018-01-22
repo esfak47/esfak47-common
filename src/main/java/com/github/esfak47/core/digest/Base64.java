@@ -355,7 +355,8 @@ public final class Base64 {
          * encoded bytes.
          */
         public byte[] encode(byte[] src) {
-            int len = outLength(src.length);          // dst array size
+            // dst array size
+            int len = outLength(src.length);
             byte[] dst = new byte[len];
             int ret = encode0(src, 0, src.length, dst);
             if (ret != dst.length) {
@@ -383,7 +384,8 @@ public final class Base64 {
          *                                  space for encoding all input bytes.
          */
         public int encode(byte[] src, byte[] dst) {
-            int len = outLength(src.length);         // dst array size
+            // dst array size
+            int len = outLength(src.length);
             if (dst.length < len) {
                 throw new IllegalArgumentException(
                         "Output byte array is too small for encoding all input bytes");
