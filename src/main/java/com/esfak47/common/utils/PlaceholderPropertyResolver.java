@@ -38,7 +38,9 @@ import java.util.*;
  */
 public class PlaceholderPropertyResolver implements PropertyResolver {
     private static final String PLACEHOLDER_PREFIX = "${";
-    //log
+    public static PlaceholderPropertyResolver.Builder builder(){
+        return new Builder();
+    }
     private Logger logger = LoggerFactory.getLogger(PlaceholderPropertyResolver.class);
     private Map<String, String> propertyStringValue;
 
@@ -215,11 +217,11 @@ public class PlaceholderPropertyResolver implements PropertyResolver {
     @SuppressWarnings("unchecked")
     @Override
     public <T> T getProperty(String key, Class<T> targetType, T defaultValue) {
-        if (StringUtils.isEmpty(key)) {
+        if (!StringUtils.hasLength(key)) {
             return defaultValue;
         }
         String value = propertyStringValue.get(key);
-        if (StringUtils.isEmpty(value)) {
+        if (!StringUtils.hasLength(value)) {
             return defaultValue;
         }
         if (targetType == String.class) {
@@ -289,7 +291,7 @@ public class PlaceholderPropertyResolver implements PropertyResolver {
          *
          * @see Builder
          */
-        public Builder() {
+        private Builder() {
             pathEntries = new ArrayList<>(10);
         }
 

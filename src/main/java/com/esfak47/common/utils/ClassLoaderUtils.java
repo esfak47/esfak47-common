@@ -34,7 +34,7 @@ public final class ClassLoaderUtils {
         ClassLoader classLoader = null;
         try {
             classLoader = Thread.currentThread().getContextClassLoader();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
             //无法从当前线程获取到类加载器
         }
         if (classLoader == null) {

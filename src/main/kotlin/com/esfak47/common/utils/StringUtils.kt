@@ -24,7 +24,7 @@ object StringUtils {
     const val EMPTY_STRING = ""
     @JvmStatic
     fun isEmpty(string: String?): Boolean {
-        return string != null && "" == string.trim { it <= ' ' }
+        return string == null || "" == string.trim { it <= ' ' }
     }
 
     /**
