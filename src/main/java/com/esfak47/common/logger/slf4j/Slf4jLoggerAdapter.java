@@ -23,6 +23,9 @@ import com.esfak47.common.logger.LoggerAdapter;
 
 import java.io.File;
 
+/**
+ * @author tony
+ */
 public class Slf4jLoggerAdapter implements LoggerAdapter {
 
     private Level level;

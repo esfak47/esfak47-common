@@ -20,6 +20,9 @@ import com.esfak47.common.logger.Logger;
 import com.esfak47.common.logger.support.FailsafeLogger;
 import org.apache.log4j.Level;
 
+/**
+ * @author tony
+ */
 public class Log4jLogger implements Logger {
 
     private static final String FQCN = FailsafeLogger.class.getName();

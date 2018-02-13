@@ -22,6 +22,9 @@ import org.slf4j.spi.LocationAwareLogger;
 
 import java.io.Serializable;
 
+/**
+ * @author tony
+ */
 public class Slf4jLogger implements Logger, Serializable {
 
     private static final long serialVersionUID = 1L;

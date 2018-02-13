@@ -28,6 +28,9 @@ import org.apache.log4j.LogManager;
 import java.io.File;
 import java.util.Enumeration;
 
+/**
+ * @author tony
+ */
 public class Log4jLoggerAdapter implements LoggerAdapter {
 
     private File file;
