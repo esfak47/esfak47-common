@@ -36,7 +36,7 @@ import java.util.Map;
  */
 public final class JsonUtil {
 
-    //gson对象
+
     private static Gson gson;
 
     /**

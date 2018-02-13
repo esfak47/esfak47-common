@@ -29,8 +29,17 @@ public interface ResourceDescriptorLoader {
 
     String CLASSPATH_URL_PREFIX = ResourceUtils.CLASSPATH_URL_PREFIX;
 
+    /**
+     * 根据路径获得资源描述符
+     * @param location
+     * @return
+     */
     ResourceDescriptor getResourceDescriptor(String location);
 
+    /**
+     * 获得classloader
+     * @return
+     */
     ClassLoader getClassLoader();
 
 }

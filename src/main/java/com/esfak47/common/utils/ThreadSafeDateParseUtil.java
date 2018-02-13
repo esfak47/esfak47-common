@@ -33,10 +33,10 @@ import java.util.Map;
 final class ThreadSafeDateParseUtil {
 
     private ThreadSafeDateParseUtil(){}
-    //logger
+
     private static final Logger logger = LoggerFactory.getLogger(ThreadSafeDateParseUtil.class);
 
-    //线程
+
     private static final ThreadLocal<Map<String, DateFormat>> PARSERS = ThreadLocal.withInitial(HashMap::new);
 
 

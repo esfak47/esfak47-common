@@ -53,7 +53,7 @@ public class DefaultResourceDescriptorLoader implements ResourceDescriptorLoader
             try {
                 // Try to parse the location as a URL...
                 URL url = new URL(location);
-                return new URLResourceDescriptor(url);
+                return new UrlResourceDescriptor(url);
             } catch (MalformedURLException ex) {
                 return new FileSystemResourceDescriptor(location);
             }

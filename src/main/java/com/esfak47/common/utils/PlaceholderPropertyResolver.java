@@ -38,6 +38,8 @@ import java.util.*;
  */
 public class PlaceholderPropertyResolver implements PropertyResolver {
     private static final String PLACEHOLDER_PREFIX = "${";
+    public static final char RIGHT_CHAR = '}';
+
     public static PlaceholderPropertyResolver.Builder builder(){
         return new Builder();
     }
@@ -127,7 +129,7 @@ public class PlaceholderPropertyResolver implements PropertyResolver {
 
                 StringBuilder placeholder = new StringBuilder(100);
                 int x = pos + 2;
-                for (; x < length && chars[x] != '}'; x++) {
+                for (; x < length && chars[x] != RIGHT_CHAR; x++) {
                     placeholder.append(chars[x]);
                     if (x == length - 1) {
                         return value;

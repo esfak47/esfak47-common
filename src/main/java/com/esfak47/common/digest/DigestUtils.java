@@ -33,6 +33,9 @@ import java.security.NoSuchAlgorithmException;
  * @author tony on 2016-04-16
  */
 public final class DigestUtils {
+
+    private static final int DEFAULT_BUFFER_LEN = 1024;
+
     private DigestUtils(){}
 
     public static final String ALGORITHM_MD5 = "MD5";
@@ -459,8 +462,8 @@ public final class DigestUtils {
      * @throws IOException IO异常
      */
     static byte[] digest(final MessageDigest digest, final InputStream data) throws IOException {
-        byte[] buffer = new byte[1024];
-        for (int read; (read = data.read(buffer, 0, 1024)) != -1; ) {
+        byte[] buffer = new byte[DEFAULT_BUFFER_LEN];
+        for (int read; (read = data.read(buffer, 0, DEFAULT_BUFFER_LEN)) != -1; ) {
             digest.update(buffer, 0, read);
         }
         return digest.digest();

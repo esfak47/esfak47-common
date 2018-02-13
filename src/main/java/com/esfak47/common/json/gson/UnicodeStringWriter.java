@@ -27,10 +27,12 @@ class UnicodeStringWriter extends StringWriter {
     private static final char[] HEX_CHARS = "0123456789ABCDEF".toCharArray();
     private static final int[] ESCAPE_CODES;
 
+    private static final int CODE_LENGTH = 32;
+
     static {
         int[] table = new int[128];
         // Control chars need generic escape sequence
-        for (int i = 0; i < 32; ++i) {
+        for (int i = 0; i < CODE_LENGTH; ++i) {
             // 04-Mar-2011, tatu: Used to use "-(i + 1)", replaced with constants
             table[i] = -1;
         }

@@ -147,11 +147,10 @@ public class ClassPathResourceDescriptor extends AbstractResourceDescriptor {
     public String getDescription() {
         StringBuilder builder = new StringBuilder("class path resource [");
         String pathToUse = path;
-        if (this.clazz != null && !pathToUse.startsWith("/")) {
-            //builder.append(ClassUtils.classPackageAsResourcePath(this.clazz));
-            builder.append('/');
+        if (this.clazz != null && !pathToUse.startsWith(File.pathSeparator)) {
+            builder.append(File.pathSeparator);
         }
-        if (pathToUse.startsWith("/")) {
+        if (pathToUse.startsWith(File.pathSeparator)) {
             pathToUse = pathToUse.substring(1);
         }
         builder.append(pathToUse);

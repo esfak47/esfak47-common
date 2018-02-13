@@ -32,16 +32,16 @@ import java.net.URLConnection;
  *
  * @author tony on 2016/5/6.
  */
-public class URLResourceDescriptor extends AbstractResourceDescriptor {
+public class UrlResourceDescriptor extends AbstractResourceDescriptor {
 
     private final URL url;
 
-    public URLResourceDescriptor(URL url) {
+    public UrlResourceDescriptor(URL url) {
         Assert.notNull(url, "URL must not be null");
         this.url = url;
     }
 
-    public URLResourceDescriptor(String path) throws MalformedURLException {
+    public UrlResourceDescriptor(String path) throws MalformedURLException {
         Assert.hasLength(path, "Path must not be null");
         this.url = new URL(path);
     }

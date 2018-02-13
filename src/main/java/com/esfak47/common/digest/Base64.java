@@ -227,7 +227,7 @@ public final class Base64 {
      */
     public static Encoder getMimeEncoder(int lineLength, byte[] lineSeparator) {
         Objects.requireNonNull(lineSeparator);
-        int[] base64 = Decoder.fromBase64;
+        int[] base64 = Decoder.FROM_BASE64;
         for (byte b : lineSeparator) {
             if (base64[b & 0xff] != -1) {
                 throw new IllegalArgumentException(
@@ -297,7 +297,7 @@ public final class Base64 {
          * index values into their "Base64 Alphabet" equivalents as specified
          * in "Table 1: The Base64 Alphabet" of RFC 2045 (and RFC 4648).
          */
-        private static final char[] toBase64 = {
+        private static final char[] TO_BASE64 = {
                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
                 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
                 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
@@ -309,7 +309,7 @@ public final class Base64 {
          * in Table 2 of the RFC 4648, with the '+' and '/' changed to '-' and
          * '_'. This table is used when BASE64_URL is specified.
          */
-        private static final char[] toBase64URL = {
+        private static final char[] TO_BASE64URL = {
                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
                 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
                 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
@@ -338,7 +338,8 @@ public final class Base64 {
                 int n = srclen % 3;
                 len = 4 * (srclen / 3) + (n == 0 ? 0 : n + 1);
             }
-            if (linemax > 0)                                  // line separators
+            // line separators
+            if (linemax > 0)
             {
                 len += (len - 1) / linemax * newline.length;
             }
@@ -412,6 +413,7 @@ public final class Base64 {
          * @return A String containing the resulting Base64 encoded characters
          */
         @SuppressWarnings("deprecation")
+        @Deprecated
         public String encodeToString(byte[] src) {
             byte[] encoded = encode(src);
             return new String(encoded, 0, 0, encoded.length);
@@ -471,7 +473,7 @@ public final class Base64 {
          */
         public OutputStream wrap(OutputStream os) {
             Objects.requireNonNull(os);
-            return new EncOutputStream(os, isURL ? toBase64URL : toBase64,
+            return new EncOutputStream(os, isURL ? TO_BASE64URL : TO_BASE64,
                     newline, linemax, doPadding);
         }
 
@@ -497,7 +499,7 @@ public final class Base64 {
         }
 
         private int encode0(byte[] src, int off, int end, byte[] dst) {
-            char[] base64 = isURL ? toBase64URL : toBase64;
+            char[] base64 = isURL ? TO_BASE64URL : TO_BASE64;
             int sp = off;
             int slen = (end - off) / 3 * 3;
             int sl = off + slen;
@@ -588,27 +590,27 @@ public final class Base64 {
          * are not in the Base64 alphabet but fall within the bounds of
          * the array are encoded to -1.
          */
-        private static final int[] fromBase64 = new int[256];
+        private static final int[] FROM_BASE64 = new int[256];
         /**
          * Lookup table for decoding "URL and Filename safe Base64 Alphabet"
          * as specified in Table2 of the RFC 4648.
          */
-        private static final int[] fromBase64URL = new int[256];
+        private static final int[] FROM_BASE64URL = new int[256];
 
         static {
-            Arrays.fill(fromBase64, -1);
-            for (int i = 0; i < Encoder.toBase64.length; i++) {
-                fromBase64[Encoder.toBase64[i]] = i;
+            Arrays.fill(FROM_BASE64, -1);
+            for (int i = 0; i < Encoder.TO_BASE64.length; i++) {
+                FROM_BASE64[Encoder.TO_BASE64[i]] = i;
             }
-            fromBase64['='] = -2;
+            FROM_BASE64['='] = -2;
         }
 
         static {
-            Arrays.fill(fromBase64URL, -1);
-            for (int i = 0; i < Encoder.toBase64URL.length; i++) {
-                fromBase64URL[Encoder.toBase64URL[i]] = i;
+            Arrays.fill(FROM_BASE64URL, -1);
+            for (int i = 0; i < Encoder.TO_BASE64URL.length; i++) {
+                FROM_BASE64URL[Encoder.TO_BASE64URL[i]] = i;
             }
-            fromBase64URL['='] = -2;
+            FROM_BASE64URL['='] = -2;
         }
 
         private final boolean isURL;
@@ -744,11 +746,11 @@ public final class Base64 {
          */
         public InputStream wrap(InputStream is) {
             Objects.requireNonNull(is);
-            return new DecInputStream(is, isURL ? fromBase64URL : fromBase64, isMIME);
+            return new DecInputStream(is, isURL ? FROM_BASE64URL : FROM_BASE64, isMIME);
         }
 
         private int outLength(byte[] src, int sp, int sl) {
-            int[] base64 = isURL ? fromBase64URL : fromBase64;
+            int[] base64 = isURL ? FROM_BASE64URL : FROM_BASE64;
             int paddings = 0;
             int len = sl - sp;
             if (len == 0) {
@@ -791,14 +793,16 @@ public final class Base64 {
         }
 
         private int decode0(byte[] src, int sp, int sl, byte[] dst) {
-            int[] base64 = isURL ? fromBase64URL : fromBase64;
+            int[] base64 = isURL ? FROM_BASE64URL : FROM_BASE64;
             int dp = 0;
             int bits = 0;
-            int shiftto = 18;       // pos of first byte of 4-byte atom
+            // pos of first byte of 4-byte atom
+            int shiftto = 18;
             while (sp < sl) {
                 int b = src[sp++] & 0xff;
                 if ((b = base64[b]) < 0) {
-                    if (b == -2) {         // padding byte '='
+                    if (b == -2) {
+                        // padding byte '='
                         // =     shiftto==18 unnecessary padding
                         // x=    shiftto==12 a dangling single x
                         // x     to be handled together with non-padding case
@@ -811,7 +815,8 @@ public final class Base64 {
                         }
                         break;
                     }
-                    if (isMIME)    // skip if for rfc2045
+                    // skip if for rfc2045
+                    if (isMIME)
                     {
                         continue;
                     } else {
@@ -854,15 +859,17 @@ public final class Base64 {
         }
     }
 
-    /*
+    /**
      * An output stream for encoding bytes into the Base64.
-     */
+     **/
     private static class EncOutputStream extends FilterOutputStream {
-
-        private final char[] base64;    // byte->base64 mapping
-        private final byte[] newline;   // line separator, if needed
+        // byte->base64 mapping
+        private final char[] base64;
+        // line separator, if needed
+        private final byte[] newline;
         private final int linemax;
-        private final boolean doPadding;// whether or not to pad
+        // whether or not to pad
+        private final boolean doPadding;
         private int leftover = 0;
         private int b0, b1, b2;
         private boolean closed = false;
