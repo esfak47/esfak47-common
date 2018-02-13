@@ -83,7 +83,6 @@ public class JdkLoggerAdapter implements LoggerAdapter {
         if (level == Level.ERROR) {
             return java.util.logging.Level.SEVERE;
         }
-        // if (level == Level.OFF)
         return java.util.logging.Level.OFF;
     }
 
@@ -106,7 +105,6 @@ public class JdkLoggerAdapter implements LoggerAdapter {
         if (level == java.util.logging.Level.SEVERE) {
             return Level.ERROR;
         }
-        // if (level == java.util.logging.Level.OFF)
         return Level.OFF;
     }
 
