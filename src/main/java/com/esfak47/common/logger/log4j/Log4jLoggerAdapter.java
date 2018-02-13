@@ -76,7 +76,6 @@ public class Log4jLoggerAdapter implements LoggerAdapter {
         if (level == Level.ERROR) {
             return org.apache.log4j.Level.ERROR;
         }
-        // if (level == Level.OFF)
         return org.apache.log4j.Level.OFF;
     }
 
