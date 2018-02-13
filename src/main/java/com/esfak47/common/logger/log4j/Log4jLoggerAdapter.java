@@ -53,7 +53,7 @@ public class Log4jLoggerAdapter implements LoggerAdapter {
                     }
                 }
             }
-        } catch (Throwable ignored) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -99,7 +99,6 @@ public class Log4jLoggerAdapter implements LoggerAdapter {
         if (level == org.apache.log4j.Level.ERROR) {
             return Level.ERROR;
         }
-        // if (level == org.apache.log4j.Level.OFF)
         return Level.OFF;
     }
 
