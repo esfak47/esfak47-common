@@ -26,7 +26,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * 将字节数组或字符数组转为16进制字符串
  *
- * @author mzlion on 2016-06-05 19:15
+ * @author tony on 2016-06-05 19:15
  */
 public class Hex {
 

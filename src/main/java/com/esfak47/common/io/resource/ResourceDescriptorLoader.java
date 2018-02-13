@@ -23,7 +23,7 @@ import com.esfak47.common.utils.ResourceUtils;
  * 资源描述加载接口
  * </p>
  *
- * @author mzlion on 2016/5/6.
+ * @author tony on 2016/5/6.
  */
 public interface ResourceDescriptorLoader {
 

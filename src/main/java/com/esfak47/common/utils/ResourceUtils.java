@@ -28,7 +28,7 @@ import java.net.URL;
 /**
  * 文件资源工具类
  *
- * @author mzlion on 2016/4/11.
+ * @author tony on 2016/4/11.
  */
 public class ResourceUtils {
     private static Logger logger = LoggerFactory.getLogger(ResourceUtils.class);

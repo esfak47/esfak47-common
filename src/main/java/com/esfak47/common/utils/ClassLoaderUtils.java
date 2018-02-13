@@ -18,7 +18,7 @@ package com.esfak47.common.utils;
 /**
  * {@linkplain ClassLoader}相关的工具类
  *
- * @author mzlion on 2016-05-05 22:14
+ * @author tony on 2016-05-05 22:14
  */
 public final class ClassLoaderUtils {
 

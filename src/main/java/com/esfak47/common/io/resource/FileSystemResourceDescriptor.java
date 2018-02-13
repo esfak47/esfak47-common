@@ -26,7 +26,7 @@ import java.net.URL;
 /**
  * 文件系统的资源描述
  *
- * @author mzlion on 2016/4/11.
+ * @author tony on 2016/4/11.
  */
 /*public*/ class FileSystemResourceDescriptor extends AbstractResourceDescriptor {
 

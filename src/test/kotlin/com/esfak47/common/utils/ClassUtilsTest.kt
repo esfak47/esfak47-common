@@ -14,6 +14,7 @@ class ClassUtilsTest {
     fun isAssignable() {
         Assert.assertFalse(ClassUtils.isAssignable(Int::class.java, Number::class.java))
         Assert.assertTrue(ClassUtils.isAssignable(Number::class.java, Int::class.java))
+
     }
 
     @Test

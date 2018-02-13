@@ -34,7 +34,7 @@ import java.util.*;
  * 默认处理{@code properties}文件实现类,支持占位符的解析。该实现类支持classpath:模式的文件路径
  * </p>
  *
- * @author mzlion on 2016/4/11
+ * @author tony on 2016/4/11
  */
 public class PlaceholderPropertyResolver implements PropertyResolver {
     private static final String PLACEHOLDER_PREFIX = "${";

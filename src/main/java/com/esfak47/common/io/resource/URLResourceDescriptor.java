@@ -30,7 +30,7 @@ import java.net.URLConnection;
  * URL资源加载
  * </p>
  *
- * @author mzlion on 2016/5/6.
+ * @author tony on 2016/5/6.
  */
 public class URLResourceDescriptor extends AbstractResourceDescriptor {
 

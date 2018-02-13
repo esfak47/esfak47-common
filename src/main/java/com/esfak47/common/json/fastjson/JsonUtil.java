@@ -37,7 +37,7 @@ import java.util.Map;
  * </p>
  * <p>本工具类仅封装常用的相互转换方法，包括属性过滤等方法。fastjson提供很多高级方法，这个需要自己阅读官网文档。</p>
  *
- * @author mzlion on 2016-04-14
+ * @author tony on 2016-04-14
  * @see <a href="https://github.com/alibaba/fastjson">fastjson</a>
  */
 public class JsonUtil {

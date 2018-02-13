@@ -35,7 +35,7 @@ import java.util.Objects;
  * 当前BASE64引擎代码来源JDK1.8本身，使其能在JDK1.7上使用，并且提供了快捷工具类。
  * </p>
  *
- * @author mzlion on 2016/6/22.
+ * @author tony on 2016/6/22.
  */
 public final class Base64 {
 

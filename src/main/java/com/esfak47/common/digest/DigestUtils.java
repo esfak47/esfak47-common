@@ -30,7 +30,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * 摘要计算工具类，提供了MD5,SHA-1,SHA-256,SHA-384,SHA-512等常用摘要算法方法
  *
- * @author mzlion on 2016-04-16
+ * @author tony on 2016-04-16
  */
 public final class DigestUtils {
     private DigestUtils(){}

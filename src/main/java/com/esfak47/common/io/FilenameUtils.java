@@ -23,7 +23,7 @@ import java.io.File;
 /**
  * 文件名相关的工具类
  *
- * @author mzlion on 2016-06-05 09:25
+ * @author tony on 2016-06-05 09:25
  */
 public final class FilenameUtils {
 

@@ -31,7 +31,7 @@ import java.net.URL;
 /**
  * {@linkplain ResourceDescriptor}抽象实现
  *
- * @author mzlion on 2016/4/11.
+ * @author tony on 2016/4/11.
  */
 public abstract class AbstractResourceDescriptor implements ResourceDescriptor {
 

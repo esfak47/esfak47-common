@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * CLass工具类}
  *
- * @author mzlion on 2016/5/23.
+ * @author tony on 2016/5/23.
  */
 public final class ClassUtils {
     private ClassUtils(){}

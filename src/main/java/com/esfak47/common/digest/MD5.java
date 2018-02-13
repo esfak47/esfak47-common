@@ -27,7 +27,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * MD5摘要计算
  *
- * @author mzlion on 2016/12/1.
+ * @author tony on 2016/12/1.
  */
 public final class MD5 {
     private MD5(){}

@@ -28,7 +28,7 @@ import java.net.URL;
 /**
  * Classpath的资源描述
  *
- * @author mzlion on 2016/4/11.
+ * @author tony on 2016/4/11.
  */
 public class ClassPathResourceDescriptor extends AbstractResourceDescriptor {
 

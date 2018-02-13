@@ -24,7 +24,7 @@ import java.net.URL;
 /**
  * 文件或classpath的资源描述接口
  *
- * @author mzlion on 2016/4/11.
+ * @author tony on 2016/4/11.
  */
 public interface ResourceDescriptor {
 

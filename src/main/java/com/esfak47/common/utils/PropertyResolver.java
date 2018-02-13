@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * 定义处理{@code properties}文件处理接口
  *
- * @author mzlion on 2016/4/11.
+ * @author tony on 2016/4/11.
  */
 public interface PropertyResolver {
 

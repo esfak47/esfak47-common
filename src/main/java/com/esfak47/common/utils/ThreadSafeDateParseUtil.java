@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * 线程安全的日期解析和格式化类,解决JDK提供的日期格式化类无法在多线程正确处理日期。
  *
- * @author mzlion on 2016-04-14
+ * @author tony on 2016-04-14
  */
 final class ThreadSafeDateParseUtil {
 

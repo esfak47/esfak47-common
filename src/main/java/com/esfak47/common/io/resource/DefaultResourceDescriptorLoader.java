@@ -26,7 +26,7 @@ import java.net.URL;
 /**
  * 默认资源载入处理器
  *
- * @author mzlion on 2016/5/6.
+ * @author tony on 2016/5/6.
  */
 public class DefaultResourceDescriptorLoader implements ResourceDescriptorLoader {
 

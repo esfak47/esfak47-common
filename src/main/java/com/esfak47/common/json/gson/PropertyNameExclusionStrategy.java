@@ -24,7 +24,7 @@ import com.google.gson.FieldAttributes;
  * 属性过滤性
  * </p>
  *
- * @author mzlion on 2016/7/6.
+ * @author tony on 2016/7/6.
  */
 class PropertyNameExclusionStrategy implements ExclusionStrategy {
 

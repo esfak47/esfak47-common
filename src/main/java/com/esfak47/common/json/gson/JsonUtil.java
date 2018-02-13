@@ -31,7 +31,7 @@ import java.util.Map;
  * {@code JsonUtil}工具类是基于<a href="https://github.com/google/gson">Google Gson</a>简单封装，提供了Java对象和Json字符串的相互转换。
  * </p>
  *
- * @author mzlion on 2016-04-14
+ * @author tony on 2016-04-14
  * @see Gson
  */
 public final class JsonUtil {

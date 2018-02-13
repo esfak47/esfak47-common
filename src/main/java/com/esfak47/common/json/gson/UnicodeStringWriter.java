@@ -20,7 +20,7 @@ import java.io.StringWriter;
 /**
  * 将非ASCII码的字符转为Unicode码
  *
- * @author mzlion on 2016/7/6.
+ * @author tony on 2016/7/6.
  */
 class UnicodeStringWriter extends StringWriter {
 

@@ -31,7 +31,7 @@ import java.util.Comparator;
  *  TypeReference ref = new TypeReference&lt;List&lt;String&gt;&gt;() { };
  * </pre>
  *
- * @author mzlion on 2016-06-12
+ * @author tony on 2016-06-12
  */
 public abstract class AbstractTypeRef<T> implements Comparator<T> {
 
