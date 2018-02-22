@@ -39,9 +39,6 @@ public final class JsonUtil {
 
     private static Gson gson;
 
-    /**
-     * 实例化Gson
-     */
     static {
         gson = new GsonBuilder().create();
     }

@@ -111,6 +111,7 @@ public final class MD5 {
      * @param charset 字符串编码
      * @return BASE64的字符串
      */
+
     public static String digestBase64(final String data, final Charset charset) {
         Assert.hasLength(data, THE_DATA_IS_NULL_OR_EMPTY);
         byte[] salt = data.getBytes(charset == null ? StandardCharsets.UTF_8 : charset);

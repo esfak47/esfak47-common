@@ -72,16 +72,11 @@ public final class ClassUtils {
         }
         if (sourceType.isPrimitive()) {
             Class<?> resolvedPrimitive = PRIMITIVE_WRAPPER_TYPE_MAP.get(targetType);
-            if (sourceType == resolvedPrimitive) {
-                return true;
-            }
+            return sourceType == resolvedPrimitive;
         } else {
             Class<?> resolvedWrapper = PRIMITIVE_TYPE_TO_WRAPPER_MAP.get(targetType);
-            if (resolvedWrapper != null && sourceType.isAssignableFrom(resolvedWrapper)) {
-                return true;
-            }
+            return resolvedWrapper != null && sourceType.isAssignableFrom(resolvedWrapper);
         }
-        return false;
     }
 
     /**

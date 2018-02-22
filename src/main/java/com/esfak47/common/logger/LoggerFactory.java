@@ -36,14 +36,20 @@ public class LoggerFactory {
     private static final ConcurrentMap<String, FailsafeLogger> LOGGERS = new ConcurrentHashMap<String, FailsafeLogger>();
     private static volatile LoggerAdapter LOGGER_ADAPTER;
 
+    private static final String SLF4J = "slf4j";
+
+    private static final String LOG4J = "log4j";
+
+    public static final String JDK = "jdk";
+
     // search common-used logging frameworks
     static {
         String logger = System.getProperty("application.logger");
-        if ("slf4j".equals(logger)) {
+        if (SLF4J.equals(logger)) {
             setLoggerAdapter(new Slf4jLoggerAdapter());
-        } else if ("log4j".equals(logger)) {
+        } else if (LOG4J.equals(logger)) {
             setLoggerAdapter(new Log4jLoggerAdapter());
-        } else if ("jdk".equals(logger)) {
+        } else if (JDK.equals(logger)) {
             setLoggerAdapter(new JdkLoggerAdapter());
         } else {
             try {

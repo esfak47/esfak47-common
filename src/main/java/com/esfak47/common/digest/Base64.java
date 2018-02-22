@@ -64,6 +64,7 @@ public final class Base64 {
      * @param isUrlSafe 为{@code true}则URL安全字符，否则为标准BASE64字符
      * @return 待BASE64编码的字符串
      */
+
     public static String encode(final byte[] data, final boolean isUrlSafe) {
         if (ArrayUtils.isEmpty(data)) {
             return null;
@@ -99,6 +100,7 @@ public final class Base64 {
      * @param encoding 原始数据的编码,为空时采用UTF-8编码
      * @return BASE64之后的字符串
      */
+
     public static String encode(final String data, final Charset encoding) {
         if (StringUtils.isEmpty(data)) {
             return data;
@@ -118,6 +120,7 @@ public final class Base64 {
      * @param isUrlSafe 为{@code true}则URL安全字符，否则为标准BASE64字符
      * @return BASE64之后的字符串
      */
+
     public static String encode(final String data, final Charset encoding, final boolean isUrlSafe) {
         if (StringUtils.isEmpty(data)) {
             return data;
@@ -320,13 +323,13 @@ public final class Base64 {
         private static final byte[] CRLF = new byte[]{'\r', '\n'};
         static final Encoder RFC2045 = new Encoder(false, CRLF, MIMELINEMAX, true);
         private final byte[] newline;
-        private final int linemax;
+        private final int lineMax   ;
         private final boolean isURL;
         private final boolean doPadding;
-        private Encoder(boolean isURL, byte[] newline, int linemax, boolean doPadding) {
+        private Encoder(boolean isURL, byte[] newline, int lineMax, boolean doPadding) {
             this.isURL = isURL;
             this.newline = newline;
-            this.linemax = linemax;
+            this.lineMax = lineMax;
             this.doPadding = doPadding;
         }
 
@@ -339,9 +342,9 @@ public final class Base64 {
                 len = 4 * (srclen / 3) + (n == 0 ? 0 : n + 1);
             }
             // line separators
-            if (linemax > 0)
+            if (lineMax > 0)
             {
-                len += (len - 1) / linemax * newline.length;
+                len += (len - 1) / lineMax * newline.length;
             }
             return len;
         }
@@ -413,10 +416,10 @@ public final class Base64 {
          * @return A String containing the resulting Base64 encoded characters
          */
         @SuppressWarnings("deprecation")
-        @Deprecated
+
         public String encodeToString(byte[] src) {
             byte[] encoded = encode(src);
-            return new String(encoded, 0, 0, encoded.length);
+            return new String(encoded,0, encoded.length);
         }
 
         /**
@@ -474,7 +477,7 @@ public final class Base64 {
         public OutputStream wrap(OutputStream os) {
             Objects.requireNonNull(os);
             return new EncOutputStream(os, isURL ? TO_BASE64URL : TO_BASE64,
-                    newline, linemax, doPadding);
+                    newline, lineMax, doPadding);
         }
 
         /**
@@ -495,7 +498,7 @@ public final class Base64 {
             if (!doPadding) {
                 return this;
             }
-            return new Encoder(isURL, newline, linemax, false);
+            return new Encoder(isURL, newline, lineMax, false);
         }
 
         private int encode0(byte[] src, int off, int end, byte[] dst) {
@@ -503,8 +506,8 @@ public final class Base64 {
             int sp = off;
             int slen = (end - off) / 3 * 3;
             int sl = off + slen;
-            if (linemax > 0 && slen > linemax / 4 * 3) {
-                slen = linemax / 4 * 3;
+            if (lineMax > 0 && slen > lineMax / 4 * 3) {
+                slen = lineMax / 4 * 3;
             }
             int dp = 0;
             while (sp < sl) {
@@ -521,7 +524,7 @@ public final class Base64 {
                 int dlen = (sl0 - sp) / 3 * 4;
                 dp += dlen;
                 sp = sl0;
-                if (dlen == linemax && sp < end) {
+                if (dlen == lineMax && sp < end) {
                     for (byte b : newline) {
                         dst[dp++] = b;
                     }
@@ -863,12 +866,11 @@ public final class Base64 {
      * An output stream for encoding bytes into the Base64.
      **/
     private static class EncOutputStream extends FilterOutputStream {
-        // byte->base64 mapping
+
         private final char[] base64;
-        // line separator, if needed
+
         private final byte[] newline;
-        private final int linemax;
-        // whether or not to pad
+        private final int lineMax;
         private final boolean doPadding;
         private int leftover = 0;
         private int b0, b1, b2;
@@ -876,11 +878,11 @@ public final class Base64 {
         private int linepos = 0;
 
         EncOutputStream(OutputStream os, char[] base64,
-                        byte[] newline, int linemax, boolean doPadding) {
+                        byte[] newline, int lineMax, boolean doPadding) {
             super(os);
             this.base64 = base64;
             this.newline = newline;
-            this.linemax = linemax;
+            this.lineMax = lineMax;
             this.doPadding = doPadding;
         }
 
@@ -892,7 +894,7 @@ public final class Base64 {
         }
 
         private void checkNewline() throws IOException {
-            if (linepos == linemax) {
+            if (linepos == lineMax) {
                 out.write(newline);
                 linepos = 0;
             }
