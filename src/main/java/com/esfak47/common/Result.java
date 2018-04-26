@@ -1,4 +1,7 @@
-package com.esfak47.common.lang;
+package com.esfak47.common;
+
+import com.esfak47.common.lang.Assert;
+import com.esfak47.common.lang.CodeMessageProvider;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -6,6 +9,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
+/**
+ * @author tony
+ */
 public class Result<T> {
     private final static Result FAIL = new Result(false);
 
@@ -54,10 +60,10 @@ public class Result<T> {
         return new Result<>(true);
     }
 
-    public static <T> Result<T> getFromAsync(Future<T> completableFuture, long timeOutInMillSeconds) {
-        Assert.notNull(completableFuture, "completableFuture should not be null");
+    public static <T> Result<T> getFromAsync(Future<T> future, long timeOutInMillSeconds) {
+        Assert.notNull(future, "completableFuture should not be null");
         try {
-            T data = completableFuture.get(timeOutInMillSeconds, TimeUnit.MILLISECONDS);
+            T data = future.get(timeOutInMillSeconds, TimeUnit.MILLISECONDS);
             return Result.success(data);
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             return failWithThrowable(e);

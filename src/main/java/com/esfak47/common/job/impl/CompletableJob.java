@@ -1,5 +1,6 @@
-package com.esfak47.common.job;
+package com.esfak47.common.job.impl;
 
+import com.esfak47.common.job.Job;
 import com.esfak47.common.lang.Assert;
 
 import java.util.Date;
@@ -111,7 +112,6 @@ public class CompletableJob implements Job {
         if (runnable != null) {
             runnable.run();
         }
-
     }
 
     @Override

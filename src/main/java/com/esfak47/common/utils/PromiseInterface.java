@@ -7,6 +7,6 @@ import java.util.function.Consumer;
  * @date 2018/4/24
  */
 @FunctionalInterface
-public interface PromiseInterface<T,U> {
-    void go(Consumer<T> resolve, Consumer<U> reject);
+public interface PromiseInterface<T> {
+    void go(Consumer<T> resolve, Consumer<Throwable> reject);
 }

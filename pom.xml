@@ -57,6 +57,11 @@
             <version>${fastjson.version}</version>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.20.0-GA</version>
+        </dependency>
         <!--<dependency>-->
         <!--<groupId>log4j</groupId>-->
         <!--<artifactId>log4j</artifactId>-->
@@ -73,6 +78,7 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4j.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>

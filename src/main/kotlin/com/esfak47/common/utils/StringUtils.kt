@@ -16,15 +16,43 @@
 
 package com.esfak47.common.utils
 
+import com.esfak47.common.io.UnsafeStringWriter
+import java.io.PrintWriter
+import java.util.*
+import java.util.regex.Pattern
+
 /**
  * @author Tony
  * * Created by tony on 2018/1/16.
  */
 object StringUtils {
     const val EMPTY_STRING = ""
+    private val KVP_PATTERN = Pattern.compile("([_.a-zA-Z0-9][-_.a-zA-Z0-9]*)[=](.*)") //key value pair pattern.
+
     @JvmStatic
     fun isEmpty(string: String?): Boolean {
         return string == null || "" == string.trim { it <= ' ' }
+    }
+
+    /**
+     * @param e
+     * @return string
+     */
+    @JvmStatic
+    fun toString(e: Throwable): String {
+        val w = UnsafeStringWriter()
+        val p = PrintWriter(w)
+        p.print(e.javaClass.name)
+        if (e.message != null) {
+            p.print(": " + e.message)
+        }
+        p.println()
+        try {
+            e.printStackTrace(p)
+            return w.toString()
+        } finally {
+            p.close()
+        }
     }
 
     /**
@@ -42,8 +70,45 @@ object StringUtils {
      * @param str 字符串
      * @return 当且仅当字符串类型不为{@code null},长度也不为0时就返回`true`,反之则返回`false`.
      */
-    @JvmStatic fun hasLength(str: CharSequence?): Boolean {
+    @JvmStatic
+    fun hasLength(str: CharSequence?): Boolean {
         return str != null && str.isNotEmpty()
+    }
+
+    @JvmStatic
+    fun isBlank(str: CharSequence?): Boolean {
+        return !hasLength(str)
+    }
+
+    /**
+     * parse key-value pair.
+     *
+     * @param str           string.
+     * @param itemSeparator item separator.
+     * @return key-value map;
+     */
+    private fun parseKeyValuePair(str: String, itemSeparator: String): Map<String, String> {
+        val tmp = str.split(itemSeparator.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val map = HashMap<String, String>(tmp.size)
+        for (i in tmp.indices) {
+            val matcher = KVP_PATTERN.matcher(tmp[i])
+            if (matcher.matches() == false)
+                continue
+            map[matcher.group(1)] = matcher.group(2)
+        }
+        return map
+    }
+
+
+    /**
+     * parse query string to Parameters.
+     *
+     * @param qs query string.
+     * @return Parameters instance.
+     */
+    @JvmStatic
+    fun parseQueryString(qs: String?): Map<String, String> {
+        return if (qs == null || qs.length == 0) HashMap() else parseKeyValuePair(qs, "\\&")
     }
 
     /**
@@ -63,7 +128,8 @@ object StringUtils {
      * @return 当字符串至少存在一个不为空白字符时返回{@code true},否则返回`false`
      * @see Character.isWhitespace
      */
-    @JvmStatic fun hasText(str: CharSequence): Boolean {
+    @JvmStatic
+    fun hasText(str: CharSequence): Boolean {
         if (!hasLength(str)) {
             return false
         }
@@ -92,7 +158,8 @@ object StringUtils {
      * @param newPattern 新的字符串
      * @return 返回替换后的字符串
      */
-    @JvmStatic fun replace(str: String, oldPattern: String, newPattern: String?): String {
+    @JvmStatic
+    fun replace(str: String, oldPattern: String, newPattern: String?): String {
         if (!hasLength(str) || !hasLength(oldPattern) || null == newPattern) {
             return str
         }

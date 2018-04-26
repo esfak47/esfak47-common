@@ -2,10 +2,10 @@ package com.esfak47.common.utils;
 
 import com.esfak47.common.logger.Logger;
 import com.esfak47.common.logger.LoggerFactory;
+import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
+import java.util.concurrent.CompletionException;
 
 /**
  * @author tony
@@ -14,9 +14,10 @@ import java.util.function.Function;
 public class PromiseTest {
 
     private Logger logger = LoggerFactory.getLogger(PromiseTest.class);
+
     @Test
     public void testPromise() {
-        Promise.promise((PromiseInterface<Long, String>)(resolve, reject) -> {
+        Promise.promise((PromiseInterface<Long>)(resolve, reject) -> {
             try {
                 logger.info("start");
                 Thread.sleep(1000);
@@ -31,8 +32,57 @@ public class PromiseTest {
         }).then(integer -> {
             logger.info(String.valueOf(integer));
         })
-        .join();
+            .join();
 
+    }
+
+    @Test
+    public void testPromiseError() throws InterruptedException {
+        Promise.promise((PromiseInterface<Long>)(resolve, reject) -> {
+            try {
+                logger.info("start");
+                Thread.sleep(1000);
+                reject.accept(new NullPointerException());
+            } catch (InterruptedException e) {
+                reject.accept(e);
+            }
+
+        }).catchEx(throwable -> {
+
+            Assert.assertTrue(throwable instanceof NullPointerException);
+            logger.error(throwable);
+        })
+
+            .then(aLong -> {
+                return aLong.intValue();
+            }).then(integer -> {
+            logger.info(String.valueOf(integer));
+        });
+        Thread.sleep(5000);
+
+    }
+
+    @Test
+    public void testPromiseErrorJoin() throws InterruptedException {
+        Promise.promise((PromiseInterface<Long>)(resolve, reject) -> {
+            try {
+                logger.info("start");
+                Thread.sleep(1000);
+                reject.accept(new NullPointerException());
+            } catch (InterruptedException e) {
+                reject.accept(e);
+            }
+
+        }).catchEx(throwable -> {
+            logger.error(throwable);
+            Assert.assertTrue(throwable instanceof CompletionException);
+
+        })
+            .then(aLong -> {
+                return aLong.intValue();
+            }).then(integer -> {
+            logger.info(String.valueOf(integer));
+        }).join();
 
     }
 

@@ -20,6 +20,7 @@ cache:
   - "$HOME/.m2/repository"
   - "$HOME/.sonar/cache"
 notifications:
+  webhooks: https://oapi.dingtalk.com/robot/send?access_token=11fd8c7be579f3ce7a43ea619c6566101eeaed5c3631da5a17ada92e3ba29ead
   email:
     recipients:
     - esfak47@qq.com
