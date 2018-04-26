@@ -7,7 +7,7 @@ package com.esfak47.common.extension;
 public interface SimpleAdaptable {
 
     default URL getUrl(){
-        return new URL(null,null,0,new String[]{"adaptableKey",getAdaptableKey()});
+        return new URL(getAdaptableKey(),null,0);
     }
 
     String getAdaptableKey();
