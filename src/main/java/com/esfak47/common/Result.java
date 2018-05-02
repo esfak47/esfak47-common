@@ -54,6 +54,7 @@ public class Result<T> {
         Result<T> tResult = new Result<>(true);
         tResult.setData(data);
         return tResult;
+
     }
 
     public static Result<Void> success() {
@@ -70,12 +71,16 @@ public class Result<T> {
         }
     }
 
-    public void ifPresent(Consumer<? super T> consumer) {
-        if (data != null) {consumer.accept(data);}
+    public T getData() {
+        return data;
     }
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public void ifPresent(Consumer<? super T> consumer) {
+        if (data != null) {consumer.accept(data);}
     }
 
     public boolean isSuccess() {
