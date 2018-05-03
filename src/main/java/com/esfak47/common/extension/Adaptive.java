@@ -50,6 +50,6 @@ public @interface Adaptive {
      *
      * @return parameter key names in URL
      */
-    String[] value() default {};
+    String[] value() default {"protocol"};
 
 }

@@ -27,7 +27,7 @@ public class CompletableJob implements Job {
         createTime = new Date();
     }
 
-    public static CompletableJob create(String name, String id, Consumer<Job> consumer) {
+    public static CompletableJob create(String name, String id, Consumer<CompletableJob> consumer) {
         Assert.notNull(consumer, "consumer should not be null");
         CompletableJob completableJob = new CompletableJob(id);
         completableJob.setName(name);
@@ -105,6 +105,11 @@ public class CompletableJob implements Job {
     @Override
     public void setFinishTime() {
         this.finishTime = new Date();
+    }
+
+    @Override
+    public boolean isAsync() {
+        return false;
     }
 
     @Override

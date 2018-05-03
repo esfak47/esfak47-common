@@ -3,7 +3,7 @@ package com.esfak47.common.job;
 import com.esfak47.common.extension.SPI;
 import com.esfak47.common.PageResult;
 
-@SPI("default")
+@SPI
 public interface JobManager {
 
     /**

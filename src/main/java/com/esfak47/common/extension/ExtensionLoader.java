@@ -36,6 +36,8 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 /**
+ * 拓展了dubbo的ExtensionLoader，支持自定义classloader以及自定义annotation
+ * <p>
  * Load  extensions <ul> <li>auto inject dependency extension </li> <li>auto wrap extension in wrapper </li> <li>default
  * extension is an adaptive instance</li> </ul>
  *
@@ -68,6 +70,8 @@ public class ExtensionLoader<T> {
 
     private final Class<?> type;
 
+    private final ClassLoader classLoader;
+
     private final ExtensionFactory objectFactory;
 
     private final ConcurrentMap<Class<?>, String> cachedNames = new ConcurrentHashMap<Class<?>, String>();
@@ -86,10 +90,11 @@ public class ExtensionLoader<T> {
 
     private Map<String, IllegalStateException> exceptions = new ConcurrentHashMap<String, IllegalStateException>();
 
-    private ExtensionLoader(Class<?> type) {
+    private ExtensionLoader(Class<?> type, ClassLoader classLoader) {
         this.type = type;
         objectFactory = (type == ExtensionFactory.class ? null : ExtensionLoader.getExtensionLoader(
             ExtensionFactory.class).getAdaptiveExtension());
+        this.classLoader = classLoader;
     }
 
     private static <T> boolean withExtensionAnnotation(Class<T> type) {
@@ -97,22 +102,28 @@ public class ExtensionLoader<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> ExtensionLoader<T> getExtensionLoader(Class<T> type) {
+    public static <T> ExtensionLoader<T> getExtensionLoader(Class<T> type, ClassLoader classLoader) {
         if (type == null) {throw new IllegalArgumentException("Extension type == null");}
         if (!type.isInterface()) {
             throw new IllegalArgumentException("Extension type(" + type + ") is not interface!");
         }
         if (!withExtensionAnnotation(type)) {
             throw new IllegalArgumentException("Extension type(" + type +
-                ") is not extension, because WITHOUT @" + SPI.class.getSimpleName() + " Annotation!");
+                ") is not extension, because WITHOUT @" + SPI.class.getSimpleName()
+                + " Annotation or Annotation annotated By @" + SPI.class.getSimpleName() + "!");
         }
 
         ExtensionLoader<T> loader = (ExtensionLoader<T>)EXTENSION_LOADERS.get(type);
         if (loader == null) {
-            EXTENSION_LOADERS.putIfAbsent(type, new ExtensionLoader<T>(type));
+            ExtensionLoader<T> value = new ExtensionLoader<>(type, classLoader);
+            EXTENSION_LOADERS.putIfAbsent(type, value);
             loader = (ExtensionLoader<T>)EXTENSION_LOADERS.get(type);
         }
         return loader;
+    }
+
+    public static <T> ExtensionLoader<T> getExtensionLoader(Class<T> type) {
+        return getExtensionLoader(type, findClassLoader());
     }
 
     private static ClassLoader findClassLoader() {
@@ -578,7 +589,6 @@ public class ExtensionLoader<T> {
         String fileName = dir + type.getName();
         try {
             Enumeration<java.net.URL> urls;
-            ClassLoader classLoader = findClassLoader();
             if (classLoader != null) {
                 urls = classLoader.getResources(fileName);
             } else {
@@ -722,7 +732,6 @@ public class ExtensionLoader<T> {
 
     private Class<?> createAdaptiveExtensionClass() {
         String code = createAdaptiveExtensionClassCode();
-        ClassLoader classLoader = findClassLoader();
         Compiler compiler = ExtensionLoader.getExtensionLoader(Compiler.class).getAdaptiveExtension();
         return compiler.compile(code, classLoader);
     }

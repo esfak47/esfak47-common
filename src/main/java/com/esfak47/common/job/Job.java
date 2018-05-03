@@ -57,4 +57,6 @@ public interface Job extends Serializable, Runnable {
 
     void setFinishTime();
 
+    boolean isAsync();
+
 }
