@@ -32,13 +32,7 @@ public class ExtenstionLoaderTest {
         ExtensionFactory extensionFactory = ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension();
         Assert.assertNotNull(extensionFactory);
     }
-
-    @Test
-    public void test4(){
-        JobManager defaultExtension = ExtensionLoader.getExtensionLoader(JobManager.class).getDefaultExtension();
-        Assert.assertNotNull(defaultExtension);
-        Assert.assertEquals(defaultExtension.getClass().getSimpleName(),"DefaultJobManagerImpl");
-    }
+    
 
     @Test
     public void test5(){
