@@ -27,6 +27,7 @@ public class PageResult<T extends Serializable> implements Serializable {
         this.items = items;
     }
 
+
     public static <F extends Serializable, T extends Serializable> PageResult<T> convert(
         Function<? super F, ? extends T> converter,
         PageResult<F> pageResult) {

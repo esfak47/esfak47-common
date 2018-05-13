@@ -1,6 +1,5 @@
 package com.esfak47.common.json.gson;
 
-import com.esfak47.common.json.AbstractTypeRef;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,47 +28,45 @@ public class JsonUtilTest {
     public void toJson() {
         String jsonString = JsonUtil.toJson(json);
         System.out.println(jsonString);
-        Assert.assertEquals("{\"name\":\"json\",\"value\":\"value\",\"chinese\":\"\\u4E2D\\u6587\"}",jsonString);
+        Assert.assertEquals("{\"name\":\"json\",\"value\":\"value\",\"chinese\":\"\\u4E2D\\u6587\"}", jsonString);
 
     }
 
     @Test
     public void toJson1() {
-        String toJson = JsonUtil.toJson(json, "value","chinese");
+        String toJson = JsonUtil.toJson(json, "value", "chinese");
         System.out.println(toJson);
-        Assert.assertEquals("{\"name\":\"json\"}",toJson);
+        Assert.assertEquals("{\"name\":\"json\"}", toJson);
     }
 
     @Test
     public void toJson2() {
         String toJson = JsonUtil.toJson(json, false, "value");
         System.out.println(toJson);
-        Assert.assertEquals("{\"name\":\"json\",\"chinese\":\"中文\"}",toJson);
+        Assert.assertEquals("{\"name\":\"json\",\"chinese\":\"中文\"}", toJson);
 
     }
 
     @Test
     public void toJson3() {
-        String toJson = JsonUtil.toJson(json, false,true, "value");
+        String toJson = JsonUtil.toJson(json, false, true, "value");
         System.out.println(toJson);
-        Assert.assertEquals("{\"name\":\"json\",\"chinese\":\"中文\"}",toJson);
+        Assert.assertEquals("{\"name\":\"json\",\"chinese\":\"中文\"}", toJson);
     }
 
     @Test
     public void fromJson() {
         JSON json = JsonUtil.fromJson("{\"name\":\"json\",\"chinese\":\"中文\"}", JSON.class);
         Assert.assertNotNull(json);
-        Assert.assertEquals(json.getChinese(),"中文");
+        Assert.assertEquals(json.getChinese(), "中文");
     }
 
     @Test
     public void fromJson1() {
         JSON json = JsonUtil.fromJson("{\"name\":\"json\",\"chinese\":\"中文\"}", (Type)JSON.class);
         Assert.assertNotNull(json);
-        Assert.assertEquals(json.getChinese(),"中文");
+        Assert.assertEquals(json.getChinese(), "中文");
     }
-
-
 
     private static class JSON {
         private String name;
@@ -118,6 +115,7 @@ public class JsonUtilTest {
             this.nullField = nullField;
         }
     }
+
     private static class JSON2 {
         private String name;
         private String value;
