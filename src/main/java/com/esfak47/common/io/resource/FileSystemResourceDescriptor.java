@@ -15,8 +15,6 @@
  */
 package com.esfak47.common.io.resource;
 
-
-
 import com.esfak47.common.utils.StringUtils;
 
 import java.io.*;
@@ -119,10 +117,8 @@ import java.net.URL;
     }
 
     /**
-     * Return a description for this resource,
-     * to be used for error output when working with the resource.
-     * <p>Implementations are also encouraged to return this value
-     * from their {@code toString} method.
+     * Return a description for this resource, to be used for error output when working with the resource.
+     * <p>Implementations are also encouraged to return this value from their {@code toString} method.
      *
      * @see Object#toString()
      */

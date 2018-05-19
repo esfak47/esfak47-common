@@ -15,8 +15,6 @@
  */
 package com.esfak47.common.digest;
 
-
-
 import com.esfak47.common.exception.DigestException;
 import com.esfak47.common.lang.Assert;
 
@@ -34,10 +32,6 @@ import java.security.NoSuchAlgorithmException;
  */
 public final class DigestUtils {
 
-    private static final int DEFAULT_BUFFER_LEN = 1024;
-
-    private DigestUtils(){}
-
     public static final String ALGORITHM_MD5 = "MD5";
     public static final String ALGORITHM_SHA_1 = "SHA-1";
     public static final String ALGORITHM_SHA_256 = "SHA-256";
@@ -46,7 +40,8 @@ public final class DigestUtils {
     public static final String THE_DATA_IS_NULL_OR_EMPTY = "The data is null or empty.";
     public static final String THE_INPUT_STREAM_DATA_IS_NULL = "The inputStream data is null.";
     public static final String ENCODING_IS_NULL = "Encoding is null.";
-
+    private static final int DEFAULT_BUFFER_LEN = 1024;
+    private DigestUtils() {}
 
     /**
      * 根据算法名称返回{@code MessageDigest}实例
@@ -244,8 +239,7 @@ public final class DigestUtils {
     }
 
     /**
-     * SHA256摘要计算,计算结果转为16进制字符串返回
-     * x
+     * SHA256摘要计算,计算结果转为16进制字符串返回 x
      *
      * @param data 待处理的数据
      * @return 16进制的字符串

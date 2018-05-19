@@ -16,11 +16,11 @@
  */
 package com.esfak47.common.logger;
 
-
 import java.io.File;
 
 /**
  * Logger provider
+ *
  * @author tonywang
  */
 

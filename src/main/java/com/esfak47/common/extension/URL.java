@@ -10,44 +10,27 @@ import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * URL - Uniform Resource Locator (Immutable, ThreadSafe)
  * <p>
- * url example:
- * <ul>
- * <li>http://www.facebook.com/friends?param1=value1&amp;param2=value2
+ * url example: <ul> <li>http://www.facebook.com/friends?param1=value1&amp;param2=value2
  * <li>http://username:password@10.20.130.230:8080/list?version=1.0.0
  * <li>ftp://username:password@192.168.1.7:21/1/read.txt
- * <li>registry://192.168.1.7:9090/com.alibaba.service1?param1=value1&amp;param2=value2
- * </ul>
+ * <li>registry://192.168.1.7:9090/com.alibaba.service1?param1=value1&amp;param2=value2 </ul>
  * <p>
- * Some strange example below:
- * <ul>
- * <li>192.168.1.3:20880<br>
- * for this case, url protocol = null, url host = 192.168.1.3, port = 20880, url path = null
- * <li>file:///home/user1/router.js?type=script<br>
- * for this case, url protocol = file, url host = null, url path = home/user1/router.js
- * <li>file://home/user1/router.js?type=script<br>
- * for this case, url protocol = file, url host = home, url path = user1/router.js
- * <li>file:///D:/1/router.js?type=script<br>
- * for this case, url protocol = file, url host = null, url path = D:/1/router.js
- * <li>file:/D:/1/router.js?type=script<br>
- * same as above file:///D:/1/router.js?type=script
- * <li>/home/user1/router.js?type=script <br>
- * for this case, url protocol = null, url host = null, url path = home/user1/router.js
- * <li>home/user1/router.js?type=script <br>
- * for this case, url protocol = null, url host = home, url path = user1/router.js
- * </ul>
+ * Some strange example below: <ul> <li>192.168.1.3:20880<br> for this case, url protocol = null, url host =
+ * 192.168.1.3, port = 20880, url path = null <li>file:///home/user1/router.js?type=script<br> for this case, url
+ * protocol = file, url host = null, url path = home/user1/router.js <li>file://home/user1/router.js?type=script<br> for
+ * this case, url protocol = file, url host = home, url path = user1/router.js <li>file:///D:/1/router
+ * .js?type=script<br>
+ * for this case, url protocol = file, url host = null, url path = D:/1/router.js <li>file:/D:/1/router
+ * .js?type=script<br>
+ * same as above file:///D:/1/router.js?type=script <li>/home/user1/router.js?type=script <br> for this case, url
+ * protocol = null, url host = null, url path = home/user1/router.js <li>home/user1/router.js?type=script <br> for this
+ * case, url protocol = null, url host = home, url path = user1/router.js </ul>
  *
  * @see java.net.URL
  * @see java.net.URI
@@ -99,10 +82,11 @@ public final class URL implements Serializable {
     }
 
     public URL(String protocol, String host, int port) {
-        this(protocol, null, null, host, port, null, (Map<String, String>) null);
+        this(protocol, null, null, host, port, null, (Map<String, String>)null);
     }
 
-    public URL(String protocol, String host, int port, String[] pairs) { // varargs ... confilict with the following path argument, use array instead.
+    public URL(String protocol, String host, int port,
+               String[] pairs) { // varargs ... confilict with the following path argument, use array instead.
         this(protocol, null, null, host, port, null, CollectionUtils.toStringMap(pairs));
     }
 
@@ -111,7 +95,7 @@ public final class URL implements Serializable {
     }
 
     public URL(String protocol, String host, int port, String path) {
-        this(protocol, null, null, host, port, path, (Map<String, String>) null);
+        this(protocol, null, null, host, port, path, (Map<String, String>)null);
     }
 
     public URL(String protocol, String host, int port, String path, String... pairs) {
@@ -123,16 +107,17 @@ public final class URL implements Serializable {
     }
 
     public URL(String protocol, String username, String password, String host, int port, String path) {
-        this(protocol, username, password, host, port, path, (Map<String, String>) null);
+        this(protocol, username, password, host, port, path, (Map<String, String>)null);
     }
 
     public URL(String protocol, String username, String password, String host, int port, String path, String... pairs) {
         this(protocol, username, password, host, port, path, CollectionUtils.toStringMap(pairs));
     }
 
-    public URL(String protocol, String username, String password, String host, int port, String path, Map<String, String> parameters) {
+    public URL(String protocol, String username, String password, String host, int port, String path,
+               Map<String, String> parameters) {
         if ((username == null || username.length() == 0)
-                && password != null && password.length() > 0) {
+            && password != null && password.length() > 0) {
             throw new IllegalArgumentException("Invalid url, password without username!");
         }
         this.protocol = protocol;
@@ -275,11 +260,11 @@ public final class URL implements Serializable {
 
     public String getAuthority() {
         if ((username == null || username.length() == 0)
-                && (password == null || password.length() == 0)) {
+            && (password == null || password.length() == 0)) {
             return null;
         }
         return (username == null ? "" : username)
-                + ":" + (password == null ? "" : password);
+            + ":" + (password == null ? "" : password);
     }
 
     public String getHost() {
@@ -292,7 +277,7 @@ public final class URL implements Serializable {
 
     /**
      * Fetch IP address for this URL.
-     *
+     * <p>
      * Pls. note that IP should be used instead of Host when to compare with socket's address or to search in a map
      * which use address as its key.
      *
@@ -364,7 +349,7 @@ public final class URL implements Serializable {
 
     private String appendDefaultPort(String address, int defaultPort) {
         if (address != null && address.length() > 0
-                && defaultPort > 0) {
+            && defaultPort > 0) {
             int i = address.indexOf(':');
             if (i < 0) {
                 return address + ":" + defaultPort;
@@ -910,7 +895,7 @@ public final class URL implements Serializable {
 
     public URL addParameter(String key, String value) {
         if (key == null || key.length() == 0
-                || value == null || value.length() == 0) {
+            || value == null || value.length() == 0) {
             return this;
         }
         // if value doesn't change, return immediately
@@ -925,7 +910,7 @@ public final class URL implements Serializable {
 
     public URL addParameterIfAbsent(String key, String value) {
         if (key == null || key.length() == 0
-                || value == null || value.length() == 0) {
+            || value == null || value.length() == 0) {
             return this;
         }
         if (hasParameter(key)) {
@@ -1070,11 +1055,13 @@ public final class URL implements Serializable {
         if (identity != null) {
             return identity;
         }
-        return identity = buildString(true, false); // only return identity message, see the method "equals" and "hashCode"
+        return identity = buildString(true,
+            false); // only return identity message, see the method "equals" and "hashCode"
     }
 
     public String toIdentityString(String... parameters) {
-        return buildString(true, false, parameters); // only return identity message, see the method "equals" and "hashCode"
+        return buildString(true, false,
+            parameters); // only return identity message, see the method "equals" and "hashCode"
     }
 
     public String toFullString() {
@@ -1107,7 +1094,7 @@ public final class URL implements Serializable {
             boolean first = true;
             for (Map.Entry<String, String> entry : new TreeMap<String, String>(getParameters()).entrySet()) {
                 if (entry.getKey() != null && entry.getKey().length() > 0
-                        && (includes == null || includes.contains(entry.getKey()))) {
+                    && (includes == null || includes.contains(entry.getKey()))) {
                     if (first) {
                         if (concat) {
                             buf.append("?");
@@ -1128,7 +1115,8 @@ public final class URL implements Serializable {
         return buildString(appendUser, appendParameter, false, false, parameters);
     }
 
-    private String buildString(boolean appendUser, boolean appendParameter, boolean useIP, boolean useService, String... parameters) {
+    private String buildString(boolean appendUser, boolean appendParameter, boolean useIP, boolean useService,
+                               String... parameters) {
         StringBuilder buf = new StringBuilder();
         if (protocol != null && protocol.length() > 0) {
             buf.append(protocol);
@@ -1207,7 +1195,6 @@ public final class URL implements Serializable {
         return buildString(true, false, true, true);
     }
 
-
     public String getServiceInterface() {
         return getParameter(Constants.INTERFACE_KEY, path);
     }
@@ -1215,7 +1202,6 @@ public final class URL implements Serializable {
     public URL setServiceInterface(String service) {
         return addParameter(Constants.INTERFACE_KEY, service);
     }
-
 
     @Override
     public int hashCode() {
@@ -1236,7 +1222,7 @@ public final class URL implements Serializable {
         if (this == obj) { return true; }
         if (obj == null) { return false; }
         if (getClass() != obj.getClass()) { return false; }
-        URL other = (URL) obj;
+        URL other = (URL)obj;
         if (host == null) {
             if (other.host != null) { return false; }
         } else if (!host.equals(other.host)) { return false; }

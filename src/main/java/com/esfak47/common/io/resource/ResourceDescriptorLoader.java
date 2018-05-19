@@ -15,13 +15,10 @@
  */
 package com.esfak47.common.io.resource;
 
-
 import com.esfak47.common.utils.ResourceUtils;
 
 /**
- * <p>
- * 资源描述加载接口
- * </p>
+ * <p> 资源描述加载接口 </p>
  *
  * @author tony on 2016/5/6.
  */
@@ -31,6 +28,7 @@ public interface ResourceDescriptorLoader {
 
     /**
      * 根据路径获得资源描述符
+     *
      * @param location
      * @return
      */
@@ -38,6 +36,7 @@ public interface ResourceDescriptorLoader {
 
     /**
      * 获得classloader
+     *
      * @return
      */
     ClassLoader getClassLoader();

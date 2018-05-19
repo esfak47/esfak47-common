@@ -3,7 +3,7 @@ package com.esfak47.common.extension;
 /**
  * Helper Class for hold a value.
  */
- class Holder<T> {
+class Holder<T> {
 
     private volatile T value;
 

@@ -16,7 +16,6 @@
  */
 package com.esfak47.common.compiler.support;
 
-
 import com.esfak47.common.utils.ClassHelper;
 import javassist.*;
 

@@ -16,7 +16,6 @@
  */
 package com.esfak47.common.logger;
 
-
 import com.esfak47.common.logger.jdk.JdkLoggerAdapter;
 import com.esfak47.common.logger.log4j.Log4jLoggerAdapter;
 import com.esfak47.common.logger.slf4j.Slf4jLoggerAdapter;
@@ -29,18 +28,18 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  * Logger factory
+ *
  * @author tonywang
  */
 public class LoggerFactory {
 
-    private static final ConcurrentMap<String, FailsafeLogger> LOGGERS = new ConcurrentHashMap<String, FailsafeLogger>();
-    private static volatile LoggerAdapter LOGGER_ADAPTER;
-
+    public static final String JDK = "jdk";
+    private static final ConcurrentMap<String, FailsafeLogger> LOGGERS
+        = new ConcurrentHashMap<String, FailsafeLogger>();
     private static final String SLF4J = "slf4j";
 
     private static final String LOG4J = "log4j";
-
-    public static final String JDK = "jdk";
+    private static volatile LoggerAdapter LOGGER_ADAPTER;
 
     // search common-used logging frameworks
     static {
@@ -68,11 +67,11 @@ public class LoggerFactory {
     private LoggerFactory() {
     }
 
-//    public static void setLoggerAdapter(String loggerAdapter) {
-//        if (loggerAdapter != null && loggerAdapter.length() > 0) {
-//            setLoggerAdapter(ExtensionLoader.getExtensionLoader(LoggerAdapter.class).getExtension(loggerAdapter));
-//        }
-//    }
+    //    public static void setLoggerAdapter(String loggerAdapter) {
+    //        if (loggerAdapter != null && loggerAdapter.length() > 0) {
+    //            setLoggerAdapter(ExtensionLoader.getExtensionLoader(LoggerAdapter.class).getExtension(loggerAdapter));
+    //        }
+    //    }
 
     /**
      * Set logger provider

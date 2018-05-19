@@ -590,7 +590,7 @@ public class ExtensionLoader<T> {
                             name = field.getAnnotation(Named.class).value();
                         }
                         Object extension = objectFactory.getExtension(field.getType(), name);
-                        ReflectionUtils.setField(instance.getClass(), field.getName(),instance,extension);
+                        ReflectionUtils.setField(instance.getClass(), field.getName(), instance, extension);
                     }
                 }
             }

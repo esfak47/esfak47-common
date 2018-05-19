@@ -15,7 +15,6 @@
  */
 package com.esfak47.common.io.resource;
 
-
 import com.esfak47.common.io.FilenameUtils;
 import com.esfak47.common.utils.ClassLoaderUtils;
 import com.esfak47.common.utils.StringUtils;
@@ -32,7 +31,6 @@ import java.net.URL;
  */
 public class ClassPathResourceDescriptor extends AbstractResourceDescriptor {
 
-
     private final String path;
 
     private ClassLoader classLoader;
@@ -40,7 +38,7 @@ public class ClassPathResourceDescriptor extends AbstractResourceDescriptor {
     private Class<?> clazz;
 
     public ClassPathResourceDescriptor(String path) {
-        this(path, (ClassLoader) null);
+        this(path, (ClassLoader)null);
     }
 
     public ClassPathResourceDescriptor(String path, ClassLoader classLoader) {
@@ -136,10 +134,8 @@ public class ClassPathResourceDescriptor extends AbstractResourceDescriptor {
     }
 
     /**
-     * Return a description for this resource,
-     * to be used for error output when working with the resource.
-     * <p>Implementations are also encouraged to return this value
-     * from their {@code toString} method.
+     * Return a description for this resource, to be used for error output when working with the resource.
+     * <p>Implementations are also encouraged to return this value from their {@code toString} method.
      *
      * @see Object#toString()
      */

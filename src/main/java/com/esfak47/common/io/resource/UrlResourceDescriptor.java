@@ -15,7 +15,6 @@
  */
 package com.esfak47.common.io.resource;
 
-
 import com.esfak47.common.lang.Assert;
 
 import java.io.IOException;
@@ -26,9 +25,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * <p>
- * URL资源加载
- * </p>
+ * <p> URL资源加载 </p>
  *
  * @author tony on 2016/5/6.
  */
@@ -57,7 +54,7 @@ public class UrlResourceDescriptor extends AbstractResourceDescriptor {
             return con.getInputStream();
         } catch (IOException e) {
             if (con instanceof HttpURLConnection) {
-                ((HttpURLConnection) con).disconnect();
+                ((HttpURLConnection)con).disconnect();
             }
         }
         return null;
@@ -74,10 +71,8 @@ public class UrlResourceDescriptor extends AbstractResourceDescriptor {
     }
 
     /**
-     * Return a description for this resource,
-     * to be used for error output when working with the resource.
-     * <p>Implementations are also encouraged to return this value
-     * from their {@code toString} method.
+     * Return a description for this resource, to be used for error output when working with the resource.
+     * <p>Implementations are also encouraged to return this value from their {@code toString} method.
      *
      * @see Object#toString()
      */

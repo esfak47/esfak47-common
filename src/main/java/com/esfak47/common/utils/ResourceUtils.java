@@ -15,7 +15,6 @@
  */
 package com.esfak47.common.utils;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,13 +30,10 @@ import java.net.URL;
  * @author tony on 2016/4/11.
  */
 public class ResourceUtils {
-    private static Logger logger = LoggerFactory.getLogger(ResourceUtils.class);
-
     public static final String CLASSPATH_URL_PREFIX = "classpath:";
-
     public static final String FILE_URL_PREFIX = "file:";
-
     public static final String JAR_URL_PREFIX = "jar:";
+    private static Logger logger = LoggerFactory.getLogger(ResourceUtils.class);
 
     public static File getFile(String resourceLocation) {
         if (StringUtils.isEmpty(resourceLocation)) {
@@ -56,7 +52,8 @@ public class ResourceUtils {
                 url = ClassLoader.getSystemResource(realPath);
             }
             if (url == null) {
-                logger.error("class path resource [" + realPath + "] cannot be resolved to absolute file path because it does not exist/");
+                logger.error("class path resource [" + realPath
+                    + "] cannot be resolved to absolute file path because it does not exist/");
                 return null;
             }
             return getFile(url);

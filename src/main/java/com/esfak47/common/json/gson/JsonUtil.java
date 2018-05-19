@@ -15,8 +15,8 @@
  */
 package com.esfak47.common.json.gson;
 
-import com.esfak47.common.json.AbstractTypeRef;
 import com.esfak47.common.io.ArrayUtils;
+import com.esfak47.common.json.AbstractTypeRef;
 import com.esfak47.common.utils.StringUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -27,15 +27,12 @@ import java.lang.reflect.Type;
 import java.util.Map;
 
 /**
- * <p>
- * {@code JsonUtil}工具类是基于<a href="https://github.com/google/gson">Google Gson</a>简单封装，提供了Java对象和Json字符串的相互转换。
- * </p>
+ * <p> {@code JsonUtil}工具类是基于<a href="https://github.com/google/gson">Google Gson</a>简单封装，提供了Java对象和Json字符串的相互转换。 </p>
  *
  * @author tony on 2016-04-14
  * @see Gson
  */
 public final class JsonUtil {
-
 
     private static Gson gson;
 
@@ -46,6 +43,7 @@ public final class JsonUtil {
     private JsonUtil() {
         throw new UnsupportedOperationException();
     }
+
     /**
      * 将对象转为Json字符串,中文自动转为Unicode码
      *
@@ -58,7 +56,7 @@ public final class JsonUtil {
             return null;
         }
         if (value instanceof String) {
-            return (String) value;
+            return (String)value;
         }
         UnicodeStringWriter writer = new UnicodeStringWriter();
         gson.toJson(value, writer);
@@ -79,19 +77,16 @@ public final class JsonUtil {
         }
         UnicodeStringWriter writer = new UnicodeStringWriter();
         new GsonBuilder()
-                .excludeFieldsWithModifiers(Modifier.STATIC)
-                .excludeFieldsWithModifiers(Modifier.TRANSIENT)
-                .addSerializationExclusionStrategy(new PropertyNameExclusionStrategy(ignorePropertyNames))
-                .create()
-                .toJson(value, writer);
+            .excludeFieldsWithModifiers(Modifier.STATIC)
+            .excludeFieldsWithModifiers(Modifier.TRANSIENT)
+            .addSerializationExclusionStrategy(new PropertyNameExclusionStrategy(ignorePropertyNames))
+            .create()
+            .toJson(value, writer);
         return writer.toString();
     }
 
     /**
-     * 将对象转为Json字符串
-     * <p>
-     * 将Javabean对象转为JSON字符串时希望非ASCII码(如中文)不Unicode转码，则可以调用该方法完成需求
-     * </p>
+     * 将对象转为Json字符串 <p> 将Javabean对象转为JSON字符串时希望非ASCII码(如中文)不Unicode转码，则可以调用该方法完成需求 </p>
      *
      * @param value               对象
      * @param toUnicode           如果为{@code true}则中文等非ASCII码自动转为Unicode码
@@ -107,17 +102,14 @@ public final class JsonUtil {
             return gson.toJson(value);
         }
         return new GsonBuilder()
-                .excludeFieldsWithModifiers(Modifier.STATIC)
-                .excludeFieldsWithModifiers(Modifier.TRANSIENT)
-                .addSerializationExclusionStrategy(new PropertyNameExclusionStrategy(ignorePropertyNames))
-                .create().toJson(value);
+            .excludeFieldsWithModifiers(Modifier.STATIC)
+            .excludeFieldsWithModifiers(Modifier.TRANSIENT)
+            .addSerializationExclusionStrategy(new PropertyNameExclusionStrategy(ignorePropertyNames))
+            .create().toJson(value);
     }
 
     /**
-     * 将对象转为Json字符串
-     * <p>
-     * 该方法除了更够控制是否转换Unicode之外，还可以支持值为{@code null}的属性名是否包含在JSON字符串中
-     * </p>
+     * 将对象转为Json字符串 <p> 该方法除了更够控制是否转换Unicode之外，还可以支持值为{@code null}的属性名是否包含在JSON字符串中 </p>
      *
      * @param value               待转换的对象
      * @param toUnicode           如果为{@code true}则中文等非ASCII码自动转为Unicode码
@@ -126,16 +118,17 @@ public final class JsonUtil {
      * @param <T>                 泛型类型
      * @return 返回json字符串
      */
-    public static <T> String toJson(T value, boolean toUnicode, boolean ignoreNull, final String... ignorePropertyNames) {
+    public static <T> String toJson(T value, boolean toUnicode, boolean ignoreNull,
+                                    final String... ignorePropertyNames) {
         if (ignoreNull) {
             return toJson(value, toUnicode, ignorePropertyNames);
         }
         return new GsonBuilder()
-                .serializeNulls()
-                .excludeFieldsWithModifiers(Modifier.STATIC)
-                .excludeFieldsWithModifiers(Modifier.TRANSIENT)
-                .addSerializationExclusionStrategy(new PropertyNameExclusionStrategy(ignorePropertyNames))
-                .create().toJson(value);
+            .serializeNulls()
+            .excludeFieldsWithModifiers(Modifier.STATIC)
+            .excludeFieldsWithModifiers(Modifier.TRANSIENT)
+            .addSerializationExclusionStrategy(new PropertyNameExclusionStrategy(ignorePropertyNames))
+            .create().toJson(value);
     }
 
     //---------------------------------------------------------------------

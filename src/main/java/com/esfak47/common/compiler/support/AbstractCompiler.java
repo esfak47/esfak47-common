@@ -60,7 +60,9 @@ public abstract class AbstractCompiler implements Compiler {
             } catch (RuntimeException t) {
                 throw t;
             } catch (Throwable t) {
-                throw new IllegalStateException("Failed to compile class, cause: " + t.getMessage() + ", class: " + className + ", code: \n" + code + "\n, stack: " + ClassUtils.toString(t));
+                throw new IllegalStateException(
+                    "Failed to compile class, cause: " + t.getMessage() + ", class: " + className + ", code: \n" + code
+                        + "\n, stack: " + ClassUtils.toString(t));
             }
         }
     }

@@ -16,7 +16,6 @@
  */
 package com.esfak47.common.logger.jdk;
 
-
 import com.esfak47.common.logger.Logger;
 
 import java.util.logging.Level;

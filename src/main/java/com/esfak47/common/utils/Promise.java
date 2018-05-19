@@ -2,7 +2,10 @@ package com.esfak47.common.utils;
 
 import com.esfak47.common.lang.Assert;
 
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -35,7 +38,8 @@ public class Promise<T> {
         promise.executor = executor;
         executor.execute(() -> {
             promiseInterface.go(t -> completableFuture.complete(t),
-                u -> completableFuture.completeExceptionally(u instanceof CompletionException?u:new CompletionException(u)));
+                u -> completableFuture
+                    .completeExceptionally(u instanceof CompletionException ? u : new CompletionException(u)));
         });
 
         return promise;
@@ -79,7 +83,6 @@ public class Promise<T> {
         this.errorConsumer = this.errorConsumer.andThen(throwableConsumer);
         return this;
     }
-
 
     private static final class PromiseExecutorHolder {
         private static Executor executor = Executors.newFixedThreadPool(100);

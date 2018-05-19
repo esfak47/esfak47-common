@@ -18,6 +18,7 @@ package com.esfak47.common.logger;
 
 /**
  * Level
+ *
  * @author tonywang
  */
 public enum Level {

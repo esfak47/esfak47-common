@@ -16,7 +16,6 @@
  */
 package com.esfak47.common.logger.jdk;
 
-
 import com.esfak47.common.logger.Level;
 import com.esfak47.common.logger.Logger;
 import com.esfak47.common.logger.LoggerAdapter;
@@ -46,15 +45,16 @@ public class JdkLoggerAdapter implements LoggerAdapter {
                 System.err.println("No such logging.properties in classpath for jdk logging config!");
             }
         } catch (Throwable t) {
-            System.err.println("Failed to load logging.properties in classpath for jdk logging config, cause: " + t.getMessage());
+            System.err.println(
+                "Failed to load logging.properties in classpath for jdk logging config, cause: " + t.getMessage());
         }
         try {
             Handler[] handlers = java.util.logging.Logger.getLogger(GLOBAL_LOGGER_NAME).getHandlers();
             for (Handler handler : handlers) {
                 if (handler instanceof FileHandler) {
-                    FileHandler fileHandler = (FileHandler) handler;
+                    FileHandler fileHandler = (FileHandler)handler;
                     Field field = fileHandler.getClass().getField("files");
-                    File[] files = (File[]) field.get(fileHandler);
+                    File[] files = (File[])field.get(fileHandler);
                     if (files != null && files.length > 0) {
                         file = files[0];
                     }

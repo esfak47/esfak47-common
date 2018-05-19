@@ -15,10 +15,8 @@
  */
 package com.esfak47.common.io.resource;
 
-
-
-import com.esfak47.common.utils.ClassLoaderUtils;
 import com.esfak47.common.lang.Assert;
+import com.esfak47.common.utils.ClassLoaderUtils;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -37,10 +35,6 @@ public class DefaultResourceDescriptorLoader implements ResourceDescriptorLoader
     }
 
     public DefaultResourceDescriptorLoader(ClassLoader classLoader) {
-        this.classLoader = classLoader;
-    }
-
-    public void setClassLoader(ClassLoader classLoader) {
         this.classLoader = classLoader;
     }
 
@@ -63,5 +57,9 @@ public class DefaultResourceDescriptorLoader implements ResourceDescriptorLoader
     @Override
     public ClassLoader getClassLoader() {
         return (this.classLoader != null ? this.classLoader : ClassLoaderUtils.getDefaultClassLoader());
+    }
+
+    public void setClassLoader(ClassLoader classLoader) {
+        this.classLoader = classLoader;
     }
 }

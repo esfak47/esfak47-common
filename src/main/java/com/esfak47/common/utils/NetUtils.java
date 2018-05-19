@@ -16,8 +16,6 @@
  */
 package com.esfak47.common.utils;
 
-
-
 import com.esfak47.common.extension.URL;
 import com.esfak47.common.logger.Logger;
 import com.esfak47.common.logger.LoggerFactory;
@@ -105,8 +103,8 @@ public class NetUtils {
 
     public static boolean isLocalHost(String host) {
         return host != null
-                && (LOCAL_IP_PATTERN.matcher(host).matches()
-                || host.equalsIgnoreCase("localhost"));
+            && (LOCAL_IP_PATTERN.matcher(host).matches()
+            || host.equalsIgnoreCase("localhost"));
     }
 
     public static boolean isAnyHost(String host) {
@@ -115,10 +113,10 @@ public class NetUtils {
 
     public static boolean isInvalidLocalHost(String host) {
         return host == null
-                || host.length() == 0
-                || host.equalsIgnoreCase("localhost")
-                || host.equals("0.0.0.0")
-                || (LOCAL_IP_PATTERN.matcher(host).matches());
+            || host.length() == 0
+            || host.equalsIgnoreCase("localhost")
+            || host.equals("0.0.0.0")
+            || (LOCAL_IP_PATTERN.matcher(host).matches());
     }
 
     public static boolean isValidLocalHost(String host) {
@@ -127,16 +125,16 @@ public class NetUtils {
 
     public static InetSocketAddress getLocalSocketAddress(String host, int port) {
         return isInvalidLocalHost(host) ?
-                new InetSocketAddress(port) : new InetSocketAddress(host, port);
+            new InetSocketAddress(port) : new InetSocketAddress(host, port);
     }
 
     private static boolean isValidAddress(InetAddress address) {
         if (address == null || address.isLoopbackAddress()) {return false;}
         String name = address.getHostAddress();
         return (name != null
-                && !ANYHOST.equals(name)
-                && !LOCALHOST.equals(name)
-                && IP_PATTERN.matcher(name).matches());
+            && !ANYHOST.equals(name)
+            && !LOCALHOST.equals(name)
+            && IP_PATTERN.matcher(name).matches());
     }
 
     public static String getLocalHost() {

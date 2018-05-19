@@ -49,7 +49,8 @@ object ValidationUtils {
      * @param mobile 手机号
      * @return 验证成功则返回{@code true},否则返回`false`
      */
-    @JvmStatic fun isMobile(mobile: String): Boolean {
+    @JvmStatic
+    fun isMobile(mobile: String): Boolean {
         return isMatchRegex(MOBILE, mobile)
     }
 
@@ -59,7 +60,8 @@ object ValidationUtils {
      * @param mobile 手机号
      * @return 验证成功则返回{@code true},否则返回`false`
      */
-    @JvmStatic fun isStrictMobile(mobile: String): Boolean {
+    @JvmStatic
+    fun isStrictMobile(mobile: String): Boolean {
         return isMatchRegex(STRICT_MOBILE, mobile)
     }
 
@@ -69,11 +71,13 @@ object ValidationUtils {
      * @param ip ip
      * @return 验证成功则返回{@code true},否则返回`false`
      */
-    @JvmStatic fun isIPv4(ip: String): Boolean {
+    @JvmStatic
+    fun isIPv4(ip: String): Boolean {
         return isMatchRegex(IPV4_REGEX, ip)
     }
 
-    @JvmStatic fun isIPv6(ip: String): Boolean {
+    @JvmStatic
+    fun isIPv6(ip: String): Boolean {
         return isMatchRegex(IPV6_REGEX, ip)
     }
 

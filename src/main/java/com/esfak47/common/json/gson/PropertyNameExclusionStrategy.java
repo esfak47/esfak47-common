@@ -20,9 +20,7 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 
 /**
- * <p>
- * 属性过滤性
- * </p>
+ * <p> 属性过滤性 </p>
  *
  * @author tony on 2016/7/6.
  */
@@ -40,7 +38,8 @@ class PropertyNameExclusionStrategy implements ExclusionStrategy {
      */
     @Override
     public boolean shouldSkipField(FieldAttributes fieldAttributes) {
-        return this.ignorePropertyNames != null && ArrayUtils.containsElement(ignorePropertyNames, fieldAttributes.getName());
+        return this.ignorePropertyNames != null && ArrayUtils.containsElement(ignorePropertyNames,
+            fieldAttributes.getName());
     }
 
     /**

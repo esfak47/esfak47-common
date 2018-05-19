@@ -16,7 +16,7 @@
 
 package com.esfak47.common.utils
 
-import java.util.HashMap
+import java.util.*
 
 
 /**
@@ -31,11 +31,13 @@ object CollectionUtils {
      * @param collection 集合
      * @return 如果集合为{@code null}或为空是则返回`true`，否则返回`false`
      */
-    @JvmStatic fun isEmpty(collection: Collection<*>?): Boolean {
+    @JvmStatic
+    fun isEmpty(collection: Collection<*>?): Boolean {
         return collection == null || collection.isEmpty()
     }
 
-    @JvmStatic fun toStringMap(vararg pairs: String): Map<String, String> {
+    @JvmStatic
+    fun toStringMap(vararg pairs: String): Map<String, String> {
         val parameters = HashMap<String, String>()
         if (pairs.size > 0) {
             if (pairs.size % 2 != 0) {
@@ -49,6 +51,7 @@ object CollectionUtils {
         }
         return parameters
     }
+
     /**
      * 判断map是否为空
      * <pre class="code">CollectionUtils.isEmpty(hashmap);</pre>
@@ -56,7 +59,8 @@ object CollectionUtils {
      * @param map map集合
      * @return 如果map为{@code null}或为空是则返回`true`，否则返回`false`
      */
-    @JvmStatic fun isEmpty(map: Map<*, *>?): Boolean {
+    @JvmStatic
+    fun isEmpty(map: Map<*, *>?): Boolean {
         return map == null || map.isEmpty()
     }
 

@@ -16,8 +16,6 @@
 package com.esfak47.common.utils;
 
 import com.esfak47.common.lang.Assert;
-import com.esfak47.common.lang.Inject;
-import com.esfak47.common.lang.Named;
 
 import java.lang.reflect.*;
 import java.util.IdentityHashMap;
@@ -78,8 +76,6 @@ public final class ClassUtils {
             return resolvedWrapper != null && sourceType.isAssignableFrom(resolvedWrapper);
         }
     }
-
-
 
     /**
      * 返回类的原始类型

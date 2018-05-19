@@ -16,8 +16,6 @@
  */
 package com.esfak47.common.compiler.support;
 
-
-
 import com.esfak47.common.utils.ClassHelper;
 
 import javax.tools.*;
@@ -54,9 +52,9 @@ public class JdkCompiler extends AbstractCompiler {
         StandardJavaFileManager manager = compiler.getStandardFileManager(diagnosticCollector, null, null);
         final ClassLoader loader = Thread.currentThread().getContextClassLoader();
         if (loader instanceof URLClassLoader
-                && (!loader.getClass().getName().equals("sun.misc.Launcher$AppClassLoader"))) {
+            && (!loader.getClass().getName().equals("sun.misc.Launcher$AppClassLoader"))) {
             try {
-                URLClassLoader urlClassLoader = (URLClassLoader) loader;
+                URLClassLoader urlClassLoader = (URLClassLoader)loader;
                 List<File> files = new ArrayList<File>();
                 for (URL url : urlClassLoader.getURLs()) {
                     files.add(new File(url.getFile()));
@@ -82,11 +80,12 @@ public class JdkCompiler extends AbstractCompiler {
         String className = i < 0 ? name : name.substring(i + 1);
         JavaFileObjectImpl javaFileObject = new JavaFileObjectImpl(className, sourceCode);
         javaFileManager.putFileForInput(StandardLocation.SOURCE_PATH, packageName,
-                className + ClassUtils.JAVA_EXTENSION, javaFileObject);
+            className + ClassUtils.JAVA_EXTENSION, javaFileObject);
         Boolean result = compiler.getTask(null, javaFileManager, diagnosticCollector, options,
-                null, Arrays.asList(javaFileObject)).call();
+            null, Arrays.asList(javaFileObject)).call();
         if (result == null || !result) {
-            throw new IllegalStateException("Compilation failed. class: " + name + ", diagnostics: " + diagnosticCollector);
+            throw new IllegalStateException(
+                "Compilation failed. class: " + name + ", diagnostics: " + diagnosticCollector);
         }
         return classLoader.loadClass(name);
     }
@@ -146,13 +145,15 @@ public class JdkCompiler extends AbstractCompiler {
         }
 
         @Override
-        public FileObject getFileForInput(Location location, String packageName, String relativeName) throws IOException {
+        public FileObject getFileForInput(Location location, String packageName, String relativeName)
+            throws IOException {
             FileObject o = fileObjects.get(uri(location, packageName, relativeName));
             if (o != null) {return o;}
             return super.getFileForInput(location, packageName, relativeName);
         }
 
-        public void putFileForInput(StandardLocation location, String packageName, String relativeName, JavaFileObject file) {
+        public void putFileForInput(StandardLocation location, String packageName, String relativeName,
+                                    JavaFileObject file) {
             fileObjects.put(uri(location, packageName, relativeName), file);
         }
 
@@ -161,8 +162,9 @@ public class JdkCompiler extends AbstractCompiler {
         }
 
         @Override
-        public JavaFileObject getJavaFileForOutput(Location location, String qualifiedName, Kind kind, FileObject outputFile)
-                throws IOException {
+        public JavaFileObject getJavaFileForOutput(Location location, String qualifiedName, Kind kind,
+                                                   FileObject outputFile)
+            throws IOException {
             JavaFileObject file = new JavaFileObjectImpl(qualifiedName, kind);
             classLoader.add(qualifiedName, file);
             return file;
@@ -181,7 +183,7 @@ public class JdkCompiler extends AbstractCompiler {
 
         @Override
         public Iterable<JavaFileObject> list(Location location, String packageName, Set<Kind> kinds, boolean recurse)
-                throws IOException {
+            throws IOException {
             Iterable<JavaFileObject> result = super.list(location, packageName, kinds, recurse);
 
             ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
@@ -233,7 +235,7 @@ public class JdkCompiler extends AbstractCompiler {
         protected Class<?> findClass(final String qualifiedClassName) throws ClassNotFoundException {
             JavaFileObject file = classes.get(qualifiedClassName);
             if (file != null) {
-                byte[] bytes = ((JavaFileObjectImpl) file).getByteCode();
+                byte[] bytes = ((JavaFileObjectImpl)file).getByteCode();
                 return defineClass(qualifiedClassName, bytes, 0, bytes.length);
             }
             try {
@@ -248,15 +250,17 @@ public class JdkCompiler extends AbstractCompiler {
         }
 
         @Override
-        protected synchronized Class<?> loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
+        protected synchronized Class<?> loadClass(final String name, final boolean resolve)
+            throws ClassNotFoundException {
             return super.loadClass(name, resolve);
         }
 
         @Override
         public InputStream getResourceAsStream(final String name) {
             if (name.endsWith(ClassUtils.CLASS_EXTENSION)) {
-                String qualifiedClassName = name.substring(0, name.length() - ClassUtils.CLASS_EXTENSION.length()).replace('/', '.');
-                JavaFileObjectImpl file = (JavaFileObjectImpl) classes.get(qualifiedClassName);
+                String qualifiedClassName = name.substring(0, name.length() - ClassUtils.CLASS_EXTENSION.length())
+                    .replace('/', '.');
+                JavaFileObjectImpl file = (JavaFileObjectImpl)classes.get(qualifiedClassName);
                 if (file != null) {
                     return new ByteArrayInputStream(file.getByteCode());
                 }
@@ -264,6 +268,5 @@ public class JdkCompiler extends AbstractCompiler {
             return super.getResourceAsStream(name);
         }
     }
-
 
 }

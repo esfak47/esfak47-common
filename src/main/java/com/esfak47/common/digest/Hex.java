@@ -15,8 +15,6 @@
  */
 package com.esfak47.common.digest;
 
-
-
 import com.esfak47.common.exception.DecodeException;
 import com.esfak47.common.lang.Assert;
 
@@ -30,20 +28,20 @@ import java.nio.charset.StandardCharsets;
  */
 public class Hex {
 
+    /**
+     * Used to build output as Hex
+     */
+    private static final char[] DIGITS_LOWER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd',
+        'e', 'f'};
+    /**
+     * Used to build output as Hex
+     */
+    private static final char[] DIGITS_UPPER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D',
+        'E', 'F'};
+
     private Hex() {
         throw new UnsupportedOperationException();
     }
-
-    /**
-     * Used to build output as Hex
-     */
-    private static final char[] DIGITS_LOWER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-
-    /**
-     * Used to build output as Hex
-     */
-    private static final char[] DIGITS_UPPER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-
 
     /**
      * 将字节数组转为16进制字符串
@@ -158,7 +156,7 @@ public class Hex {
             j++;
             temp = temp | toDigit(data[j], j);
             j++;
-            out[i] = (byte) (temp & 0XFF);
+            out[i] = (byte)(temp & 0XFF);
         }
         return out;
     }

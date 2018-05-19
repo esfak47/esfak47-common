@@ -16,7 +16,6 @@
  */
 package com.esfak47.common.utils;
 
-
 import com.esfak47.common.extension.Constants;
 import com.esfak47.common.extension.ExtensionLoader;
 import com.esfak47.common.logger.Logger;
@@ -34,7 +33,7 @@ public class ConfigUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(ConfigUtils.class);
     private static Pattern VARIABLE_PATTERN = Pattern.compile(
-            "\\$\\s*\\{?\\s*([\\._0-9a-zA-Z]+)\\s*\\}?");
+        "\\$\\s*\\{?\\s*([\\._0-9a-zA-Z]+)\\s*\\}?");
     private static volatile Properties PROPERTIES;
     private static int PID = -1;
 
@@ -47,24 +46,23 @@ public class ConfigUtils {
 
     public static boolean isEmpty(String value) {
         return value == null || value.length() == 0
-                || "false".equalsIgnoreCase(value)
-                || "0".equalsIgnoreCase(value)
-                || "null".equalsIgnoreCase(value)
-                || "N/A".equalsIgnoreCase(value);
+            || "false".equalsIgnoreCase(value)
+            || "0".equalsIgnoreCase(value)
+            || "null".equalsIgnoreCase(value)
+            || "N/A".equalsIgnoreCase(value);
     }
 
     public static boolean isDefault(String value) {
         return "true".equalsIgnoreCase(value)
-                || "default".equalsIgnoreCase(value);
+            || "default".equalsIgnoreCase(value);
     }
 
     /**
      * Insert default extension into extension list.
      * <p>
-     * Extension list support<ul>
-     * <li>Special value <code><strong>default</strong></code>, means the location for default extensions.
-     * <li>Special symbol<code><strong>-</strong></code>, means remove. <code>-foo1</code> will remove default extension 'foo'; <code>-default</code> will remove all default extensions.
-     * </ul>
+     * Extension list support<ul> <li>Special value <code><strong>default</strong></code>, means the location for
+     * default extensions. <li>Special symbol<code><strong>-</strong></code>, means remove. <code>-foo1</code> will
+     * remove default extension 'foo'; <code>-default</code> will remove all default extensions. </ul>
      *
      * @param type Extension type
      * @param cfg  Extension name list
@@ -84,7 +82,8 @@ public class ConfigUtils {
         List<String> names = new ArrayList<String>();
 
         // add initial values
-        String[] configs = (cfg == null || cfg.trim().length() == 0) ? new String[0] : Constants.COMMA_SPLIT_PATTERN.split(cfg);
+        String[] configs = (cfg == null || cfg.trim().length() == 0) ? new String[0]
+            : Constants.COMMA_SPLIT_PATTERN.split(cfg);
         for (String config : configs) {
             if (config != null && config.trim().length() > 0) {
                 names.add(config);
@@ -177,7 +176,7 @@ public class ConfigUtils {
             return value;
         }
         Properties properties = getProperties();
-        return replaceProperty(properties.getProperty(key, defaultValue), (Map) properties);
+        return replaceProperty(properties.getProperty(key, defaultValue), (Map)properties);
     }
 
     /**
@@ -205,13 +204,13 @@ public class ConfigUtils {
     /**
      * Load properties file to {@link Properties} from class path.
      *
-     * @param fileName       properties file name. for example: <code>dubbo.properties</code>, <code>METE-INF/conf/foo.properties</code>
-     * @param allowMultiFile if <code>false</code>, throw {@link IllegalStateException} when found multi file on the class path.
+     * @param fileName       properties file name. for example: <code>dubbo.properties</code>,
+     *                       <code>METE-INF/conf/foo.properties</code>
+     * @param allowMultiFile if <code>false</code>, throw {@link IllegalStateException} when found multi file on the
+     *                       class path.
      * @param optional       is optional. if <code>false</code>, log warn when properties config file not found!s
-     * @return loaded {@link Properties} content. <ul>
-     * <li>return empty Properties if no file found.
-     * <li>merge multi properties file if found multi file
-     * </ul>
+     * @return loaded {@link Properties} content. <ul> <li>return empty Properties if no file found. <li>merge multi
+     * properties file if found multi file </ul>
      * @throws IllegalStateException not allow multi-file, but multi-file exsit on class path.
      */
     public static Properties loadProperties(String fileName, boolean allowMultiFile, boolean optional) {
@@ -225,7 +224,9 @@ public class ConfigUtils {
                     input.close();
                 }
             } catch (Throwable e) {
-                logger.warn("Failed to load " + fileName + " file from " + fileName + "(ingore this file): " + e.getMessage(), e);
+                logger.warn(
+                    "Failed to load " + fileName + " file from " + fileName + "(ingore this file): " + e.getMessage(),
+                    e);
             }
             return properties;
         }
@@ -250,8 +251,9 @@ public class ConfigUtils {
 
         if (!allowMultiFile) {
             if (list.size() > 1) {
-                String errMsg = String.format("only 1 %s file is expected, but %d dubbo.properties files found on class path: %s",
-                        fileName, list.size(), list.toString());
+                String errMsg = String.format(
+                    "only 1 %s file is expected, but %d dubbo.properties files found on class path: %s",
+                    fileName, list.size(), list.toString());
                 logger.warn(errMsg);
                 // throw new IllegalStateException(errMsg); // see http://code.alibabatech.com/jira/browse/DUBBO-133
             }
@@ -260,7 +262,9 @@ public class ConfigUtils {
             try {
                 properties.load(ClassHelper.getClassLoader().getResourceAsStream(fileName));
             } catch (Throwable e) {
-                logger.warn("Failed to load " + fileName + " file from " + fileName + "(ingore this file): " + e.getMessage(), e);
+                logger.warn(
+                    "Failed to load " + fileName + " file from " + fileName + "(ingore this file): " + e.getMessage(),
+                    e);
             }
             return properties;
         }
@@ -283,7 +287,8 @@ public class ConfigUtils {
                     }
                 }
             } catch (Throwable e) {
-                logger.warn("Fail to load " + fileName + " file from " + url + "(ingore this file): " + e.getMessage(), e);
+                logger.warn("Fail to load " + fileName + " file from " + url + "(ingore this file): " + e.getMessage(),
+                    e);
             }
         }
 

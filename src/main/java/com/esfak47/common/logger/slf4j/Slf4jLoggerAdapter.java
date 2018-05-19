@@ -16,7 +16,6 @@
  */
 package com.esfak47.common.logger.slf4j;
 
-
 import com.esfak47.common.logger.Level;
 import com.esfak47.common.logger.Logger;
 import com.esfak47.common.logger.LoggerAdapter;

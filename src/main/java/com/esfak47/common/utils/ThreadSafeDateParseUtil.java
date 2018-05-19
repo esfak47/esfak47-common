@@ -32,13 +32,10 @@ import java.util.Map;
  */
 final class ThreadSafeDateParseUtil {
 
-    private ThreadSafeDateParseUtil(){}
-
     private static final Logger logger = LoggerFactory.getLogger(ThreadSafeDateParseUtil.class);
-
-
     private static final ThreadLocal<Map<String, DateFormat>> PARSERS = ThreadLocal.withInitial(HashMap::new);
 
+    private ThreadSafeDateParseUtil() {}
 
     /**
      * 得到日期格式化类
@@ -50,7 +47,8 @@ final class ThreadSafeDateParseUtil {
         Map<String, DateFormat> parserMap = PARSERS.get();
 
         return parserMap.computeIfAbsent(pattern, s -> {
-            logger.debug("Date Format Pattern {} was not found in the current thread:{}", pattern, Thread.currentThread().getId());
+            logger.debug("Date Format Pattern {} was not found in the current thread:{}", pattern,
+                Thread.currentThread().getId());
             return new SimpleDateFormat(pattern);
 
         });

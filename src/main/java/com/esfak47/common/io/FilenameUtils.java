@@ -15,7 +15,6 @@
  */
 package com.esfak47.common.io;
 
-
 import com.esfak47.common.utils.StringUtils;
 
 import java.io.File;
@@ -47,10 +46,8 @@ public final class FilenameUtils {
     }
 
     /**
-     * 从文件路径中提取文件名,不支持Windows系统下的路径
-     * <pre class="code">
-     * StringUtils.getFilename("/opt/app/config.properties"); //--- config.properties
-     * </pre>
+     * 从文件路径中提取文件名,不支持Windows系统下的路径 <pre class="code"> StringUtils.getFilename("/opt/app/config.properties"); //---
+     * config.properties </pre>
      *
      * @param path 文件路径
      * @return 返回文件名或者返回{@code null}如果为空时
@@ -67,10 +64,7 @@ public final class FilenameUtils {
     }
 
     /**
-     * 从文件路径中提取文件后缀名
-     * <pre class="code">
-     * StringUtils.getFileExt("/opt/app/config.properties"); //--- properties
-     * </pre>
+     * 从文件路径中提取文件后缀名 <pre class="code"> StringUtils.getFileExt("/opt/app/config.properties"); //--- properties </pre>
      *
      * @param path 文件路径
      * @return 返回文件后缀名或者返回{@code null}如果为空时
@@ -92,10 +86,7 @@ public final class FilenameUtils {
     }
 
     /**
-     * 从文件路径中提取文件后缀名
-     * <pre class="code">
-     * StringUtils.getFileExt("/opt/app/config.properties"); //--- properties
-     * </pre>
+     * 从文件路径中提取文件后缀名 <pre class="code"> StringUtils.getFileExt("/opt/app/config.properties"); //--- properties </pre>
      *
      * @param file 文件路径
      * @return 返回文件后缀名或者返回{@code null}如果为空时
@@ -108,10 +99,8 @@ public final class FilenameUtils {
     }
 
     /**
-     * 从文件路径中删除文件后缀名
-     * <pre class="code">
-     * StringUtils.stripFilenameSuffix("/opt/app/config.properties"); //--- /opt/app/config
-     * </pre>
+     * 从文件路径中删除文件后缀名 <pre class="code"> StringUtils.stripFilenameSuffix("/opt/app/config.properties"); //---
+     * /opt/app/config </pre>
      *
      * @param path 文件路径
      * @return 返回不带文件后缀名的文件路径
@@ -130,10 +119,7 @@ public final class FilenameUtils {
     }
 
     /**
-     * <p>
-     * 将相对路径{@code relativePath}转为相对于{@code path}路径下的文件路径
-     * </p>
-     * <pre class="code">
+     * <p> 将相对路径{@code relativePath}转为相对于{@code path}路径下的文件路径 </p> <pre class="code">
      * StringUtils.applyRelativePath("/opt/app/config.properties", "/xml/jdbc.xml"); //--- /opt/app/xml/jdbc.properties
      * StringUtils.applyRelativePath("/opt/app/config/", "/xml/jdbc.xml"); //--- /opt/app/config/xml/jdbc.properties
      * </pre>

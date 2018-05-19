@@ -16,7 +16,6 @@
  */
 package com.esfak47.common.extension.factory;
 
-
 import com.esfak47.common.extension.Adaptive;
 import com.esfak47.common.extension.ExtensionFactory;
 import com.esfak47.common.extension.ExtensionLoader;

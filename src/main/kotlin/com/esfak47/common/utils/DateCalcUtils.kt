@@ -33,7 +33,8 @@ object DateCalcUtils {
      * @param milliSecond 毫秒数
      * @return [Date]
      */
-    @JvmStatic fun addMilliSecond(date: Date, milliSecond: Int): Date {
+    @JvmStatic
+    fun addMilliSecond(date: Date, milliSecond: Int): Date {
         val calendar = Calendar.getInstance()
         calendar.time = date
         calendar.add(Calendar.MILLISECOND, milliSecond)
@@ -51,7 +52,8 @@ object DateCalcUtils {
      * @param seconds 秒，如果为正整数则添加，否则相减
      * @return [Date]
      */
-    @JvmStatic  fun addSecond(date: Date, seconds: Int): Date {
+    @JvmStatic
+    fun addSecond(date: Date, seconds: Int): Date {
         val cal = Calendar.getInstance()
         cal.time = date
         cal.add(Calendar.SECOND, seconds)
@@ -69,7 +71,8 @@ object DateCalcUtils {
      * @param minutes 分钟，如果为正整数则添加，否则相减
      * @return [Date]
      */
-    @JvmStatic  fun addMinute(date: Date, minutes: Int): Date {
+    @JvmStatic
+    fun addMinute(date: Date, minutes: Int): Date {
         val cal = Calendar.getInstance()
         cal.time = date
         cal.add(Calendar.MINUTE, minutes)
@@ -87,7 +90,8 @@ object DateCalcUtils {
      * @param hours 小时，如果为正整数则添加，否则相减
      * @return [Date]
      */
-    @JvmStatic fun addHour(date: Date, hours: Int): Date {
+    @JvmStatic
+    fun addHour(date: Date, hours: Int): Date {
         val cal = Calendar.getInstance()
         cal.time = date
         cal.add(Calendar.HOUR_OF_DAY, hours)
@@ -105,7 +109,8 @@ object DateCalcUtils {
      * @param day  天，如果为正整数则添加，否则相减
      * @return [Date]
      */
-    @JvmStatic fun addDate(date: Date, day: Int): Date {
+    @JvmStatic
+    fun addDate(date: Date, day: Int): Date {
         val calendar = Calendar.getInstance()
         calendar.time = date
         calendar.add(Calendar.DATE, day)
@@ -125,7 +130,8 @@ object DateCalcUtils {
      * @return [Date]
      */
     @JvmOverloads
-    @JvmStatic fun addMonth(date: Date, months: Int, escapeDays: Boolean = false): Date {
+    @JvmStatic
+    fun addMonth(date: Date, months: Int, escapeDays: Boolean = false): Date {
         val cal = Calendar.getInstance()
         cal.time = date
         if (escapeDays) {
@@ -150,7 +156,8 @@ object DateCalcUtils {
      * @param years 年，如果为正整数则添加，否则相减
      * @return [Date]
      */
-    @JvmStatic fun addYear(date: Date, years: Int): Date {
+    @JvmStatic
+    fun addYear(date: Date, years: Int): Date {
         val cal = Calendar.getInstance()
         cal.time = date
         cal.add(Calendar.YEAR, years)
@@ -166,7 +173,8 @@ object DateCalcUtils {
      * @param date 日期对象
      * @return 年份
      */
-    @JvmStatic fun getYear(date: Date): Int {
+    @JvmStatic
+    fun getYear(date: Date): Int {
         val calendar = Calendar.getInstance()
         calendar.time = date
         return calendar.get(1)
@@ -181,7 +189,8 @@ object DateCalcUtils {
      * @param date 日期对象
      * @return 月份
      */
-    @JvmStatic fun getMonth(date: Date): Int {
+    @JvmStatic
+    fun getMonth(date: Date): Int {
         val calendar = Calendar.getInstance()
         calendar.time = date
         return calendar.get(Calendar.MONTH) + 1
@@ -196,7 +205,8 @@ object DateCalcUtils {
      * @param date 日期对象
      * @return 天
      */
-    @JvmStatic fun getDay(date: Date): Int {
+    @JvmStatic
+    fun getDay(date: Date): Int {
         val calendar = Calendar.getInstance()
         calendar.time = date
         return calendar.get(Calendar.DAY_OF_MONTH)
@@ -211,7 +221,8 @@ object DateCalcUtils {
      * @param date 日期对象
      * @return 小时（24制）
      */
-    @JvmStatic fun get24Hour(date: Date): Int {
+    @JvmStatic
+    fun get24Hour(date: Date): Int {
         val calendar = Calendar.getInstance()
         calendar.time = date
         return calendar.get(Calendar.HOUR_OF_DAY)
@@ -226,7 +237,8 @@ object DateCalcUtils {
      * @param date 日期对象
      * @return 小时（12制）
      */
-    @JvmStatic fun get12Hour(date: Date): Int {
+    @JvmStatic
+    fun get12Hour(date: Date): Int {
         val calendar = Calendar.getInstance()
         calendar.time = date
         return calendar.get(Calendar.HOUR)
@@ -241,7 +253,8 @@ object DateCalcUtils {
      * @param date 日期对象
      * @return 分钟
      */
-    @JvmStatic fun getMinute(date: Date): Int {
+    @JvmStatic
+    fun getMinute(date: Date): Int {
         val calendar = Calendar.getInstance()
         calendar.time = date
         return calendar.get(Calendar.MINUTE)
@@ -256,7 +269,8 @@ object DateCalcUtils {
      * @param date 日期对象
      * @return 秒数
      */
-    @JvmStatic fun getSecond(date: Date): Int {
+    @JvmStatic
+    fun getSecond(date: Date): Int {
         val calendar = Calendar.getInstance()
         calendar.time = date
         return calendar.get(Calendar.SECOND)
@@ -271,7 +285,8 @@ object DateCalcUtils {
      * @param date 日期对象
      * @return 毫秒
      */
-    @JvmStatic fun getMillisecond(date: Date): Int {
+    @JvmStatic
+    fun getMillisecond(date: Date): Int {
         val calendar = Calendar.getInstance()
         calendar.time = date
         System.currentTimeMillis()
@@ -287,7 +302,8 @@ object DateCalcUtils {
      * @param date 日期对象
      * @return 毫秒数
      */
-    @JvmStatic fun getTimeMillis(date: Date): Long {
+    @JvmStatic
+    fun getTimeMillis(date: Date): Long {
         val calendar = Calendar.getInstance()
         calendar.time = date
         return calendar.timeInMillis
@@ -302,7 +318,8 @@ object DateCalcUtils {
      * @param date 日期对象
      * @return 是否为闰年
      */
-    @JvmStatic fun isLeapYear(date: Date): Boolean {
+    @JvmStatic
+    fun isLeapYear(date: Date): Boolean {
         val cal = Calendar.getInstance()
         cal.time = date
         val year = cal.get(Calendar.YEAR)
@@ -327,7 +344,8 @@ object DateCalcUtils {
      * @param date 日期
      * @return 每月第一天
      */
-    @JvmStatic fun getBeginDayInMonth(date: Date): Date {
+    @JvmStatic
+    fun getBeginDayInMonth(date: Date): Date {
         val calendar = Calendar.getInstance()
         calendar.time = date
         calendar.set(Calendar.DATE, 1)
@@ -343,7 +361,8 @@ object DateCalcUtils {
      * @param date 日期对象
      * @return 每月最后一天
      */
-    @JvmStatic fun getEndDayInMonth(date: Date): Date {
+    @JvmStatic
+    fun getEndDayInMonth(date: Date): Date {
         val cal = Calendar.getInstance()
         cal.time = date
         cal.set(Calendar.DATE, 1)
@@ -364,7 +383,8 @@ object DateCalcUtils {
      * @param end   日期对象
      * @return 天数
      */
-    @JvmStatic fun getDaysBetween(start: Date, end: Date): Int {
+    @JvmStatic
+    fun getDaysBetween(start: Date, end: Date): Int {
         var srcCalendar = Calendar.getInstance()
         srcCalendar.time = start
         srcCalendar.set(Calendar.HOUR_OF_DAY, 0)
@@ -399,7 +419,8 @@ object DateCalcUtils {
      * @param end   日期对象
      * @return 月份
      */
-    @JvmStatic fun getMonthsBetween(start: Date, end: Date): Int {
+    @JvmStatic
+    fun getMonthsBetween(start: Date, end: Date): Int {
         var srcCalendar = Calendar.getInstance()
         srcCalendar.time = start
 

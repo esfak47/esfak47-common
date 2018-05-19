@@ -80,13 +80,9 @@ public interface ResourceDescriptor {
      */
     InputStream getInputStream();
 
-
     /**
-     * Return a description for this resource,
-     * to be used for error output when working with the resource.
-     * <p>
-     * Implementations are also encouraged to return this value from their {@code toString} method.
-     * </p>
+     * Return a description for this resource, to be used for error output when working with the resource. <p>
+     * Implementations are also encouraged to return this value from their {@code toString} method. </p>
      *
      * @return 返回资源的描述信息
      * @see Object#toString()

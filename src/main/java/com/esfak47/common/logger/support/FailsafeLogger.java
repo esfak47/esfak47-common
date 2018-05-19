@@ -16,7 +16,6 @@
  */
 package com.esfak47.common.logger.support;
 
-
 import com.esfak47.common.logger.Logger;
 
 /**

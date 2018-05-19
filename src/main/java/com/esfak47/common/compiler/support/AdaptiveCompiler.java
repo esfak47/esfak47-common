@@ -16,9 +16,9 @@
  */
 package com.esfak47.common.compiler.support;
 
+import com.esfak47.common.compiler.Compiler;
 import com.esfak47.common.extension.Adaptive;
 import com.esfak47.common.extension.ExtensionLoader;
-import com.esfak47.common.compiler.Compiler;
 
 /**
  * AdaptiveCompiler. (SPI, Singleton, ThreadSafe)

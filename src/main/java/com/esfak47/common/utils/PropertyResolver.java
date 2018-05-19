@@ -78,8 +78,7 @@ public interface PropertyResolver {
     <T> T getProperty(String key, Class<T> targetType, T defaultValue);
 
     /**
-     * 处理占位符{@code ${...}}字符串，通过调用{@linkplain #getProperty(String)}替换为对应的值。
-     * 如果无法替换则忽略
+     * 处理占位符{@code ${...}}字符串，通过调用{@linkplain #getProperty(String)}替换为对应的值。 如果无法替换则忽略
      *
      * @param text 待处理的字符串
      * @return 返回已处理的字符串

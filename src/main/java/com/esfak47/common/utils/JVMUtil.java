@@ -1,11 +1,7 @@
 package com.esfak47.common.utils;
 
 import java.io.OutputStream;
-import java.lang.management.LockInfo;
-import java.lang.management.ManagementFactory;
-import java.lang.management.MonitorInfo;
-import java.lang.management.ThreadInfo;
-import java.lang.management.ThreadMXBean;
+import java.lang.management.*;
 
 /**
  * @author tony
@@ -20,8 +16,8 @@ public class JVMUtil {
 
     private static String getThreadDumpString(ThreadInfo threadInfo) {
         StringBuilder sb = new StringBuilder("\"" + threadInfo.getThreadName() + "\"" +
-                " Id=" + threadInfo.getThreadId() + " " +
-                threadInfo.getThreadState());
+            " Id=" + threadInfo.getThreadId() + " " +
+            threadInfo.getThreadState());
         if (threadInfo.getLockName() != null) {
             sb.append(" on ").append(threadInfo.getLockName());
         }

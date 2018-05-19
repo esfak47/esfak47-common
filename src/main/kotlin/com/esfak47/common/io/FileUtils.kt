@@ -19,12 +19,9 @@ package com.esfak47.common.io
 import com.esfak47.common.exception.FileException
 import com.esfak47.common.lang.Assert
 import com.esfak47.common.utils.StringUtils
-
 import java.io.*
-import java.nio.charset.Charset
-import java.io.FileInputStream
 import java.io.File
-
+import java.nio.charset.Charset
 
 
 /**
@@ -87,7 +84,8 @@ object FileUtils {
      * @return 文件内容
      */
     @JvmOverloads
-    @JvmStatic fun readLines(file: File, charset: Charset = Charset.defaultCharset()): List<String> {
+    @JvmStatic
+    fun readLines(file: File, charset: Charset = Charset.defaultCharset()): List<String> {
         Assert.notNull(file, "The parameter[destFile] is null.")
         Assert.notNull(charset, "The parameter[charset] is null.")
         var `in`: FileInputStream? = null
@@ -227,7 +225,8 @@ object FileUtils {
      * @param in       输入流,非空
      * @param destFile 目标文件,非空
      */
-    @JvmStatic fun copyStream(`in`: InputStream, destFile: File) {
+    @JvmStatic
+    fun copyStream(`in`: InputStream, destFile: File) {
         Assert.notNull(`in`, "The parameter[in] is null.")
         Assert.notNull(destFile, "The parameter[destFile] is null.")
         var fos: FileOutputStream? = null
@@ -252,7 +251,8 @@ object FileUtils {
      * @param filter       文件过滤器
      */
     @JvmOverloads
-    @JvmStatic fun copyDirectory(srcDir: File, destDir: File, holdFileDate: Boolean = true, filter: FileFilter? = null) {
+    @JvmStatic
+    fun copyDirectory(srcDir: File, destDir: File, holdFileDate: Boolean = true, filter: FileFilter? = null) {
         Assert.notNull(srcDir, "Source Directory must not be null.")
         Assert.notNull(destDir, "Destination Directory must not be null.")
         if (!srcDir.exists()) {
@@ -288,7 +288,8 @@ object FileUtils {
      */
     @Throws(IOException::class)
     private fun doCopyDirectory(srcDir: File, destDir: File, holdFileDate: Boolean, filter: FileFilter?) {
-        val srcFiles = (if (filter == null) srcDir.listFiles() else srcDir.listFiles(filter)) ?: throw IOException("Failed to list contents of [$srcDir]")
+        val srcFiles = (if (filter == null) srcDir.listFiles() else srcDir.listFiles(filter))
+                ?: throw IOException("Failed to list contents of [$srcDir]")
         if (destDir.exists() && !destDir.isDirectory) {
             throw IOException("Destination [$destDir] exists but is not a directory.")
         }
@@ -323,7 +324,8 @@ object FileUtils {
      * @param destFile 目标文件
      * @throws FileException 文件处理异常
      */
-     @JvmStatic fun moveFile(srcFile: File, destFile: File) {
+    @JvmStatic
+    fun moveFile(srcFile: File, destFile: File) {
         Assert.notNull(srcFile, "Source must not be null.")
         Assert.notNull(destFile, "Destination must not be null.")
         if (!srcFile.exists()) {
@@ -364,7 +366,8 @@ object FileUtils {
      * @param destDir 目标目录
      * @throws FileException 文件处理异常
      */
-     @JvmStatic fun moveDirectory(source: File, destDir: File) {
+    @JvmStatic
+    fun moveDirectory(source: File, destDir: File) {
         moveDirectory(source, destDir, false)
     }
 
@@ -376,7 +379,8 @@ object FileUtils {
      * @param toDir   如果目录不存在，是否创建
      * @throws FileException 文件处理异常
      */
-     @JvmStatic fun moveDirectory(srcDir: File, destDir: File, toDir: Boolean) {
+    @JvmStatic
+    fun moveDirectory(srcDir: File, destDir: File, toDir: Boolean) {
         Assert.notNull(srcDir, "Source must not be null.")
         Assert.notNull(destDir, "Destination must not be null.")
         if (!srcDir.exists()) {
@@ -413,7 +417,8 @@ object FileUtils {
      * @param file 文件
      * @throws FileException 文件处理异常
      */
-    @JvmStatic  fun delete(file: File) {
+    @JvmStatic
+    fun delete(file: File) {
         Assert.notNull(file, "File must not be null.")
         if (!file.exists()) return
         if (file.isDirectory) {
@@ -430,7 +435,8 @@ object FileUtils {
      * @param directory 目录
      * @throws FileException 文件处理异常
      */
-    @JvmStatic  fun cleanDirectory(directory: File) {
+    @JvmStatic
+    fun cleanDirectory(directory: File) {
         Assert.notNull(directory, "Directory must not be null.")
         if (!directory.exists()) throw FileException("Directory [$directory] does not exist.")
         if (!directory.isDirectory) throw FileException("The [$directory] is not a directory.")
@@ -452,7 +458,8 @@ object FileUtils {
      * @return [FileInputStream]
      * @throws FileException 文件处理异常
      */
-    @JvmStatic fun openFileInputStream(file: File): FileInputStream {
+    @JvmStatic
+    fun openFileInputStream(file: File): FileInputStream {
         Assert.notNull(file, "File must not be null.")
         if (file.exists()) {
             if (file.isDirectory) {
@@ -477,7 +484,8 @@ object FileUtils {
      * @param file 文件
      * @return [FileOutputStream]
      */
-    @JvmStatic fun openFileOutputStream(file: File): FileOutputStream {
+    @JvmStatic
+    fun openFileOutputStream(file: File): FileOutputStream {
         return openFileOutputStream(file, false)
     }
 
@@ -518,7 +526,8 @@ object FileUtils {
      * @param file 文件
      * @return 返回文件的md5
      */
-    @JvmStatic fun md5Hex(file: File): String {
+    @JvmStatic
+    fun md5Hex(file: File): String {
         var `in`: FileInputStream? = null
         try {
             `in` = openFileInputStream(file)
@@ -534,7 +543,8 @@ object FileUtils {
      * @param file 文件
      * @return 返回文件的sha-1
      */
-    @JvmStatic fun sha1Hex(file: File): String {
+    @JvmStatic
+    fun sha1Hex(file: File): String {
         var `in`: FileInputStream? = null
         try {
             `in` = openFileInputStream(file)
@@ -543,13 +553,15 @@ object FileUtils {
             IOUtils.closeQuietly(`in`)
         }
     }
+
     /**
      * 将文件大小格式化输出
      *
      * @param fileSize 文件大小，单位为`Byte`
      * @return 格式化的大小
      */
-    @JvmStatic fun formatSize(fileSize: Long): String {
+    @JvmStatic
+    fun formatSize(fileSize: Long): String {
         return if (fileSize < 0) StringUtils.EMPTY_STRING else formatSize(fileSize.toDouble())
     }
 
@@ -559,7 +571,8 @@ object FileUtils {
      * @param fileSize 文件大小，单位为`Byte`
      * @return 格式化的大小
      */
-    @JvmStatic fun formatSize(fileSize: Double): String {
+    @JvmStatic
+    fun formatSize(fileSize: Double): String {
         if (fileSize < 0) {
             return StringUtils.EMPTY_STRING
         }
@@ -588,7 +601,8 @@ object FileUtils {
      * @param fileSize 文件大小，单位为`Byte`
      * @return 格式化的大小
      */
-    @JvmStatic fun formatSizeAsString(fileSize: String): String {
+    @JvmStatic
+    fun formatSizeAsString(fileSize: String): String {
         if (StringUtils.isEmpty(fileSize)) {
             return StringUtils.EMPTY_STRING
         }
@@ -601,7 +615,8 @@ object FileUtils {
      *
      * @param directoryPath 目录地址
      */
-    @JvmStatic fun forceMakeDir(directoryPath: String) {
+    @JvmStatic
+    fun forceMakeDir(directoryPath: String) {
         forceMakeDir(File(directoryPath))
     }
 
@@ -610,7 +625,8 @@ object FileUtils {
      *
      * @param directory 目录地址
      */
-    @JvmStatic fun forceMakeDir(directory: File) {
+    @JvmStatic
+    fun forceMakeDir(directory: File) {
         if (directory.exists()) {
             if (!directory.isDirectory) {
                 throw FileException("The file[$directory] exists and is not a directory.Unable to create directory.")

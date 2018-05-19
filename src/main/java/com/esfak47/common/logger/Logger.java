@@ -20,6 +20,7 @@ package com.esfak47.common.logger;
  * Logger interface
  * <p>
  * This interface is referred from commons-logging
+ *
  * @author tonywang
  */
 public interface Logger {

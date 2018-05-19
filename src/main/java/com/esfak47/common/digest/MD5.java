@@ -18,7 +18,6 @@ package com.esfak47.common.digest;
 import com.esfak47.common.exception.DigestException;
 import com.esfak47.common.lang.Assert;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -30,9 +29,9 @@ import java.nio.charset.StandardCharsets;
  * @author tony on 2016/12/1.
  */
 public final class MD5 {
-    private MD5(){}
-
     public static final String THE_DATA_IS_NULL_OR_EMPTY = "The data is null or empty.";
+
+    private MD5() {}
 
     /**
      * md5计算

@@ -22,6 +22,7 @@ import com.esfak47.common.extension.SPI;
 
 /**
  * SpiExtensionFactory
+ *
  * @author tony
  */
 public class SpiExtensionFactory implements ExtensionFactory {

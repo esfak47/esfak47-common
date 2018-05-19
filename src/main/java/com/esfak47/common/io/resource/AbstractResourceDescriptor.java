@@ -15,10 +15,8 @@
  */
 package com.esfak47.common.io.resource;
 
-
-
-import com.esfak47.common.utils.ResourceUtils;
 import com.esfak47.common.io.IOUtils;
+import com.esfak47.common.utils.ResourceUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
