@@ -1,4 +1,4 @@
-package com.esfak47.common.utils;
+package com.esfak47.common.lang;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;

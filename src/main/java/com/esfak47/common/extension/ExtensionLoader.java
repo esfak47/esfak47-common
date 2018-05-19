@@ -18,17 +18,20 @@ package com.esfak47.common.extension;
 
 import com.esfak47.common.compiler.Compiler;
 import com.esfak47.common.extension.support.ActivateComparator;
+import com.esfak47.common.lang.Assert;
+import com.esfak47.common.lang.Inject;
+import com.esfak47.common.lang.Named;
 import com.esfak47.common.logger.Logger;
 import com.esfak47.common.logger.LoggerFactory;
 import com.esfak47.common.utils.ConcurrentHashSet;
 import com.esfak47.common.utils.ConfigUtils;
+import com.esfak47.common.utils.ReflectionUtils;
 import com.esfak47.common.utils.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -128,6 +131,53 @@ public class ExtensionLoader<T> {
 
     private static ClassLoader findClassLoader() {
         return ExtensionLoader.class.getClassLoader();
+    }
+
+    public static <T> T createInstance(Class<T> clazz, ExtensionFactory factory) {
+        Assert.notNull(clazz, "clazz should not be null");
+        if (ReflectionUtils.defaultConstructorOnly(clazz)) {
+            try {
+                return clazz.newInstance();
+            } catch (InstantiationException | IllegalAccessException e) {
+                return null;
+            }
+        } else {
+            Constructor constructor = ReflectionUtils.getConstructor(clazz, Inject.class);
+            if (constructor == null) {
+                return null;
+            } else {
+                int parameterCount = constructor.getParameterCount();
+                if (parameterCount == 0) {
+                    try {
+                        return clazz.newInstance();
+                    } catch (InstantiationException | IllegalAccessException e) {
+                        return null;
+                    }
+                } else {
+                    Object[] objects = new Object[parameterCount];
+                    Class[] parameterTypes = constructor.getParameterTypes();
+                    Annotation[][] parameterAnnotations = constructor.getParameterAnnotations();
+                    for (int i = 0; i < parameterCount; i++) {
+                        Class parameterType = parameterTypes[i];
+                        Optional<Annotation> first = Arrays.stream(parameterAnnotations[i]).filter(
+                            a -> !a.getClass().equals(Named.class)).findFirst();
+                        if (first.isPresent()) {
+                            Named named = ((Named)first.get());
+                            objects[i] = factory.getExtension(parameterType, named.value());
+                        } else {
+                            objects[i] = null;
+                        }
+                    }
+                    try {
+                        return ((T)constructor.newInstance(objects));
+                    } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                        return null;
+                    }
+                }
+
+            }
+        }
+
     }
 
     public String getExtensionName(T extensionInstance) {
@@ -340,8 +390,8 @@ public class ExtensionLoader<T> {
     }
 
     public Set<String> getSupportedExtensions() {
-        Map<String, Class<?>> clazzes = getExtensionClasses();
-        return Collections.unmodifiableSet(new TreeSet<String>(clazzes.keySet()));
+        Map<String, Class<?>> classes = getExtensionClasses();
+        return Collections.unmodifiableSet(new TreeSet<String>(classes.keySet()));
     }
 
     /**
@@ -494,7 +544,7 @@ public class ExtensionLoader<T> {
         try {
             T instance = (T)EXTENSION_INSTANCES.get(clazz);
             if (instance == null) {
-                EXTENSION_INSTANCES.putIfAbsent(clazz, clazz.newInstance());
+                EXTENSION_INSTANCES.putIfAbsent(clazz, createInstance(clazz, this.objectFactory));
                 instance = (T)EXTENSION_INSTANCES.get(clazz);
             }
             injectExtension(instance);
@@ -515,7 +565,7 @@ public class ExtensionLoader<T> {
         try {
             if (objectFactory != null) {
                 for (Method method : instance.getClass().getMethods()) {
-                    if (method.getName().startsWith("set")
+                    if (method.getName().startsWith("set") && method.isAnnotationPresent(Inject.class)
                         && method.getParameterTypes().length == 1
                         && Modifier.isPublic(method.getModifiers())) {
                         Class<?> pt = method.getParameterTypes()[0];
@@ -530,6 +580,17 @@ public class ExtensionLoader<T> {
                             logger.error("fail to inject via method " + method.getName()
                                 + " of interface " + type.getName() + ": " + e.getMessage(), e);
                         }
+                    }
+                }
+                for (Field field : instance.getClass().getDeclaredFields()) {
+                    if (field.isAnnotationPresent(Inject.class)) {
+                        String name = field.getName();
+
+                        if (field.isAnnotationPresent(Named.class)) {
+                            name = field.getAnnotation(Named.class).value();
+                        }
+                        Object extension = objectFactory.getExtension(field.getType(), name);
+                        ReflectionUtils.setField(instance.getClass(), field.getName(),instance,extension);
                     }
                 }
             }

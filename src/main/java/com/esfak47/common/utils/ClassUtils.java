@@ -15,8 +15,9 @@
  */
 package com.esfak47.common.utils;
 
-
 import com.esfak47.common.lang.Assert;
+import com.esfak47.common.lang.Inject;
+import com.esfak47.common.lang.Named;
 
 import java.lang.reflect.*;
 import java.util.IdentityHashMap;
@@ -28,16 +29,13 @@ import java.util.Map;
  * @author tony on 2016/5/23.
  */
 public final class ClassUtils {
-    private ClassUtils(){}
     /**
-     * Map with primitive wrapper type as key and corresponding primitive
-     * type as value, for example: Integer.class -> int.class.
+     * Map with primitive wrapper type as key and corresponding primitive type as value, for example: Integer.class ->
+     * int.class.
      */
     private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPER_TYPE_MAP = new IdentityHashMap<>(8);
-
     /**
-     * Map with primitive type as key and corresponding wrapper
-     * type as value, for example: int.class -> Integer.class.
+     * Map with primitive type as key and corresponding wrapper type as value, for example: int.class -> Integer.class.
      */
     private static final Map<Class<?>, Class<?>> PRIMITIVE_TYPE_TO_WRAPPER_MAP = new IdentityHashMap<>(8);
 
@@ -55,6 +53,8 @@ public final class ClassUtils {
             PRIMITIVE_TYPE_TO_WRAPPER_MAP.put(entry.getValue(), entry.getKey());
         }
     }
+
+    private ClassUtils() {}
 
     /**
      * 判断sourceType是否是targetType父类或接口，其类的本身
@@ -79,6 +79,8 @@ public final class ClassUtils {
         }
     }
 
+
+
     /**
      * 返回类的原始类型
      *
@@ -88,24 +90,26 @@ public final class ClassUtils {
     public static Class getRawType(Type type) {
         // type is a normal class.
         if (type instanceof Class<?>) {
-            return (Class<?>) type;
+            return (Class<?>)type;
         } else if (type instanceof ParameterizedType) {
-            ParameterizedType parameterizedType = (ParameterizedType) type;
+            ParameterizedType parameterizedType = (ParameterizedType)type;
             Type rawType = parameterizedType.getRawType();
             Assert.isTrue(rawType instanceof Class, "The rawType is not Class.");
-            return (Class) rawType;
+            return (Class)rawType;
         } else if (type instanceof GenericArrayType) {
-            Type componentType = ((GenericArrayType) type).getGenericComponentType();
+            Type componentType = ((GenericArrayType)type).getGenericComponentType();
             return Array.newInstance(getRawType(componentType), 0).getClass();
         } else if (type instanceof TypeVariable) {
             // we could use the variable's bounds, but that won't work if there are multiple.
             // having a raw type that's more general than necessary is okay
             return Object.class;
         } else if (type instanceof WildcardType) {
-            return getRawType(((WildcardType) type).getUpperBounds()[0]);
+            return getRawType(((WildcardType)type).getUpperBounds()[0]);
         } else {
             String className = type == null ? "null" : type.getClass().getName();
-            throw new IllegalArgumentException("Expected a Class, ParameterizedType, or " + "GenericArrayType, but <" + type + "> is of type " + className);
+            throw new IllegalArgumentException(
+                "Expected a Class, ParameterizedType, or " + "GenericArrayType, but <" + type + "> is of type "
+                    + className);
         }
     }
 
