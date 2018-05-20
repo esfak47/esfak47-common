@@ -3,6 +3,7 @@ package com.esfak47.common.job.impl;
 import com.esfak47.common.job.Job;
 import com.esfak47.common.lang.Assert;
 
+import java.io.*;
 import java.util.Date;
 import java.util.function.Consumer;
 
@@ -21,8 +22,11 @@ public class CompletableJob implements Job {
     private Date createTime;
     private Date finishTime;
     private String name;
+    private boolean logable = false;
 
-    public CompletableJob(String id) {
+    private PrintWriter writer;
+
+    private CompletableJob(String id) {
         this.id = id;
         createTime = new Date();
     }
@@ -31,8 +35,35 @@ public class CompletableJob implements Job {
         Assert.notNull(consumer, "consumer should not be null");
         CompletableJob completableJob = new CompletableJob(id);
         completableJob.setName(name);
-        completableJob.setRunnable(() -> consumer.accept(completableJob));
+        completableJob.logable = false;
+        completableJob.setRunnable(() -> {
+            consumer.accept(completableJob);
+        });
+
         return completableJob;
+    }
+
+    public static CompletableJob create(String name, String id, Consumer<CompletableJob> consumer, File logfile) {
+        Assert.notNull(consumer, "consumer should not be null");
+        Assert.notNull(logfile, "logfile should not be null");
+        CompletableJob completableJob = new CompletableJob(id);
+        completableJob.setName(name);
+        completableJob.logable = true;
+        completableJob.setRunnable(() -> {
+            try (PrintWriter printStream = new PrintWriter(new BufferedOutputStream(new FileOutputStream(logfile)))) {
+                completableJob.writer = printStream;
+                consumer.accept(completableJob);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        return completableJob;
+    }
+
+    @Override
+    public boolean hasLog() {
+        return this.logable;
     }
 
     public Runnable getRunnable() {
@@ -123,4 +154,12 @@ public class CompletableJob implements Job {
     public Date getFinishTime() {
         return finishTime;
     }
+
+    @Override
+    public void writeLog(String str, Object... arg) {
+        if (writer != null && !writer.checkError()) {
+            writer.printf(str, arg);
+        }
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.esfak47.common.digest
 
 import org.junit.Test
+import java.io.UnsupportedEncodingException
 
 /**
  * @author tonywang
@@ -49,4 +50,10 @@ class DigestUtilsTest {
         DigestUtils.sha512("hello")
     }
 
+    @Test
+    @Throws(UnsupportedEncodingException::class)
+    fun sha256HexTest() {
+        val bytes = DigestUtils.sha1Hex("CUTE amateur jap girl (She have Boyfriend)")
+        println(bytes)
+    }
 }
