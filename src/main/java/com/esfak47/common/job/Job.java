@@ -61,9 +61,7 @@ public interface Job extends Serializable, Runnable {
 
     boolean isAsync();
 
-    default boolean hasLog() {return false;}
 
-    default void writeLog(String str,Object...arg){}
 
 
 }
