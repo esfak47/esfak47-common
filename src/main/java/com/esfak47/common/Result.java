@@ -66,7 +66,10 @@ public class Result<T> {
         try {
             T data = future.get(timeOutInMillSeconds, TimeUnit.MILLISECONDS);
             return Result.success(data);
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return failWithThrowable(e);
+        } catch (ExecutionException | TimeoutException e) {
             return failWithThrowable(e);
         }
     }

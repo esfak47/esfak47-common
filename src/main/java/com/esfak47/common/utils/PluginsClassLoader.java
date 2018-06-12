@@ -41,13 +41,13 @@ public class PluginsClassLoader extends URLClassLoader {
             Set<URL> urls = new LinkedHashSet<>();
             for (File file : files) {
                 if (file.exists() && file.isDirectory()) {
-                    DirectoryStream<Path> jarStream = Files.newDirectoryStream(file.toPath(), "*.jar");
-                    for (Path jar : jarStream) {
-                        // normalize with toRealPath to get symlinks out of our hair
-                        URL url = jar.toRealPath().toUri().toURL();
-                        System.out.println(url);
-                        if (!urls.add(url)) {
-                            throw new IllegalStateException("duplicate codebase: " + url);
+                    try (DirectoryStream<Path> jarStream = Files.newDirectoryStream(file.toPath(), "*.jar")) {
+                        for (Path jar : jarStream) {
+                            // normalize with toRealPath to get symlinks out of our hair
+                            URL url = jar.toRealPath().toUri().toURL();
+                            if (!urls.add(url)) {
+                                throw new IllegalStateException("duplicate codebase: " + url);
+                            }
                         }
                     }
                 } else if (file.exists() && file.getName().endsWith(".jar")) {

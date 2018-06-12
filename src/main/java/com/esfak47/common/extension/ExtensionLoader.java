@@ -939,18 +939,18 @@ public class ExtensionLoader<T> {
                 }
 
                 boolean hasInvocation = false;
-                for (int i = 0; i < pts.length; ++i) {
-                    if ("com.alibaba.dubbo.rpc.Invocation".equals(pts[i].getName())) {
-                        // Null Point check
-                        String s = String.format(
-                                "\nif (arg%d == null) throw new IllegalArgumentException(\"invocation == null\");", i);
-                        code.append(s);
-                        s = String.format("\nString methodName = arg%d.getMethodName();", i);
-                        code.append(s);
-                        hasInvocation = true;
-                        break;
-                    }
-                }
+//                for (int i = 0; i < pts.length; ++i) {
+//                    if ("com.alibaba.dubbo.rpc.Invocation".equals(pts[i].getName())) {
+//                        // Null Point check
+//                        String s = String.format(
+//                                "\nif (arg%d == null) throw new IllegalArgumentException(\"invocation == null\");", i);
+//                        code.append(s);
+//                        s = String.format("\nString methodName = arg%d.getMethodName();", i);
+//                        code.append(s);
+//                        hasInvocation = true;
+//                        break;
+//                    }
+//                }
 
                 String defaultExtName = cachedDefaultName;
                 String getNameCode = null;
@@ -958,37 +958,22 @@ public class ExtensionLoader<T> {
                     if (i == value.length - 1) {
                         if (null != defaultExtName) {
                             if (!"protocol".equals(value[i])) {
-                                if (hasInvocation) {
-                                    getNameCode = String.format("url.getMethodParameter(methodName, \"%s\", \"%s\")",
-                                            value[i], defaultExtName);
-                                } else {
-                                    getNameCode = String.format("url.getParameter(\"%s\", \"%s\")", value[i],
-                                            defaultExtName);
-                                }
+                                getNameCode = String.format("url.getParameter(\"%s\", \"%s\")", value[i],
+                                        defaultExtName);
                             } else {
                                 getNameCode = String.format(
                                         "( url.getProtocol() == null ? \"%s\" : url.getProtocol() )", defaultExtName);
                             }
                         } else {
                             if (!"protocol".equals(value[i])) {
-                                if (hasInvocation) {
-                                    getNameCode = String.format("url.getMethodParameter(methodName, \"%s\", \"%s\")",
-                                            value[i], defaultExtName);
-                                } else {
-                                    getNameCode = String.format("url.getParameter(\"%s\")", value[i]);
-                                }
+                                getNameCode = String.format("url.getParameter(\"%s\")", value[i]);
                             } else {
                                 getNameCode = "url.getProtocol()";
                             }
                         }
                     } else {
                         if (!"protocol".equals(value[i])) {
-                            if (hasInvocation) {
-                                getNameCode = String.format("url.getMethodParameter(methodName, \"%s\", \"%s\")",
-                                        value[i], defaultExtName);
-                            } else {
-                                getNameCode = String.format("url.getParameter(\"%s\", %s)", value[i], getNameCode);
-                            }
+                            getNameCode = String.format("url.getParameter(\"%s\", %s)", value[i], getNameCode);
                         } else {
                             getNameCode = String.format("url.getProtocol() == null ? (%s) : url.getProtocol()",
                                     getNameCode);

@@ -30,6 +30,7 @@ import java.util.*;
 
 /**
  * JdkCompiler. (SPI, Singleton, ThreadSafe)
+ * @author tonywang
  */
 public class JdkCompiler extends AbstractCompiler {
 
@@ -43,8 +44,8 @@ public class JdkCompiler extends AbstractCompiler {
 
     private volatile List<String> options;
 
-    public JdkCompiler() {
-        options = new ArrayList<String>();
+    public JdkCompiler() throws ClassNotFoundException {
+        options = new ArrayList<>();
         options.add("-source");
         options.add("1.6");
         options.add("-target");
@@ -52,7 +53,7 @@ public class JdkCompiler extends AbstractCompiler {
         StandardJavaFileManager manager = compiler.getStandardFileManager(diagnosticCollector, null, null);
         final ClassLoader loader = Thread.currentThread().getContextClassLoader();
         if (loader instanceof URLClassLoader
-                && (!loader.getClass().getName().equals("sun.misc.Launcher$AppClassLoader"))) {
+                && (!Objects.equals(Class.forName("sun.misc.Launcher$AppClassLoader"), loader.getClass()))) {
             try {
                 URLClassLoader urlClassLoader = (URLClassLoader) loader;
                 List<File> files = new ArrayList<File>();
@@ -64,12 +65,7 @@ public class JdkCompiler extends AbstractCompiler {
                 throw new IllegalStateException(e.getMessage(), e);
             }
         }
-        classLoader = AccessController.doPrivileged(new PrivilegedAction<ClassLoaderImpl>() {
-            @Override
-            public ClassLoaderImpl run() {
-                return new ClassLoaderImpl(loader);
-            }
-        });
+        classLoader = AccessController.doPrivileged((PrivilegedAction<ClassLoaderImpl>) () -> new ClassLoaderImpl(loader));
         javaFileManager = new JavaFileManagerImpl(manager, classLoader);
     }
 
@@ -82,7 +78,7 @@ public class JdkCompiler extends AbstractCompiler {
         javaFileManager.putFileForInput(StandardLocation.SOURCE_PATH, packageName,
                 className + ClassUtils.JAVA_EXTENSION, javaFileObject);
         Boolean result = compiler.getTask(null, javaFileManager, diagnosticCollector, options,
-                null, Arrays.asList(javaFileObject)).call();
+                null, Collections.singletonList(javaFileObject)).call();
         if (result == null || !result) {
             throw new IllegalStateException(
                     "Compilation failed. class: " + name + ", diagnostics: " + diagnosticCollector);
