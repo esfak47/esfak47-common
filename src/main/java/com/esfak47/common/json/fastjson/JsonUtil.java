@@ -111,8 +111,8 @@ public class JsonUtil {
             return JSON.toJSONString(value, serializerFeatures);
         }
         return JSON.toJSONString(value,
-            (PropertyFilter)(object, name, value1) -> !ArrayUtils.containsElement(propertyNames, name),
-            serializerFeatures);
+                (PropertyFilter) (object, name, value1) -> !ArrayUtils.containsElement(propertyNames, name),
+                serializerFeatures);
     }
 
     /**
@@ -129,7 +129,7 @@ public class JsonUtil {
      * @return json字符串
      */
     public static String toJson(Object value, final Map<Class<?>, List<String>> classOfProps) {
-        return JSON.toJSONString(value, (PropertyFilter)(object, name, value1) -> {
+        return JSON.toJSONString(value, (PropertyFilter) (object, name, value1) -> {
             List<String> props = classOfProps.get(object.getClass());
             return !props.contains(name);
         }, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.BrowserCompatible);
@@ -137,7 +137,7 @@ public class JsonUtil {
 
     /**
      * 将Java对象转换为JSON字符串，该方法提供了开放的转换规则，比如出现了死循环而导致了结果不正确。<br>
-     *     {@link com.alibaba.fastjson.serializer.SerializerFeature}对象枚举
+     * {@link com.alibaba.fastjson.serializer.SerializerFeature}对象枚举
      * <ul> <li>{@link com.alibaba.fastjson.serializer.SerializerFeature#DisableCircularReferenceDetect} 禁用循环引用</li>
      * <li>{@link com.alibaba.fastjson.serializer.SerializerFeature#WriteClassName} json序列化时将类信息保存以便反序列化时可以自动获取类信息</li>
      * <li>{@link com.alibaba.fastjson.serializer.SerializerFeature#BeanToArray} 将Java对象转换为数组，这可能已经不是json序列化的范围之内</li>

@@ -1,8 +1,6 @@
 package com.esfak47.common.job;
 
-import java.io.OutputStream;
 import java.io.Serializable;
-import java.io.Writer;
 import java.util.Date;
 
 public interface Job extends Serializable, Runnable {
@@ -60,8 +58,6 @@ public interface Job extends Serializable, Runnable {
     void setFinishTime();
 
     boolean isAsync();
-
-
 
 
 }

@@ -23,7 +23,7 @@ public class PluginsClassLoader extends URLClassLoader {
     }
 
     public PluginsClassLoader(File... files) throws IOException {
-        this(new URL[] {}, ClassLoader.getSystemClassLoader());
+        this(new URL[]{}, ClassLoader.getSystemClassLoader());
         if (files != null && files.length != 0) {
             attachJars(Arrays.stream(files).collect(Collectors.toList()));
         }
@@ -31,7 +31,7 @@ public class PluginsClassLoader extends URLClassLoader {
     }
 
     public PluginsClassLoader(String... path) throws IOException {
-        this(new URL[] {}, ClassLoader.getSystemClassLoader());
+        this(new URL[]{}, ClassLoader.getSystemClassLoader());
         attachJars(Arrays.stream(path).map(File::new).collect(Collectors.toList()));
 
     }

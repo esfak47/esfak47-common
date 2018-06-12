@@ -56,7 +56,7 @@ public final class JsonUtil {
             return null;
         }
         if (value instanceof String) {
-            return (String)value;
+            return (String) value;
         }
         UnicodeStringWriter writer = new UnicodeStringWriter();
         gson.toJson(value, writer);
@@ -77,11 +77,11 @@ public final class JsonUtil {
         }
         UnicodeStringWriter writer = new UnicodeStringWriter();
         new GsonBuilder()
-            .excludeFieldsWithModifiers(Modifier.STATIC)
-            .excludeFieldsWithModifiers(Modifier.TRANSIENT)
-            .addSerializationExclusionStrategy(new PropertyNameExclusionStrategy(ignorePropertyNames))
-            .create()
-            .toJson(value, writer);
+                .excludeFieldsWithModifiers(Modifier.STATIC)
+                .excludeFieldsWithModifiers(Modifier.TRANSIENT)
+                .addSerializationExclusionStrategy(new PropertyNameExclusionStrategy(ignorePropertyNames))
+                .create()
+                .toJson(value, writer);
         return writer.toString();
     }
 
@@ -102,10 +102,10 @@ public final class JsonUtil {
             return gson.toJson(value);
         }
         return new GsonBuilder()
-            .excludeFieldsWithModifiers(Modifier.STATIC)
-            .excludeFieldsWithModifiers(Modifier.TRANSIENT)
-            .addSerializationExclusionStrategy(new PropertyNameExclusionStrategy(ignorePropertyNames))
-            .create().toJson(value);
+                .excludeFieldsWithModifiers(Modifier.STATIC)
+                .excludeFieldsWithModifiers(Modifier.TRANSIENT)
+                .addSerializationExclusionStrategy(new PropertyNameExclusionStrategy(ignorePropertyNames))
+                .create().toJson(value);
     }
 
     /**
@@ -124,11 +124,11 @@ public final class JsonUtil {
             return toJson(value, toUnicode, ignorePropertyNames);
         }
         return new GsonBuilder()
-            .serializeNulls()
-            .excludeFieldsWithModifiers(Modifier.STATIC)
-            .excludeFieldsWithModifiers(Modifier.TRANSIENT)
-            .addSerializationExclusionStrategy(new PropertyNameExclusionStrategy(ignorePropertyNames))
-            .create().toJson(value);
+                .serializeNulls()
+                .excludeFieldsWithModifiers(Modifier.STATIC)
+                .excludeFieldsWithModifiers(Modifier.TRANSIENT)
+                .addSerializationExclusionStrategy(new PropertyNameExclusionStrategy(ignorePropertyNames))
+                .create().toJson(value);
     }
 
     //---------------------------------------------------------------------

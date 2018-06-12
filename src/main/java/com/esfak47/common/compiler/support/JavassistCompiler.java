@@ -28,6 +28,8 @@ import java.util.regex.Pattern;
 
 /**
  * JavassistCompiler. (SPI, Singleton, ThreadSafe)
+ *
+ * @author tonywang
  */
 public class JavassistCompiler extends AbstractCompiler {
 

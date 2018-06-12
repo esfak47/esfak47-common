@@ -21,7 +21,7 @@ class ClassUtilsTest {
     @Throws(Exception::class)
     fun getRawType() {
         var clazz = ClassUtils.getRawType(Int.javaClass)
-        Assert.assertEquals(clazz,Int.javaClass)
+        Assert.assertEquals(clazz, Int.javaClass)
 
     }
 

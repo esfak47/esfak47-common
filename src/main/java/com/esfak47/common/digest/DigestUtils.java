@@ -41,7 +41,9 @@ public final class DigestUtils {
     public static final String THE_INPUT_STREAM_DATA_IS_NULL = "The inputStream data is null.";
     public static final String ENCODING_IS_NULL = "Encoding is null.";
     private static final int DEFAULT_BUFFER_LEN = 1024;
-    private DigestUtils() {}
+
+    private DigestUtils() {
+    }
 
     /**
      * 根据算法名称返回{@code MessageDigest}实例

@@ -53,7 +53,7 @@ public class ResourceUtils {
             }
             if (url == null) {
                 logger.error("class path resource [" + realPath
-                    + "] cannot be resolved to absolute file path because it does not exist/");
+                        + "] cannot be resolved to absolute file path because it does not exist/");
                 return null;
             }
             return getFile(url);

@@ -22,7 +22,8 @@ package com.esfak47.common.utils;
  */
 public final class ClassLoaderUtils {
 
-    private ClassLoaderUtils() {}
+    private ClassLoaderUtils() {
+    }
 
     /**
      * 返回一个默认的类加载器：首先会从当前线程获取类加载，如果获取失败则获取当前类的类加载器。

@@ -12,7 +12,8 @@ import java.util.Optional;
  */
 public class AnnotationUtils {
 
-    private AnnotationUtils() {}
+    private AnnotationUtils() {
+    }
 
     public static <T extends Annotation> T getAnnotation(Class<?> clazz, Class<T> type) {
         Assert.notNull(clazz, "clazz should not be null");
@@ -26,11 +27,8 @@ public class AnnotationUtils {
             return null;
         }
         Optional<Annotation> any = Arrays.stream(annotations).filter(
-            annotation1 -> annotation1.annotationType().isAnnotationPresent(type)).findAny();
-        if (any.isPresent()) {
-            return any.get().annotationType().getAnnotation(type);
-        }
-        return null;
+                annotation1 -> annotation1.annotationType().isAnnotationPresent(type)).findAny();
+        return any.map(annotation1 -> annotation1.annotationType().getAnnotation(type)).orElse(null);
 
     }
 }

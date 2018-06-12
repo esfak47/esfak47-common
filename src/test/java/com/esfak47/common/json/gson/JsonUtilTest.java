@@ -63,7 +63,7 @@ public class JsonUtilTest {
 
     @Test
     public void fromJson1() {
-        JSON json = JsonUtil.fromJson("{\"name\":\"json\",\"chinese\":\"中文\"}", (Type)JSON.class);
+        JSON json = JsonUtil.fromJson("{\"name\":\"json\",\"chinese\":\"中文\"}", (Type) JSON.class);
         Assert.assertNotNull(json);
         Assert.assertEquals(json.getChinese(), "中文");
     }

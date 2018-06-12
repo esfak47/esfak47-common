@@ -24,6 +24,8 @@ import java.util.regex.Pattern;
 
 /**
  * Abstract compiler. (SPI, Prototype, ThreadSafe)
+ *
+ * @author tonywang
  */
 public abstract class AbstractCompiler implements Compiler {
 
@@ -61,8 +63,8 @@ public abstract class AbstractCompiler implements Compiler {
                 throw t;
             } catch (Throwable t) {
                 throw new IllegalStateException(
-                    "Failed to compile class, cause: " + t.getMessage() + ", class: " + className + ", code: \n" + code
-                        + "\n, stack: " + ClassUtils.toString(t));
+                        "Failed to compile class, cause: " + t.getMessage() + ", class: " + className + ", code: \n" + code
+                                + "\n, stack: " + ClassUtils.toString(t));
             }
         }
     }

@@ -39,14 +39,14 @@ object CollectionUtils {
     @JvmStatic
     fun toStringMap(vararg pairs: String): Map<String, String> {
         val parameters = HashMap<String, String>()
-        if (pairs.size > 0) {
+        if (pairs.isNotEmpty()) {
             if (pairs.size % 2 != 0) {
                 throw IllegalArgumentException("pairs must be even.")
             }
             var i = 0
             while (i < pairs.size) {
                 parameters[pairs[i]] = pairs[i + 1]
-                i = i + 2
+                i += 2
             }
         }
         return parameters

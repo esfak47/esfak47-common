@@ -1,8 +1,7 @@
 package com.esfak47.common.digest
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * @author tonywang
@@ -14,14 +13,14 @@ class HexTest {
     fun encode2String() {
         val encode2String = Hex.encode2String("hello".toByteArray())
         val decode2String = Hex.decode2String(encode2String)
-        assertEquals("hello",decode2String)
+        assertEquals("hello", decode2String)
 
     }
 
     @Test
     @Throws(Exception::class)
     fun encode() {
-        val encode:CharArray = Hex.encode("hello".toByteArray())
+        val encode: CharArray = Hex.encode("hello".toByteArray())
         val string = String(Hex.decode(encode))
         assertEquals("hello", string)
     }

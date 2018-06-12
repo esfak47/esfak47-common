@@ -1,10 +1,9 @@
 package com.esfak47.common.utils
 
+import org.hamcrest.CoreMatchers.*
+import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
-import org.hamcrest.CoreMatchers.*
-
-import org.junit.Assert.*
 
 /**
  * @author tonywang
@@ -53,7 +52,6 @@ class PlaceholderPropertyResolverTest {
                 "ecb"),
                 `is`("ecb"))
     }
-
 
 
     @Test

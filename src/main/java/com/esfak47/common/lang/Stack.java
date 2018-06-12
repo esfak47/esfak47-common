@@ -24,7 +24,11 @@ public class Stack<E> {
      * @param ele
      */
     public void push(E ele) {
-        if (mElements.size() > mSize) { mElements.set(mSize, ele); } else { mElements.add(ele); }
+        if (mElements.size() > mSize) {
+            mElements.set(mSize, ele);
+        } else {
+            mElements.add(ele);
+        }
         mSize++;
     }
 
@@ -34,7 +38,9 @@ public class Stack<E> {
      * @return the last element.
      */
     public E pop() {
-        if (mSize == 0) { throw new EmptyStackException(); }
+        if (mSize == 0) {
+            throw new EmptyStackException();
+        }
         return mElements.set(--mSize, null);
     }
 
@@ -44,7 +50,9 @@ public class Stack<E> {
      * @return the last element.
      */
     public E peek() {
-        if (mSize == 0) { throw new EmptyStackException(); }
+        if (mSize == 0) {
+            throw new EmptyStackException();
+        }
         return mElements.get(mSize - 1);
     }
 
@@ -55,7 +63,9 @@ public class Stack<E> {
      * @return element.
      */
     public E get(int index) {
-        if (index >= mSize) { throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + mSize); }
+        if (index >= mSize) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + mSize);
+        }
 
         return index < 0 ? mElements.get(index + mSize) : mElements.get(index);
     }
@@ -68,7 +78,9 @@ public class Stack<E> {
      * @return old element.
      */
     public E set(int index, E value) {
-        if (index >= mSize) { throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + mSize); }
+        if (index >= mSize) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + mSize);
+        }
 
         return mElements.set(index < 0 ? index + mSize : index, value);
     }
@@ -80,7 +92,9 @@ public class Stack<E> {
      * @return element
      */
     public E remove(int index) {
-        if (index >= mSize) { throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + mSize); }
+        if (index >= mSize) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + mSize);
+        }
 
         E ret = mElements.remove(index < 0 ? index + mSize : index);
         mSize--;

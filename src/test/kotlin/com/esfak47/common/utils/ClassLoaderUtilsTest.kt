@@ -1,8 +1,7 @@
 package com.esfak47.common.utils
 
+import org.junit.Assert.assertNotNull
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * @author tonywang

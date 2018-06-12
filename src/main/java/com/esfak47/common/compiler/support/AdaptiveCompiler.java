@@ -22,6 +22,8 @@ import com.esfak47.common.extension.ExtensionLoader;
 
 /**
  * AdaptiveCompiler. (SPI, Singleton, ThreadSafe)
+ *
+ * @author tonywang
  */
 @Adaptive
 public class AdaptiveCompiler implements Compiler {

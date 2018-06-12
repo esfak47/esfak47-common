@@ -17,7 +17,7 @@ public class PromiseTest {
 
     @Test
     public void testPromise() {
-        Promise.promise((PromiseInterface<Long>)(resolve, reject) -> {
+        Promise.promise((PromiseInterface<Long>) (resolve, reject) -> {
             try {
                 logger.info("start");
                 Thread.sleep(1000);
@@ -32,13 +32,13 @@ public class PromiseTest {
         }).then(integer -> {
             logger.info(String.valueOf(integer));
         })
-            .join();
+                .join();
 
     }
 
     @Test
     public void testPromiseError() throws InterruptedException {
-        Promise.promise((PromiseInterface<Long>)(resolve, reject) -> {
+        Promise.promise((PromiseInterface<Long>) (resolve, reject) -> {
             try {
                 logger.info("start");
                 Thread.sleep(1000);
@@ -53,9 +53,9 @@ public class PromiseTest {
             logger.error(throwable);
         })
 
-            .then(aLong -> {
-                return aLong.intValue();
-            }).then(integer -> {
+                .then(aLong -> {
+                    return aLong.intValue();
+                }).then(integer -> {
             logger.info(String.valueOf(integer));
         });
         Thread.sleep(5000);
@@ -64,7 +64,7 @@ public class PromiseTest {
 
     @Test
     public void testPromiseErrorJoin() throws InterruptedException {
-        Promise.promise((PromiseInterface<Long>)(resolve, reject) -> {
+        Promise.promise((PromiseInterface<Long>) (resolve, reject) -> {
             try {
                 logger.info("start");
                 Thread.sleep(1000);
@@ -78,9 +78,9 @@ public class PromiseTest {
             Assert.assertTrue(throwable instanceof CompletionException);
 
         })
-            .then(aLong -> {
-                return aLong.intValue();
-            }).then(integer -> {
+                .then(aLong -> {
+                    return aLong.intValue();
+                }).then(integer -> {
             logger.info(String.valueOf(integer));
         }).join();
 

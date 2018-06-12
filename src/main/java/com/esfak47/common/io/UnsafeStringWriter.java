@@ -30,14 +30,16 @@ public class UnsafeStringWriter extends Writer {
     }
 
     public UnsafeStringWriter(int size) {
-        if (size < 0) { throw new IllegalArgumentException("Negative buffer size"); }
+        if (size < 0) {
+            throw new IllegalArgumentException("Negative buffer size");
+        }
 
         lock = mBuffer = new StringBuilder();
     }
 
     @Override
     public void write(int c) {
-        mBuffer.append((char)c);
+        mBuffer.append((char) c);
     }
 
     @Override
@@ -48,9 +50,13 @@ public class UnsafeStringWriter extends Writer {
     @Override
     public void write(char[] cs, int off, int len) throws IOException {
         if ((off < 0) || (off > cs.length) || (len < 0) ||
-            ((off + len) > cs.length) || ((off + len) < 0)) { throw new IndexOutOfBoundsException(); }
+                ((off + len) > cs.length) || ((off + len) < 0)) {
+            throw new IndexOutOfBoundsException();
+        }
 
-        if (len > 0) { mBuffer.append(cs, off, len); }
+        if (len > 0) {
+            mBuffer.append(cs, off, len);
+        }
     }
 
     @Override
@@ -65,7 +71,11 @@ public class UnsafeStringWriter extends Writer {
 
     @Override
     public Writer append(CharSequence csq) {
-        if (csq == null) {write("null");} else {write(csq.toString());}
+        if (csq == null) {
+            write("null");
+        } else {
+            write(csq.toString());
+        }
         return this;
     }
 

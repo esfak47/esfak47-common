@@ -11,16 +11,18 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class RegisterExtendFactory implements ExtensionFactory {
 
-    final static ConcurrentHashMap<Tuple<Class,String>,Object> classConcurrentHashMap=new ConcurrentHashMap<>();
+    final static ConcurrentHashMap<Tuple<Class, String>, Object> classConcurrentHashMap = new ConcurrentHashMap<>();
 
-    public static void register(Tuple<Class,String> tuple,Object impl){
+    public static void register(Tuple<Class, String> tuple, Object impl) {
         classConcurrentHashMap.put(tuple, impl);
     }
-    public static void unRegister(Tuple<Class,String> tuple){
+
+    public static void unRegister(Tuple<Class, String> tuple) {
         classConcurrentHashMap.remove(tuple);
     }
+
     @Override
     public <T> T getExtension(Class<T> type, String name) {
-        return (T)classConcurrentHashMap.get(Tuple.tuple(type,name));
+        return (T) classConcurrentHashMap.get(Tuple.tuple(type, name));
     }
 }

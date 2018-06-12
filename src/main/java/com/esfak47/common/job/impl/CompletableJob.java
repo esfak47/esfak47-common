@@ -3,7 +3,6 @@ package com.esfak47.common.job.impl;
 import com.esfak47.common.job.Job;
 import com.esfak47.common.lang.Assert;
 
-import java.io.PrintWriter;
 import java.util.Date;
 import java.util.function.Consumer;
 
@@ -22,8 +21,6 @@ public class CompletableJob implements Job {
     private Date createTime;
     private Date finishTime;
     private String name;
-
-    private PrintWriter writer;
 
     private CompletableJob(String id) {
         this.id = id;

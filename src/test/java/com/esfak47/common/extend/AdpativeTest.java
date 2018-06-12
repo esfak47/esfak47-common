@@ -1,9 +1,9 @@
 package com.esfak47.common.extend;
 
-import com.esfak47.common.extension.SimpleAdaptive;
-import com.esfak47.common.extension.URL;
 import com.esfak47.common.extension.Adaptive;
 import com.esfak47.common.extension.SPI;
+import com.esfak47.common.extension.SimpleAdaptive;
+import com.esfak47.common.extension.URL;
 
 /**
  * @author tony
@@ -20,6 +20,7 @@ public interface AdpativeTest {
 
     @Adaptive(value = "protocol")
     String method(Parameter url);
+
     @SimpleAdaptive
     String method2(Parameter url);
 

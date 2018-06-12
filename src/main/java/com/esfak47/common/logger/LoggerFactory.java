@@ -35,7 +35,7 @@ public class LoggerFactory {
 
     public static final String JDK = "jdk";
     private static final ConcurrentMap<String, FailsafeLogger> LOGGERS
-        = new ConcurrentHashMap<String, FailsafeLogger>();
+            = new ConcurrentHashMap<String, FailsafeLogger>();
     private static final String SLF4J = "slf4j";
 
     private static final String LOG4J = "log4j";

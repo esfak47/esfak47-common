@@ -16,14 +16,14 @@ public class JVMUtil {
 
     private static String getThreadDumpString(ThreadInfo threadInfo) {
         StringBuilder sb = new StringBuilder("\"" + threadInfo.getThreadName() + "\"" +
-            " Id=" + threadInfo.getThreadId() + " " +
-            threadInfo.getThreadState());
+                " Id=" + threadInfo.getThreadId() + " " +
+                threadInfo.getThreadState());
         if (threadInfo.getLockName() != null) {
             sb.append(" on ").append(threadInfo.getLockName());
         }
         if (threadInfo.getLockOwnerName() != null) {
             sb.append(" owned by \"").append(threadInfo.getLockOwnerName()).append("\" Id=").append(
-                threadInfo.getLockOwnerId());
+                    threadInfo.getLockOwnerId());
         }
         if (threadInfo.isSuspended()) {
             sb.append(" (suspended)");

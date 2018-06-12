@@ -20,7 +20,9 @@ public class Promise<T> {
     };
     private Executor executor;
 
-    private Promise(CompletableFuture<T> completableFuture) {this.completableFuture = completableFuture;}
+    private Promise(CompletableFuture<T> completableFuture) {
+        this.completableFuture = completableFuture;
+    }
 
     public static <T> Promise<T> promise(PromiseInterface<T> promiseInterface) {
         return promise(promiseInterface, PromiseExecutorHolder.executor);
@@ -38,8 +40,8 @@ public class Promise<T> {
         promise.executor = executor;
         executor.execute(() -> {
             promiseInterface.go(t -> completableFuture.complete(t),
-                u -> completableFuture
-                    .completeExceptionally(u instanceof CompletionException ? u : new CompletionException(u)));
+                    u -> completableFuture
+                            .completeExceptionally(u instanceof CompletionException ? u : new CompletionException(u)));
         });
 
         return promise;
@@ -58,7 +60,7 @@ public class Promise<T> {
     public <R> Promise<R> then(Function<T, R> function) {
 
         CompletableFuture<R> completableFuture = this.completableFuture.thenComposeAsync(
-            t -> CompletableFuture.completedFuture(function.apply(t)), this.executor);
+                t -> CompletableFuture.completedFuture(function.apply(t)), this.executor);
 
         Promise<R> promise = new Promise<>(completableFuture);
         promise.errorConsumer = this.errorConsumer;

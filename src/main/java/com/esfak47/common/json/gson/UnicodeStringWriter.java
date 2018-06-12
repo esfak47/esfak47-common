@@ -64,10 +64,10 @@ class UnicodeStringWriter extends StringWriter {
                     builder.append(c);
                 } else if (code < 0) {
                     // 通用转义字符
-                    writeUnicodeEscape(builder, (char)(-code - 1));
+                    writeUnicodeEscape(builder, (char) (-code - 1));
                 } else {
                     // 短转义字符 (\n \t ...)
-                    builder.append("\\").append((char)code);
+                    builder.append("\\").append((char) code);
                 }
             }
         }

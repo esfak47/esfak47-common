@@ -38,6 +38,7 @@ public class PlaceholderPropertyResolver implements PropertyResolver {
     private static final String PLACEHOLDER_PREFIX = "${";
     private Logger logger = LoggerFactory.getLogger(PlaceholderPropertyResolver.class);
     private Map<String, String> propertyStringValue;
+
     private PlaceholderPropertyResolver(Builder builder) {
         List<String> pathEntries = builder.pathEntries;
         this.processFile(pathEntries);
@@ -88,7 +89,7 @@ public class PlaceholderPropertyResolver implements PropertyResolver {
         for (i = 0; i < size; i++) {
             properties = propertiesList.get(i);
             for (Object keyObj : properties.keySet()) {
-                stringValueMap.put((String)keyObj, properties.getProperty((String)keyObj));
+                stringValueMap.put((String) keyObj, properties.getProperty((String) keyObj));
             }
         }
 
@@ -187,7 +188,7 @@ public class PlaceholderPropertyResolver implements PropertyResolver {
      */
     @Override
     public String getProperty(String key) {
-        return getProperty(key, (String)null);
+        return getProperty(key, (String) null);
     }
 
     /**
@@ -222,41 +223,41 @@ public class PlaceholderPropertyResolver implements PropertyResolver {
             return defaultValue;
         }
         if (targetType == String.class) {
-            return (T)value;
+            return (T) value;
         } else if (targetType == int.class) {
-            return (T)new Integer(value);
+            return (T) new Integer(value);
         } else if (targetType == Integer.class) {
-            return (T)new Integer(value);
+            return (T) new Integer(value);
         } else if (targetType == Short.class) {
-            return (T)new Short(value);
+            return (T) new Short(value);
         } else if (targetType == short.class) {
-            return (T)Short.valueOf(value);
+            return (T) Short.valueOf(value);
         } else if (targetType == Byte.class) {
-            return (T)new Byte(value);
+            return (T) new Byte(value);
         } else if (targetType == byte.class) {
-            return (T)new Byte(value);
+            return (T) new Byte(value);
         } else if (targetType == Character.class) {
-            return (T)Character.valueOf(value.toCharArray()[0]);
+            return (T) Character.valueOf(value.toCharArray()[0]);
         } else if (targetType == char.class) {
-            return (T)Character.valueOf(value.toCharArray()[0]);
+            return (T) Character.valueOf(value.toCharArray()[0]);
         } else if (targetType == Long.class) {
-            return (T)new Long(value);
+            return (T) new Long(value);
         } else if (targetType == long.class) {
-            return (T)new Long(value);
+            return (T) new Long(value);
         } else if (targetType == Float.class) {
-            return (T)new Float(value);
+            return (T) new Float(value);
         } else if (targetType == float.class) {
-            return (T)new Float(value);
+            return (T) new Float(value);
         } else if (targetType == Double.class) {
-            return (T)new Double(value);
+            return (T) new Double(value);
         } else if (targetType == double.class) {
-            return (T)new Double(value);
+            return (T) new Double(value);
         } else if (targetType == Boolean.class) {
-            return (T)Boolean.valueOf(value);
+            return (T) Boolean.valueOf(value);
         } else if (targetType == boolean.class) {
-            return (T)Boolean.valueOf(value);
+            return (T) Boolean.valueOf(value);
         } else if (targetType == BigDecimal.class) {
-            return (T)new BigDecimal(value);
+            return (T) new BigDecimal(value);
         } else {
             return JsonUtil.fromJson(value, targetType);
         }

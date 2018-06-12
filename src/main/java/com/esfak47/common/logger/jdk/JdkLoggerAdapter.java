@@ -46,15 +46,15 @@ public class JdkLoggerAdapter implements LoggerAdapter {
             }
         } catch (Throwable t) {
             System.err.println(
-                "Failed to load logging.properties in classpath for jdk logging config, cause: " + t.getMessage());
+                    "Failed to load logging.properties in classpath for jdk logging config, cause: " + t.getMessage());
         }
         try {
             Handler[] handlers = java.util.logging.Logger.getLogger(GLOBAL_LOGGER_NAME).getHandlers();
             for (Handler handler : handlers) {
                 if (handler instanceof FileHandler) {
-                    FileHandler fileHandler = (FileHandler)handler;
+                    FileHandler fileHandler = (FileHandler) handler;
                     Field field = fileHandler.getClass().getField("files");
-                    File[] files = (File[])field.get(fileHandler);
+                    File[] files = (File[]) field.get(fileHandler);
                     if (files != null && files.length > 0) {
                         file = files[0];
                     }

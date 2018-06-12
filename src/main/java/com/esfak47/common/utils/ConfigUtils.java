@@ -33,7 +33,7 @@ public class ConfigUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(ConfigUtils.class);
     private static Pattern VARIABLE_PATTERN = Pattern.compile(
-        "\\$\\s*\\{?\\s*([\\._0-9a-zA-Z]+)\\s*\\}?");
+            "\\$\\s*\\{?\\s*([\\._0-9a-zA-Z]+)\\s*\\}?");
     private static volatile Properties PROPERTIES;
     private static int PID = -1;
 
@@ -46,15 +46,15 @@ public class ConfigUtils {
 
     public static boolean isEmpty(String value) {
         return value == null || value.length() == 0
-            || "false".equalsIgnoreCase(value)
-            || "0".equalsIgnoreCase(value)
-            || "null".equalsIgnoreCase(value)
-            || "N/A".equalsIgnoreCase(value);
+                || "false".equalsIgnoreCase(value)
+                || "0".equalsIgnoreCase(value)
+                || "null".equalsIgnoreCase(value)
+                || "N/A".equalsIgnoreCase(value);
     }
 
     public static boolean isDefault(String value) {
         return "true".equalsIgnoreCase(value)
-            || "default".equalsIgnoreCase(value);
+                || "default".equalsIgnoreCase(value);
     }
 
     /**
@@ -83,7 +83,7 @@ public class ConfigUtils {
 
         // add initial values
         String[] configs = (cfg == null || cfg.trim().length() == 0) ? new String[0]
-            : Constants.COMMA_SPLIT_PATTERN.split(cfg);
+                : Constants.COMMA_SPLIT_PATTERN.split(cfg);
         for (String config : configs) {
             if (config != null && config.trim().length() > 0) {
                 names.add(config);
@@ -176,7 +176,7 @@ public class ConfigUtils {
             return value;
         }
         Properties properties = getProperties();
-        return replaceProperty(properties.getProperty(key, defaultValue), (Map)properties);
+        return replaceProperty(properties.getProperty(key, defaultValue), (Map) properties);
     }
 
     /**
@@ -217,16 +217,13 @@ public class ConfigUtils {
         Properties properties = new Properties();
         if (fileName.startsWith("/")) {
             try {
-                FileInputStream input = new FileInputStream(fileName);
-                try {
+                try (FileInputStream input = new FileInputStream(fileName)) {
                     properties.load(input);
-                } finally {
-                    input.close();
                 }
             } catch (Throwable e) {
                 logger.warn(
-                    "Failed to load " + fileName + " file from " + fileName + "(ingore this file): " + e.getMessage(),
-                    e);
+                        "Failed to load " + fileName + " file from " + fileName + "(ingore this file): " + e.getMessage(),
+                        e);
             }
             return properties;
         }
@@ -252,8 +249,8 @@ public class ConfigUtils {
         if (!allowMultiFile) {
             if (list.size() > 1) {
                 String errMsg = String.format(
-                    "only 1 %s file is expected, but %d dubbo.properties files found on class path: %s",
-                    fileName, list.size(), list.toString());
+                        "only 1 %s file is expected, but %d dubbo.properties files found on class path: %s",
+                        fileName, list.size(), list.toString());
                 logger.warn(errMsg);
                 // throw new IllegalStateException(errMsg); // see http://code.alibabatech.com/jira/browse/DUBBO-133
             }
@@ -263,8 +260,8 @@ public class ConfigUtils {
                 properties.load(ClassHelper.getClassLoader().getResourceAsStream(fileName));
             } catch (Throwable e) {
                 logger.warn(
-                    "Failed to load " + fileName + " file from " + fileName + "(ingore this file): " + e.getMessage(),
-                    e);
+                        "Failed to load " + fileName + " file from " + fileName + "(ingore this file): " + e.getMessage(),
+                        e);
             }
             return properties;
         }
@@ -282,13 +279,13 @@ public class ConfigUtils {
                     } finally {
                         try {
                             input.close();
-                        } catch (Throwable t) {
+                        } catch (Throwable ignored) {
                         }
                     }
                 }
             } catch (Throwable e) {
                 logger.warn("Fail to load " + fileName + " file from " + url + "(ingore this file): " + e.getMessage(),
-                    e);
+                        e);
             }
         }
 
@@ -299,7 +296,7 @@ public class ConfigUtils {
         if (PID < 0) {
             try {
                 RuntimeMXBean runtime = ManagementFactory.getRuntimeMXBean();
-                String name = runtime.getName(); // format: "pid@hostname"
+                String name = runtime.getName();
                 PID = Integer.parseInt(name.substring(0, name.indexOf('@')));
             } catch (Throwable e) {
                 PID = 0;
@@ -315,14 +312,14 @@ public class ConfigUtils {
         if (value != null && value.length() > 0) {
             try {
                 timeout = Integer.parseInt(value);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         } else {
             value = ConfigUtils.getProperty(Constants.SHUTDOWN_WAIT_SECONDS_KEY);
             if (value != null && value.length() > 0) {
                 try {
                     timeout = Integer.parseInt(value) * 1000;
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
             }
         }

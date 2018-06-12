@@ -14,5 +14,6 @@ public class ReflectionUtilsTest {
         Assert.assertTrue(ReflectionUtils.defaultConstructorOnly(ClassA.class));
     }
 
-    public static class ClassA {}
+    public static class ClassA {
+    }
 }

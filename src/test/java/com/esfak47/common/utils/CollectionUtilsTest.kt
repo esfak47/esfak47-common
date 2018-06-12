@@ -1,9 +1,8 @@
 package com.esfak47.common.utils
 
+import org.hamcrest.CoreMatchers.`is`
+import org.junit.Assert.assertThat
 import org.junit.Test
-
-import org.junit.Assert.*
-import org.hamcrest.CoreMatchers.*
 import java.util.*
 
 /**

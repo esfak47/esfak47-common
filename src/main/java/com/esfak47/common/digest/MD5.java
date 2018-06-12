@@ -31,7 +31,8 @@ import java.nio.charset.StandardCharsets;
 public final class MD5 {
     public static final String THE_DATA_IS_NULL_OR_EMPTY = "The data is null or empty.";
 
-    private MD5() {}
+    private MD5() {
+    }
 
     /**
      * md5计算

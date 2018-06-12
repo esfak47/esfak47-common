@@ -28,8 +28,8 @@ public class PageResult<T extends Serializable> implements Serializable {
     }
 
     public static <F extends Serializable, T extends Serializable> PageResult<T> convert(
-        Function<? super F, ? extends T> converter,
-        PageResult<F> pageResult) {
+            Function<? super F, ? extends T> converter,
+            PageResult<F> pageResult) {
         Assert.notNull(pageResult, "page should not be null");
         Assert.notNull(converter, "converter should not be null");
         Collection<F> items = pageResult.getItems();
@@ -38,7 +38,7 @@ public class PageResult<T extends Serializable> implements Serializable {
         } else {
             List<T> transform = items.stream().map(converter).collect(Collectors.toList());
             return PageResult.createPageResult(pageResult.getPage(), pageResult.getPageSize(),
-                pageResult.getTotal(), transform);
+                    pageResult.getTotal(), transform);
 
         }
     }

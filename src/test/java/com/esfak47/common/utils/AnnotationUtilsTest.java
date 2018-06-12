@@ -22,8 +22,10 @@ public class AnnotationUtilsTest {
     }
 
     @SPI
-    interface Test1 {}
+    interface Test1 {
+    }
 
     @SimpleAdaptive
-    interface Test2 {}
+    interface Test2 {
+    }
 }

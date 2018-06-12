@@ -10,7 +10,9 @@ public class Parameter implements SimpleAdaptable {
 
     private String type;
 
-    public Parameter(String type) {this.type = type;}
+    public Parameter(String type) {
+        this.type = type;
+    }
 
     @Override
     public String getAdaptableKey() {

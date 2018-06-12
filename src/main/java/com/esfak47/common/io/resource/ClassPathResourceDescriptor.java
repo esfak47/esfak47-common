@@ -38,7 +38,7 @@ public class ClassPathResourceDescriptor extends AbstractResourceDescriptor {
     private Class<?> clazz;
 
     public ClassPathResourceDescriptor(String path) {
-        this(path, (ClassLoader)null);
+        this(path, (ClassLoader) null);
     }
 
     public ClassPathResourceDescriptor(String path, ClassLoader classLoader) {

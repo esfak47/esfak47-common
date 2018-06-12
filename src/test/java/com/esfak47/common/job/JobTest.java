@@ -12,8 +12,8 @@ import java.util.ServiceLoader;
 public class JobTest {
 
     @Test
-    public void test(){
-        ServiceLoader<JobManager> jobManagers=ServiceLoader.load(JobManager.class);
+    public void test() {
+        ServiceLoader<JobManager> jobManagers = ServiceLoader.load(JobManager.class);
         Iterator<JobManager> jobManagerIterator = jobManagers.iterator();
 
 

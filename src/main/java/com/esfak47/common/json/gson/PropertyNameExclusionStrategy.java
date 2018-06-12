@@ -39,7 +39,7 @@ class PropertyNameExclusionStrategy implements ExclusionStrategy {
     @Override
     public boolean shouldSkipField(FieldAttributes fieldAttributes) {
         return this.ignorePropertyNames != null && ArrayUtils.containsElement(ignorePropertyNames,
-            fieldAttributes.getName());
+                fieldAttributes.getName());
     }
 
     /**

@@ -73,11 +73,11 @@ public class ReflectionUtils {
         // 判断父类是否有泛型
         if (genericSuperClass instanceof ParameterizedType) {
             // 向下转型，以便调用方法
-            ParameterizedType pt = (ParameterizedType)genericSuperClass;
+            ParameterizedType pt = (ParameterizedType) genericSuperClass;
             // 只取第一个，因为一个类只能继承一个父类
             Type superClazz = pt.getActualTypeArguments()[0];
             // 转换为Class类型
-            superClassGenericParameterizedType = (Class<?>)superClazz;
+            superClassGenericParameterizedType = (Class<?>) superClazz;
         }
 
         return superClassGenericParameterizedType;
@@ -95,7 +95,7 @@ public class ReflectionUtils {
         for (Type genericInterface : genericInterfaces) {
             // 判断接口是否有泛型
             if (genericInterface instanceof ParameterizedType) {
-                ParameterizedType pt = (ParameterizedType)genericInterface;
+                ParameterizedType pt = (ParameterizedType) genericInterface;
 
                 // 得到所有的泛型【Type类型的数组】
                 Type[] interfaceTypes = pt.getActualTypeArguments();
@@ -103,7 +103,7 @@ public class ReflectionUtils {
                 for (Type interfaceType : interfaceTypes) {
                     // 获取对应的泛型【Type类型】
                     // 转换为Class类型
-                    Class<?> interfaceClass = (Class<?>)interfaceType;
+                    Class<?> interfaceClass = (Class<?>) interfaceType;
                     list.add(interfaceClass);
                 }
 
@@ -131,7 +131,7 @@ public class ReflectionUtils {
      * @return 构造方法对象【Constructor类型】
      */
     public static Constructor<?> getConstructor(Class<?> clazz, Class<?>... parameterTypes)
-        throws NoSuchMethodException, SecurityException {
+            throws NoSuchMethodException, SecurityException {
         return clazz.getDeclaredConstructor(parameterTypes);
     }
 
@@ -143,7 +143,7 @@ public class ReflectionUtils {
      * @return 对应的实例【Object类型】
      */
     public static Object getNewInstance(Constructor<?> constructor, Object... initargs)
-        throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+            throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         constructor.setAccessible(true);
         return constructor.newInstance(initargs);
     }
@@ -157,7 +157,7 @@ public class ReflectionUtils {
      * @param value 修改后的新值
      */
     public static void setField(Class<?> clazz, String name, Object obj, Object value)
-        throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+            throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         Field field = clazz.getDeclaredField(name);
         field.setAccessible(true);
         field.set(obj, value);
@@ -172,7 +172,7 @@ public class ReflectionUtils {
      * @return 方法对象【Method类型】
      */
     public static Method getMethod(Class<?> clazz, String name, Class<?>... parameterTypes)
-        throws NoSuchMethodException, SecurityException {
+            throws NoSuchMethodException, SecurityException {
         return clazz.getDeclaredMethod(name, parameterTypes);
     }
 
@@ -185,7 +185,7 @@ public class ReflectionUtils {
      * @return 方法的返回值【没有返回值，则返回null】
      */
     public static Object invokeMethod(Method method, Object obj, Object... args)
-        throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+            throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         method.setAccessible(true);
         return method.invoke(obj, args);
     }

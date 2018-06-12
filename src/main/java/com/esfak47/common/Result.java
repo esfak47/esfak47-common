@@ -80,7 +80,9 @@ public class Result<T> {
     }
 
     public void ifPresent(Consumer<? super T> consumer) {
-        if (data != null) {consumer.accept(data);}
+        if (data != null) {
+            consumer.accept(data);
+        }
     }
 
     public boolean isSuccess() {

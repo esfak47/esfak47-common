@@ -54,7 +54,7 @@ public class UrlResourceDescriptor extends AbstractResourceDescriptor {
             return con.getInputStream();
         } catch (IOException e) {
             if (con instanceof HttpURLConnection) {
-                ((HttpURLConnection)con).disconnect();
+                ((HttpURLConnection) con).disconnect();
             }
         }
         return null;

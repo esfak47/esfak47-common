@@ -24,7 +24,7 @@ public class ClassHelper {
     /**
      * Suffix for array class names: "[]"
      */
-    public static final String ARRAY_SUFFIX = "[]";
+    private static final String ARRAY_SUFFIX = "[]";
     /**
      * Prefix for internal array class names: "[L"
      */
@@ -33,41 +33,40 @@ public class ClassHelper {
      * Map with primitive type name as key and corresponding primitive type as value, for example: "int" ->
      * "int.class".
      */
-    private static final Map<String, Class<?>> primitiveTypeNameMap = new HashMap<String, Class<?>>(16);
+    private static final Map<String, Class<?>> PRIMITIVE_TYPE_NAME_MAP = new HashMap<String, Class<?>>(16);
     /**
      * Map with primitive wrapper type as key and corresponding primitive type as value, for example: Integer.class ->
      * int.class.
      */
-    private static final Map<Class<?>, Class<?>> primitiveWrapperTypeMap = new HashMap<Class<?>, Class<?>>(8);
+    private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPER_TYPE_MAP = new HashMap<Class<?>, Class<?>>(8);
 
     static {
-        primitiveWrapperTypeMap.put(Boolean.class, boolean.class);
-        primitiveWrapperTypeMap.put(Byte.class, byte.class);
-        primitiveWrapperTypeMap.put(Character.class, char.class);
-        primitiveWrapperTypeMap.put(Double.class, double.class);
-        primitiveWrapperTypeMap.put(Float.class, float.class);
-        primitiveWrapperTypeMap.put(Integer.class, int.class);
-        primitiveWrapperTypeMap.put(Long.class, long.class);
-        primitiveWrapperTypeMap.put(Short.class, short.class);
+        PRIMITIVE_WRAPPER_TYPE_MAP.put(Boolean.class, boolean.class);
+        PRIMITIVE_WRAPPER_TYPE_MAP.put(Byte.class, byte.class);
+        PRIMITIVE_WRAPPER_TYPE_MAP.put(Character.class, char.class);
+        PRIMITIVE_WRAPPER_TYPE_MAP.put(Double.class, double.class);
+        PRIMITIVE_WRAPPER_TYPE_MAP.put(Float.class, float.class);
+        PRIMITIVE_WRAPPER_TYPE_MAP.put(Integer.class, int.class);
+        PRIMITIVE_WRAPPER_TYPE_MAP.put(Long.class, long.class);
+        PRIMITIVE_WRAPPER_TYPE_MAP.put(Short.class, short.class);
 
         Set<Class<?>> primitiveTypeNames = new HashSet<Class<?>>(16);
-        primitiveTypeNames.addAll(primitiveWrapperTypeMap.values());
+        primitiveTypeNames.addAll(PRIMITIVE_WRAPPER_TYPE_MAP.values());
         primitiveTypeNames.addAll(Arrays
-            .asList(new Class<?>[] {boolean[].class, byte[].class, char[].class, double[].class,
-                float[].class, int[].class, long[].class, short[].class}));
-        for (Iterator<Class<?>> it = primitiveTypeNames.iterator(); it.hasNext(); ) {
-            Class<?> primitiveClass = (Class<?>)it.next();
-            primitiveTypeNameMap.put(primitiveClass.getName(), primitiveClass);
+                .asList(boolean[].class, byte[].class, char[].class, double[].class,
+                        float[].class, int[].class, long[].class, short[].class));
+        for (Class<?> primitiveTypeName : primitiveTypeNames) {
+            PRIMITIVE_TYPE_NAME_MAP.put(primitiveTypeName.getName(), primitiveTypeName);
         }
     }
 
     public static Class<?> forNameWithThreadContextClassLoader(String name)
-        throws ClassNotFoundException {
+            throws ClassNotFoundException {
         return forName(name, Thread.currentThread().getContextClassLoader());
     }
 
     public static Class<?> forNameWithCallerClassLoader(String name, Class<?> caller)
-        throws ClassNotFoundException {
+            throws ClassNotFoundException {
         return forName(name, caller.getClassLoader());
     }
 
@@ -129,7 +128,7 @@ public class ClassHelper {
      * @see Class#forName(String, boolean, ClassLoader)
      */
     public static Class<?> forName(String name, ClassLoader classLoader)
-        throws ClassNotFoundException, LinkageError {
+            throws ClassNotFoundException, LinkageError {
 
         Class<?> clazz = resolvePrimitiveClassName(name);
         if (clazz != null) {
@@ -149,7 +148,7 @@ public class ClassHelper {
             String elementClassName = null;
             if (internalArrayMarker == 0) {
                 elementClassName = name
-                    .substring(INTERNAL_ARRAY_PREFIX.length(), name.length() - 1);
+                        .substring(INTERNAL_ARRAY_PREFIX.length(), name.length() - 1);
             } else if (name.startsWith("[")) {
                 elementClassName = name.substring(1);
             }
@@ -181,7 +180,7 @@ public class ClassHelper {
         // SHOULD sit in a package, so a length check is worthwhile.
         if (name != null && name.length() <= 8) {
             // Could be a primitive - likely.
-            result = (Class<?>)primitiveTypeNameMap.get(name);
+            result = (Class<?>) PRIMITIVE_TYPE_NAME_MAP.get(name);
         }
         return result;
     }
