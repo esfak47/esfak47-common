@@ -10,59 +10,83 @@ public class SequenceTracerTest {
 
     @Test
     public void test() {
-        SequenceTracer.trace("start");
-        SequenceTracer.traceStop();
+        final SequenceTracer sequenceTracer = SequenceTracer.SequenceTracerFactory.getSequenceTracer();
+
+        sequenceTracer.selfCall("start");
+        sequenceTracer.selfCallSuccess();
         Home home = new Home();
         Company company = new Company();
-        SequenceTracer.trace("call wake up");
+        sequenceTracer.newCallRequest("call wake up");
         home.wakeUp();
-        SequenceTracer.traceStop();
-        SequenceTracer.trace("work");
+        sequenceTracer.callSuccess();
+        sequenceTracer.newCallRequest("work");
         company.work();
-        SequenceTracer.traceStop();
-        SequenceTracer.trace("eat");
+        sequenceTracer.callSuccess();
+        sequenceTracer.newCallRequest("eat");
         company.eat();
-        SequenceTracer.traceStop();
-        SequenceTracer.trace("return to work");
+        sequenceTracer.callSuccess();
+        sequenceTracer.newCallRequest("return to work");
         company.work();
-        SequenceTracer.traceStop();
-        SequenceTracer.trace("go to sleep");
+        sequenceTracer.callSuccess();
+        sequenceTracer.newCallRequest("go to sleep");
         home.goToBed();
-        SequenceTracer.traceStop();
-        final String s = SequenceTracer.printAsPlantuml();
+        sequenceTracer.callSuccess();
+        sequenceTracer.newCallRequest("go to sleep");
+        home.goToBed();
+        sequenceTracer.callFailed("already sleeping");
+
+        final String s = sequenceTracer.printAsPlantuml();
         System.out.println(s);
 
     }
 
     private static final class Home {
+
+        private boolean sleeping = false;
+
         public void wakeUp() {
-            SequenceTracer.traceStop();
-            SequenceTracer.trace("call cleanMyself");
+            final SequenceTracer sequenceTracer = SequenceTracer.SequenceTracerFactory.getSequenceTracer();
+            sequenceTracer.acceptSuccess();
+            sequenceTracer.newCallRequest("call cleanMyself");
             cleanMyself();
-            SequenceTracer.traceStop();
+            sequenceTracer.callSuccess();
+            sequenceTracer.returnSuccess("waked up");
         }
 
         public void cleanMyself() {
-            SequenceTracer.traceStop();
 
-            SequenceTracer.trace("finish cleaning");
+            final SequenceTracer sequenceTracer = SequenceTracer.SequenceTracerFactory.getSequenceTracer();
+            sequenceTracer.acceptSuccess();
+
+            sequenceTracer.returnSuccess("clean finished");
         }
 
         public void goToBed() {
-            SequenceTracer.traceStop();
-            SequenceTracer.trace("sleeping");
+
+            final SequenceTracer sequenceTracer = SequenceTracer.SequenceTracerFactory.getSequenceTracer();
+            if (this.sleeping) {
+                sequenceTracer.acceptFailed("already sleeping");
+
+            } else {
+                sequenceTracer.acceptSuccess();
+                this.sleeping = true;
+                sequenceTracer.returnSuccess("sleeping");
+            }
+
         }
     }
 
     private static final class Company {
+        final static SequenceTracer sequenceTracer = SequenceTracer.SequenceTracerFactory.getSequenceTracer();
+
         public void work() {
-            SequenceTracer.traceStop();
-            SequenceTracer.trace("start working");
+            sequenceTracer.acceptSuccess();
+            sequenceTracer.returnSuccess("start working");
         }
 
         public void eat() {
-            SequenceTracer.traceStop();
-            SequenceTracer.trace("eat done");
+            sequenceTracer.acceptSuccess();
+            sequenceTracer.returnSuccess("eat done");
         }
     }
 
