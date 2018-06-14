@@ -1,0 +1,3 @@
+jdk=com.esfak47.common.utils.JdkIdGenerator
+alternative=com.esfak47.common.utils.AlternativeJdkIdGenerator
+simple=com.esfak47.common.utils.SimpleIdGenerator
