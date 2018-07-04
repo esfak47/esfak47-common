@@ -227,11 +227,9 @@ public class SequenceTracer {
 
         @Override
         public String toString() {
-            final StringBuffer sb = new StringBuffer("SequenceInfo{");
-            sb.append("intention='").append(intention).append('\'');
-            sb.append(", success=").append(success);
-            sb.append('}');
-            return sb.toString();
+            return "SequenceInfo{" + "intention='" + intention + '\'' +
+                    ", success=" + success +
+                    '}';
         }
     }
 }
