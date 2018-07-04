@@ -47,11 +47,9 @@ object StringUtils {
             p.print(": " + e.message)
         }
         p.println()
-        try {
+        p.use { p ->
             e.printStackTrace(p)
             return w.toString()
-        } finally {
-            p.close()
         }
     }
 
@@ -74,6 +72,7 @@ object StringUtils {
     fun hasLength(str: CharSequence?): Boolean {
         return str != null && str.isNotEmpty()
     }
+
     @JvmStatic
     fun isNumeric(str: String): Boolean {
         if (isBlank(str)) {
@@ -82,18 +81,31 @@ object StringUtils {
         val sz = str.length
         return (0 until sz).all { isNumeric(str[it]) }
     }
+
     @JvmStatic
     fun isNumeric(ch: Char): Boolean {
         return ch in '0'..'9'
     }
+
+    @JvmStatic
+    fun join(separator: String, vararg args: String): String {
+        var str = ""
+        args.iterator().forEachRemaining { e -> run { str = str + e + separator } }
+        return str
+
+    }
+
+
     @JvmStatic
     fun isBlank(str: CharSequence?): Boolean {
         return !hasLength(str)
     }
+
     @JvmStatic
     fun isNotBlank(str: CharSequence?): Boolean {
         return hasLength(str)
     }
+
     /**
      * parse key-value pair.
      *
@@ -104,12 +116,10 @@ object StringUtils {
     private fun parseKeyValuePair(str: String, itemSeparator: String): Map<String, String> {
         val tmp = str.split(itemSeparator.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val map = HashMap<String, String>(tmp.size)
-        for (i in tmp.indices) {
-            val matcher = KVP_PATTERN.matcher(tmp[i])
-            if (matcher.matches() == false)
-                continue
-            map[matcher.group(1)] = matcher.group(2)
-        }
+        tmp.indices
+                .map { KVP_PATTERN.matcher(tmp[it]) }
+                .filter { it.matches() }
+                .forEach { map[it.group(1)] = it.group(2) }
         return map
     }
 
@@ -122,7 +132,7 @@ object StringUtils {
      */
     @JvmStatic
     fun parseQueryString(qs: String?): Map<String, String> {
-        return if (qs == null || qs.length == 0) HashMap() else parseKeyValuePair(qs, "\\&")
+        return if (qs == null || qs.isEmpty()) HashMap() else parseKeyValuePair(qs, "\\&")
     }
 
     /**

@@ -9,9 +9,6 @@ import java.util.regex.Pattern;
  * @date 2018/7/4
  */
 public class EagerEyeIdGenerator implements IdGenerator {
-    private static final String regex
-        = "\\b((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.("
-        + "(?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\b";
     private static final Pattern pattern = Pattern.compile(
         "\\b((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.("
             + "(?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\b");
@@ -127,11 +124,13 @@ public class EagerEyeIdGenerator implements IdGenerator {
     @Override
     public UUID generateUUID() {
         final String generate = generate();
-        final String highStr = generate.substring(0, 16);
-        final String lowStr = generate.substring(16);
-        final Long high = Long.valueOf(highStr, 16);
-        final Long low = Long.valueOf(lowStr, 16);
+        final String str1 = generate.substring(0, 8);
+        final String str2 = generate.substring(8, 12);
+        final String str3 = generate.substring(12, 16);
+        final String str4 = generate.substring(16, 20);
+        final String str5 = generate.substring(20);
+        final String join = StringUtils.join("-", str1, str2, str3, str4, str5);
 
-        return new UUID(high, low);
+        return UUID.fromString(join);
     }
 }
