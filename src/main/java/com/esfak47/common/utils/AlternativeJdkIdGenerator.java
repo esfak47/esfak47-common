@@ -5,6 +5,9 @@ import java.security.SecureRandom;
 import java.util.Random;
 import java.util.UUID;
 
+/**
+ * @author tony
+ */
 public class AlternativeJdkIdGenerator implements IdGenerator {
 
 	private final Random random;
@@ -19,7 +22,7 @@ public class AlternativeJdkIdGenerator implements IdGenerator {
 
 
 	@Override
-	public UUID generateId() {
+	public UUID generateUUID() {
 		byte[] randomBytes = new byte[16];
 		this.random.nextBytes(randomBytes);
 
@@ -35,5 +38,7 @@ public class AlternativeJdkIdGenerator implements IdGenerator {
 
 		return new UUID(mostSigBits, leastSigBits);
 	}
+
+
 
 }

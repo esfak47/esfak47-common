@@ -74,12 +74,26 @@ object StringUtils {
     fun hasLength(str: CharSequence?): Boolean {
         return str != null && str.isNotEmpty()
     }
-
+    @JvmStatic
+    fun isNumeric(str: String): Boolean {
+        if (isBlank(str)) {
+            return false
+        }
+        val sz = str.length
+        return (0 until sz).all { isNumeric(str[it]) }
+    }
+    @JvmStatic
+    fun isNumeric(ch: Char): Boolean {
+        return ch in '0'..'9'
+    }
     @JvmStatic
     fun isBlank(str: CharSequence?): Boolean {
         return !hasLength(str)
     }
-
+    @JvmStatic
+    fun isNotBlank(str: CharSequence?): Boolean {
+        return hasLength(str)
+    }
     /**
      * parse key-value pair.
      *

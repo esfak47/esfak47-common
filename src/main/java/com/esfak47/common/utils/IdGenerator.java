@@ -8,14 +8,22 @@ import java.util.UUID;
 @SPI
 public interface IdGenerator {
 
-    static UUID generateIdWithProvider(String providerName) {
-        final IdGenerator extension = ExtensionLoader
-            .getExtensionLoader(IdGenerator.class)
-            .getExtension(providerName);
-        return extension.generateId();
+    static String generateIdWithProvider(String providerName) {
+        return generateIdWithProvider(providerName, ClassLoaderUtils.getDefaultClassLoader());
     }
 
-    static UUID generateIdWithProvider(String providerName, ClassLoader classLoader) {
+    static UUID generateUUIDWithProvider(String providerName) {
+        return generateUUIDWithProvider(providerName, ClassLoaderUtils.getDefaultClassLoader());
+    }
+
+    static UUID generateUUIDWithProvider(String providerName, ClassLoader classLoader) {
+        final IdGenerator extension = ExtensionLoader
+            .getExtensionLoader(IdGenerator.class, classLoader)
+            .getExtension(providerName);
+        return extension.generateUUID();
+    }
+
+    static String generateIdWithProvider(String providerName, ClassLoader classLoader) {
         final IdGenerator extension = ExtensionLoader
             .getExtensionLoader(IdGenerator.class, classLoader)
             .getExtension(providerName);
@@ -27,6 +35,10 @@ public interface IdGenerator {
      *
      * @return the generated identifier
      */
-    UUID generateId();
+    default String generateId() {
+        return StringUtils.replace(generateUUID().toString(), "-", "");
+    }
+
+    UUID generateUUID();
 
 }
