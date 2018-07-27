@@ -1,2 +1,3 @@
 adaptive=com.esfak47.common.extension.factory.AdaptiveExtensionFactory
 spi=com.esfak47.common.extension.factory.SpiExtensionFactory
+jdkspi=com.esfak47.common.extension.factory.JdkSpiExtensionFactory
