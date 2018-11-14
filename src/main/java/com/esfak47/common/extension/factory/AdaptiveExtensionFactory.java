@@ -44,10 +44,14 @@ public class AdaptiveExtensionFactory implements ExtensionFactory {
     @Override
     public <T> T getExtension(Class<T> type, String name) {
         for (ExtensionFactory factory : factories) {
-            T extension = factory.getExtension(type, name);
-            if (extension != null) {
-                return extension;
+            try {
+                T extension = factory.getExtension(type, name);
+                if (extension != null) {
+                    return extension;
+                }
+            } catch (Exception ignored) {
             }
+
         }
         return null;
     }

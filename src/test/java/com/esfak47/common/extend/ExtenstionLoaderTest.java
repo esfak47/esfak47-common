@@ -20,7 +20,7 @@ public class ExtenstionLoaderTest {
     @Test
     public void test() {
         Compiler defaultExtension = ExtensionLoader.getExtensionLoader(Compiler.class)
-                .getDefaultExtension();
+            .getDefaultExtension();
         Assert.assertNotNull(defaultExtension);
         Assert.assertEquals(defaultExtension.getClass().getSimpleName(), "JavassistCompiler");
     }
@@ -35,7 +35,7 @@ public class ExtenstionLoaderTest {
     @Test
     public void test3() {
         ExtensionFactory extensionFactory = ExtensionLoader.getExtensionLoader(ExtensionFactory.class)
-                .getAdaptiveExtension();
+            .getAdaptiveExtension();
         Assert.assertNotNull(extensionFactory);
     }
 
@@ -45,10 +45,10 @@ public class ExtenstionLoaderTest {
         AdpativeTest defaultExtension = ExtensionLoader.getExtensionLoader(AdpativeTest.class).getAdaptiveExtension();
 
         String adaptive = defaultExtension.adaptive(
-                URL.valueOf("extention://192.168.1.7:9090/com.alibaba.service1?name=impl1&param2=value2"));
+            URL.valueOf("extention://192.168.1.7:9090/com.alibaba.service1?name=impl1&param2=value2"));
         Assert.assertEquals("AdpativeTestImpl", adaptive);
         String adaptive2 = defaultExtension.adaptive(
-                URL.valueOf("extention://192.168.1.7:9090/com.alibaba.service1?name=impl2&param2=value2"));
+            URL.valueOf("extention://192.168.1.7:9090/com.alibaba.service1?name=impl2&param2=value2"));
         Assert.assertEquals("AdpativeTestImpl2", adaptive2);
     }
 
@@ -58,10 +58,10 @@ public class ExtenstionLoaderTest {
         AdpativeTest defaultExtension = ExtensionLoader.getExtensionLoader(AdpativeTest.class).getAdaptiveExtension();
 
         String adaptive = defaultExtension.method(
-                URL.valueOf("impl1://192.168.1.7:9090/com.alibaba.service1?name=impl1&param2=value2"));
+            URL.valueOf("impl1://192.168.1.7:9090/com.alibaba.service1?name=impl1&param2=value2"));
         Assert.assertEquals("AdpativeTestImpl", adaptive);
         String adaptive2 = defaultExtension.method(
-                URL.valueOf("impl2://192.168.1.7:9090/com.alibaba.service1?name=impl1&param2=value2"));
+            URL.valueOf("impl2://192.168.1.7:9090/com.alibaba.service1?name=impl1&param2=value2"));
         Assert.assertEquals("AdpativeTestImpl2", adaptive2);
     }
 
@@ -95,7 +95,7 @@ public class ExtenstionLoaderTest {
         ExtensionLoader<ClassBInterface> extensionLoader = ExtensionLoader.getExtensionLoader(ClassBInterface.class);
         extensionLoader.addExtension("default", ClassB.class);
 
-        ClassB classB = ((ClassB) extensionLoader.getExtension("default"));
+        ClassB classB = ((ClassB)extensionLoader.getExtension("default"));
 
         Assert.assertNotNull(classB.classA);
         Assert.assertNotNull(classB.classC);
@@ -103,7 +103,7 @@ public class ExtenstionLoaderTest {
     }
 
     @SPI
-    public static interface ClassBInterface {
+    public interface ClassBInterface {
 
     }
 
