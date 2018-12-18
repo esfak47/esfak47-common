@@ -20,8 +20,8 @@ class ClassUtilsTest {
     @Test
     @Throws(Exception::class)
     fun getRawType() {
-        var clazz = ClassUtils.getRawType(Int.javaClass)
-        Assert.assertEquals(clazz, Int.javaClass)
+        val clazz = ClassUtils.getRawType(Int::class.java)
+        Assert.assertEquals(clazz, Int::class.java)
 
     }
 

@@ -19,6 +19,9 @@ package com.esfak47.common.lang
 import com.esfak47.common.utils.CollectionUtils
 import com.esfak47.common.utils.StringUtils
 
+/**
+ * Assert Utils
+ */
 object Assert {
 
 
@@ -153,7 +156,7 @@ object Assert {
      */
     @JvmStatic
     fun notEmpty(array: ByteArray?, message: String) {
-        if (null == array || array.size == 0) {
+        if (null == array || array.isEmpty()) {
             throw IllegalArgumentException(message)
         }
     }
@@ -183,7 +186,7 @@ object Assert {
      */
     @JvmStatic
     fun notEmpty(array: IntArray?, message: String) {
-        if (null == array || array.size == 0) {
+        if (null == array || array.isEmpty()) {
             throw IllegalArgumentException(message)
         }
     }
@@ -213,7 +216,7 @@ object Assert {
      */
     @JvmStatic
     fun notEmpty(array: FloatArray?, message: String) {
-        if (null == array || array.size == 0) {
+        if (null == array || array.isEmpty()) {
             throw IllegalArgumentException(message)
         }
     }

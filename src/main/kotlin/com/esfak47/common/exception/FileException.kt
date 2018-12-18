@@ -26,21 +26,13 @@ class FileException : RuntimeException {
      *
      * @param message the detail message
      */
-    constructor(message: String) : super(message) {}
+    constructor(message: String) : super(message)
 
     /**
      * Create a new FatalFileException with the root cause.
      *
      * @param cause the root cause
      */
-    constructor(cause: Throwable) : super(cause) {}
-
-    /**
-     * Create a new FatalFileException with the specified message and root cause.
-     *
-     * @param message the detail message
-     * @param cause   the root cause
-     */
-    constructor(message: String, cause: Throwable) : super(message, cause) {}
+    constructor(cause: Throwable) : super(cause)
 
 }

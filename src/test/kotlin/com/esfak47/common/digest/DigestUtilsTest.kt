@@ -11,7 +11,7 @@ class DigestUtilsTest {
     @Test
     @Throws(Exception::class)
     fun sha1() {
-        val sha1 = DigestUtils.sha1("hello".toByteArray())
+        DigestUtils.sha1("hello".toByteArray())
     }
 
     @Test

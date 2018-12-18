@@ -297,7 +297,7 @@ public final class Base64 {
         };
         private static final int MIMELINEMAX = 76;
         private static final byte[] CRLF = new byte[]{'\r', '\n'};
-        static final Encoder RFC2045 = new Encoder(false, CRLF, MIMELINEMAX, true);
+        private static final Encoder RFC2045 = new Encoder(false, CRLF, MIMELINEMAX, true);
         private final byte[] newline;
         private final int lineMax;
         private final boolean isURL;
@@ -453,7 +453,9 @@ public final class Base64 {
             int dp = 0;
             while (sp < sl) {
                 int sl0 = Math.min(sp + slen, sl);
-                for (int sp0 = sp, dp0 = dp; sp0 < sl0; ) {
+                int sp0 = sp;
+                int dp0 = dp;
+                for (; sp0 < sl0; ) {
                     int bits = (src[sp0++] & 0xff) << 16 |
                             (src[sp0++] & 0xff) << 8 |
                             (src[sp0++] & 0xff);
@@ -703,12 +705,6 @@ public final class Base64 {
                 int b = src[sp++] & 0xff;
                 if ((b = base64[b]) < 0) {
                     if (b == -2) {
-                        // padding byte '='
-                        // =     shiftto==18 unnecessary padding
-                        // x=    shiftto==12 a dangling single x
-                        // x     to be handled together with non-padding case
-                        // xx=   shiftto==6&&sp==sl missing last =
-                        // xx=y  shiftto==6 last is not =
                         if (shiftto == 6 && (sp == sl || src[sp++] != '=') ||
                                 shiftto == 18) {
                             throw new IllegalArgumentException(

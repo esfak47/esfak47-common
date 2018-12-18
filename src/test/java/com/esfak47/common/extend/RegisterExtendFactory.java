@@ -23,6 +23,10 @@ public class RegisterExtendFactory implements ExtensionFactory {
 
     @Override
     public <T> T getExtension(Class<T> type, String name) {
-        return (T) classConcurrentHashMap.get(Tuple.tuple(type, name));
+        Object o = classConcurrentHashMap.get(Tuple.tuple(type, name));
+        if (o != null){
+            return (T) o;
+        }
+        return null;
     }
 }

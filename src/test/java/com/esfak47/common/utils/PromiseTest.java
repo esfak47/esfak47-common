@@ -23,13 +23,11 @@ public class PromiseTest {
                 Thread.sleep(1000);
                 logger.info("end");
                 resolve.accept(1000L);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (InterruptedException ignored) {
+
             }
 
-        }).then(aLong -> {
-            return aLong.intValue();
-        }).then(integer -> {
+        }).then(Long::intValue).then(integer -> {
             logger.info(String.valueOf(integer));
         })
                 .join();
@@ -51,11 +49,7 @@ public class PromiseTest {
 
             Assert.assertTrue(throwable instanceof NullPointerException);
             logger.error(throwable);
-        })
-
-                .then(aLong -> {
-                    return aLong.intValue();
-                }).then(integer -> {
+        }).then(Long::intValue).then(integer -> {
             logger.info(String.valueOf(integer));
         });
         Thread.sleep(5000);
@@ -63,7 +57,7 @@ public class PromiseTest {
     }
 
     @Test
-    public void testPromiseErrorJoin() throws InterruptedException {
+    public void testPromiseErrorJoin() {
         Promise.promise((PromiseInterface<Long>) (resolve, reject) -> {
             try {
                 logger.info("start");
@@ -78,9 +72,7 @@ public class PromiseTest {
             Assert.assertTrue(throwable instanceof CompletionException);
 
         })
-                .then(aLong -> {
-                    return aLong.intValue();
-                }).then(integer -> {
+                .then(Long::intValue).then(integer -> {
             logger.info(String.valueOf(integer));
         }).join();
 

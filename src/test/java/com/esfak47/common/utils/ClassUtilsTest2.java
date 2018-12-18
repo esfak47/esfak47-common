@@ -20,7 +20,7 @@ public class ClassUtilsTest2 extends UpperGeneric.Generic<Child, Integer> {
     }
 
     @Test
-    public void getRawType() throws Exception {
+    public void getRawType() {
         Class<?> rawType = ClassUtils.getRawType(int.class);
         Assert.assertEquals(rawType, int.class);
 
@@ -41,9 +41,5 @@ public class ClassUtilsTest2 extends UpperGeneric.Generic<Child, Integer> {
         assertTrue(isAssignable(Parent.class, Child.class));
     }
 
-    @Test
-    public void getRawType2() throws Exception {
-
-    }
 
 }

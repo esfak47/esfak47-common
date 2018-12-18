@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
  */
 public class EagerEyeIdGenerator implements IdGenerator {
     private static final Pattern pattern = Pattern.compile(
-        "\\b((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.("
-            + "(?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\b");
+            "\\b((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.("
+                    + "(?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\b");
     private static String IP_16 = "ffffffff";
     private static String IP_int = "255255255255";
     private static String PID = "0000";
@@ -27,8 +27,7 @@ public class EagerEyeIdGenerator implements IdGenerator {
             }
 
             PID = getHexPid(SystemUtils.getCurrrentPid());
-        } catch (Throwable var1) {
-            ;
+        } catch (Throwable ignored) {
         }
 
     }
@@ -36,7 +35,7 @@ public class EagerEyeIdGenerator implements IdGenerator {
     public EagerEyeIdGenerator() {
     }
 
-    static String getHexPid(int pid) {
+    private static String getHexPid(int pid) {
         if (pid < 0) {
             pid = 0;
         } else if (pid > '\uffff') {
@@ -44,17 +43,15 @@ public class EagerEyeIdGenerator implements IdGenerator {
         }
 
         String str;
-        for (str = Integer.toHexString(pid); str.length() < 4; str = '0' + str) {
-            ;
+        for (str = Integer.toHexString(pid); str.length() < 4; ) {
+            str = '0' + str;
         }
 
         return str;
     }
 
     private static String getTraceId(String ip, long timestamp, int nextId) {
-        StringBuilder appender = new StringBuilder(32);
-        appender.append(ip).append(timestamp).append(nextId).append(PID_FLAG).append(PID);
-        return appender.toString();
+        return ip + timestamp + nextId + PID_FLAG + PID;
     }
 
     static String generate() {
@@ -63,7 +60,7 @@ public class EagerEyeIdGenerator implements IdGenerator {
 
     static String generate(String ip) {
         return ip != null && !ip.isEmpty() && validate(ip) ? getTraceId(getIP_16(ip), System.currentTimeMillis(),
-            getNextId()) : generate();
+                getNextId()) : generate();
     }
 
     static String generateIpv4Id() {
@@ -85,11 +82,7 @@ public class EagerEyeIdGenerator implements IdGenerator {
     private static String getIP_16(String ip) {
         String[] ips = ip.split("\\.");
         StringBuilder sb = new StringBuilder();
-        String[] arr$ = ips;
-        int len$ = ips.length;
-
-        for (int i$ = 0; i$ < len$; ++i$) {
-            String column = arr$[i$];
+        for (String column : ips) {
             String hex = Integer.toHexString(Integer.parseInt(column));
             if (hex.length() == 1) {
                 sb.append('0').append(hex);

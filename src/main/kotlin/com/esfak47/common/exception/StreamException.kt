@@ -31,7 +31,7 @@ class StreamException : RuntimeException {
      * unknown.)
      * @since 1.4
      */
-    constructor(cause: Throwable) : super(cause) {}
+    constructor(cause: Throwable) : super(cause)
 
     /**
      * Constructs a new runtime exception with the specified detail message and
@@ -49,5 +49,5 @@ class StreamException : RuntimeException {
      * unknown.)
      * @since 1.4
      */
-    constructor(message: String, cause: Throwable) : super(message, cause) {}
+    constructor(message: String, cause: Throwable) : super(message, cause)
 }

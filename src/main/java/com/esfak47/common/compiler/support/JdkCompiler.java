@@ -91,7 +91,7 @@ public class JdkCompiler extends AbstractCompiler {
         private final CharSequence source;
         private ByteArrayOutputStream bytecode;
 
-        public JavaFileObjectImpl(final String baseName, final CharSequence source) {
+        JavaFileObjectImpl(final String baseName, final CharSequence source) {
             super(ClassUtils.toURI(baseName + ClassUtils.JAVA_EXTENSION), Kind.SOURCE);
             this.source = source;
         }
@@ -187,7 +187,7 @@ public class JdkCompiler extends AbstractCompiler {
             Iterable<JavaFileObject> result = super.list(location, packageName, kinds, recurse);
 
             ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-            List<URL> urlList = new ArrayList<URL>();
+            List<URL> urlList = new ArrayList<>();
             Enumeration<URL> e = contextClassLoader.getResources("com");
             while (e.hasMoreElements()) {
                 urlList.add(e.nextElement());

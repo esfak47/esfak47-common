@@ -72,7 +72,7 @@ public class ClassUtils {
         }
     }
 
-    static Class<?> _forName(String className) throws ClassNotFoundException {
+    private static Class<?> _forName(String className) throws ClassNotFoundException {
         if ("boolean".equals(className)) {
             return boolean.class;
         }

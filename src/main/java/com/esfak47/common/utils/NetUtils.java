@@ -55,20 +55,11 @@ public class NetUtils {
     }
 
     public static int getAvailablePort() {
-        ServerSocket ss = null;
-        try {
-            ss = new ServerSocket();
+        try (ServerSocket ss = new ServerSocket()) {
             ss.bind(null);
             return ss.getLocalPort();
         } catch (IOException e) {
             return getRandomPort();
-        } finally {
-            if (ss != null) {
-                try {
-                    ss.close();
-                } catch (IOException e) {
-                }
-            }
         }
     }
 
@@ -77,19 +68,10 @@ public class NetUtils {
             return getAvailablePort();
         }
         for (int i = port; i < MAX_PORT; i++) {
-            ServerSocket ss = null;
-            try {
-                ss = new ServerSocket(i);
+            try (ServerSocket ss = new ServerSocket(i)) {
                 return i;
             } catch (IOException e) {
                 // continue
-            } finally {
-                if (ss != null) {
-                    try {
-                        ss.close();
-                    } catch (IOException e) {
-                    }
-                }
             }
         }
         return port;
@@ -199,16 +181,14 @@ public class NetUtils {
                     try {
                         NetworkInterface network = interfaces.nextElement();
                         Enumeration<InetAddress> addresses = network.getInetAddresses();
-                        if (addresses != null) {
-                            while (addresses.hasMoreElements()) {
-                                try {
-                                    InetAddress address = addresses.nextElement();
-                                    if (isValidAddress(address)) {
-                                        return address;
-                                    }
-                                } catch (Throwable e) {
-                                    logger.warn("Failed to retrieving ip address, " + e.getMessage(), e);
+                        while (addresses.hasMoreElements()) {
+                            try {
+                                InetAddress address = addresses.nextElement();
+                                if (isValidAddress(address)) {
+                                    return address;
                                 }
+                            } catch (Throwable e) {
+                                logger.warn("Failed to retrieving ip address, " + e.getMessage(), e);
                             }
                         }
                     } catch (Throwable e) {

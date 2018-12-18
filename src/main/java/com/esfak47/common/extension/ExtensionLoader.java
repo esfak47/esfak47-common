@@ -32,6 +32,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -91,7 +92,7 @@ public class ExtensionLoader<T> {
 
     private Set<Class<?>> cachedWrapperClasses;
 
-    private Map<String, IllegalStateException> exceptions = new ConcurrentHashMap<String, IllegalStateException>();
+    private Map<String, IllegalStateException> exceptions = new ConcurrentHashMap<>();
 
     private ExtensionLoader(Class<?> type, ClassLoader classLoader) {
         this.type = type;
@@ -240,7 +241,7 @@ public class ExtensionLoader<T> {
      */
     public List<T> getActivateExtension(URL url, String[] values, String group) {
         List<T> exts = new ArrayList<T>();
-        List<String> names = values == null ? new ArrayList<String>(0) : Arrays.asList(values);
+        List<String> names = values == null ? new ArrayList<>(0) : Arrays.asList(values);
         if (!names.contains(Constants.REMOVE_VALUE_PREFIX + Constants.DEFAULT_KEY)) {
             getExtensionClasses();
             for (Map.Entry<String, Activate> entry : cachedActivates.entrySet()) {
@@ -326,7 +327,7 @@ public class ExtensionLoader<T> {
         }
         Holder<Object> holder = cachedInstances.get(name);
         if (holder == null) {
-            cachedInstances.putIfAbsent(name, new Holder<Object>());
+            cachedInstances.putIfAbsent(name, new Holder<>());
             holder = cachedInstances.get(name);
         }
         return (T) holder.get();
@@ -340,7 +341,7 @@ public class ExtensionLoader<T> {
      * @see #getSupportedExtensions()
      */
     public Set<String> getLoadedExtensions() {
-        return Collections.unmodifiableSet(new TreeSet<String>(cachedInstances.keySet()));
+        return Collections.unmodifiableSet(new TreeSet<>(cachedInstances.keySet()));
     }
 
     /**
@@ -399,7 +400,7 @@ public class ExtensionLoader<T> {
 
     public Set<String> getSupportedExtensions() {
         Map<String, Class<?>> classes = getExtensionClasses();
-        return Collections.unmodifiableSet(new TreeSet<String>(classes.keySet()));
+        return Collections.unmodifiableSet(new TreeSet<>(classes.keySet()));
     }
 
     /**
@@ -684,8 +685,7 @@ public class ExtensionLoader<T> {
     private void loadResource(Map<String, Class<?>> extensionClasses, ClassLoader classLoader,
                               java.net.URL resourceURL) {
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(resourceURL.openStream(), "utf-8"));
-            try {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(resourceURL.openStream(), StandardCharsets.UTF_8))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     final int ci = line.indexOf('#');
@@ -712,8 +712,6 @@ public class ExtensionLoader<T> {
                         }
                     }
                 }
-            } finally {
-                reader.close();
             }
         } catch (Throwable t) {
             logger.error("Exception when load extension class(interface: " +
@@ -733,20 +731,19 @@ public class ExtensionLoader<T> {
                 cachedAdaptiveClass = clazz;
             } else if (!cachedAdaptiveClass.equals(clazz)) {
                 throw new IllegalStateException("More than 1 adaptive class found: "
-                        + cachedAdaptiveClass.getClass().getName()
-                        + ", " + clazz.getClass().getName());
+                        + cachedAdaptiveClass.getName()
+                        + ", " + clazz.getName());
             }
         } else if (isWrapperClass(clazz)) {
             Set<Class<?>> wrappers = cachedWrapperClasses;
             if (wrappers == null) {
-                cachedWrapperClasses = new ConcurrentHashSet<Class<?>>();
+                cachedWrapperClasses = new ConcurrentHashSet<>();
                 wrappers = cachedWrapperClasses;
             }
             wrappers.add(clazz);
         } else {
             clazz.getConstructor();
             if (name == null || name.length() == 0) {
-                //name = findAnnotationName(clazz);
                 if (clazz.getSimpleName().length() > type.getSimpleName().length()
                         && clazz.getSimpleName().endsWith(type.getSimpleName())) {
                     name = clazz.getSimpleName().substring(0,
@@ -844,13 +841,7 @@ public class ExtensionLoader<T> {
             if (adaptiveAnnotation == null) {
                 //hack
                 // find Annotation that Annotation with Adaptive
-                Optional<Annotation> any = Arrays.stream(method.getAnnotations()).filter(new Predicate<Annotation>() {
-                    @Override
-                    public boolean test(Annotation annotation) {
-                        return annotation.annotationType().getAnnotation(Adaptive.class) != null;
-
-                    }
-                }).findAny();
+                Optional<Annotation> any = Arrays.stream(method.getAnnotations()).filter(annotation -> annotation.annotationType().getAnnotation(Adaptive.class) != null).findAny();
                 if (any.isPresent()) {
                     adaptiveAnnotation = any.get().annotationType().getAnnotation(Adaptive.class);
                 }
@@ -937,20 +928,6 @@ public class ExtensionLoader<T> {
                     }
                     value = new String[]{sb.toString()};
                 }
-
-                boolean hasInvocation = false;
-//                for (int i = 0; i < pts.length; ++i) {
-//                    if ("com.alibaba.dubbo.rpc.Invocation".equals(pts[i].getName())) {
-//                        // Null Point check
-//                        String s = String.format(
-//                                "\nif (arg%d == null) throw new IllegalArgumentException(\"invocation == null\");", i);
-//                        code.append(s);
-//                        s = String.format("\nString methodName = arg%d.getMethodName();", i);
-//                        code.append(s);
-//                        hasInvocation = true;
-//                        break;
-//                    }
-//                }
 
                 String defaultExtName = cachedDefaultName;
                 String getNameCode = null;

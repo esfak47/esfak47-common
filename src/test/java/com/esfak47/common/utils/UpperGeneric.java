@@ -5,7 +5,7 @@ class UpperGeneric {
         T t;
         R r;
 
-        protected Generic(T t, R r) {
+        Generic(T t, R r) {
             this.t = t;
             this.r = r;
         }

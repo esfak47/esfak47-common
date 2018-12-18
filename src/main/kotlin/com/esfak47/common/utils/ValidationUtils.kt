@@ -86,12 +86,11 @@ object ValidationUtils {
      *
      * @param pattern 正则
      * @param value   待验证的字符串
-     * @return 验证成功则返回{@code true},否则返回`false`
+     * @return 验证成功则返回{@code true},否则返回`false` 空字符串则直接返回{@code false}
      */
     private fun isMatchRegex(pattern: Pattern?, value: String): Boolean {
         return if (pattern == null || StringUtils.isEmpty(value)) {
-            false//空字符串则直接返回{@code false}
+            false
         } else pattern.matcher(value).matches()
-        //if () return true; //正则表达式为{@code null}则全匹配
     }
 }

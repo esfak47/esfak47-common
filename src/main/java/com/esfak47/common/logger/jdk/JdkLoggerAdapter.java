@@ -135,7 +135,7 @@ public class JdkLoggerAdapter implements LoggerAdapter {
 
     @Override
     public void setFile(File file) {
-
+        this.file = file;
     }
 
 }
