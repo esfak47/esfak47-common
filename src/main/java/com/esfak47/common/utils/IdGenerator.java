@@ -17,7 +17,8 @@ public interface IdGenerator {
     }
 
     static UUID generateUUIDWithProvider(String providerName, ClassLoader classLoader) {
-        final IdGenerator extension = ExtensionLoader
+        final IdGenerator extension;
+        extension = ExtensionLoader
             .getExtensionLoader(IdGenerator.class, classLoader)
             .getExtension(providerName);
         return extension.generateUUID();

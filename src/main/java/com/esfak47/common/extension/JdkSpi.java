@@ -3,8 +3,7 @@ package com.esfak47.common.extension;
 import java.lang.annotation.*;
 
 /**
- * @author tony
- * @date 2018/7/26
+ * @author tony 2018/7/26
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

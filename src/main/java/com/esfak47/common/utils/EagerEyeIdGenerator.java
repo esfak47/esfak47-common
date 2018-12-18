@@ -15,7 +15,6 @@ public class EagerEyeIdGenerator implements IdGenerator {
     private static String IP_16 = "ffffffff";
     private static String IP_int = "255255255255";
     private static String PID = "0000";
-    private static char PID_FLAG = 100;
     private static AtomicInteger count = new AtomicInteger(100000);
 
     static {
@@ -51,6 +50,7 @@ public class EagerEyeIdGenerator implements IdGenerator {
     }
 
     private static String getTraceId(String ip, long timestamp, int nextId) {
+        char PID_FLAG = 100;
         return ip + timestamp + nextId + PID_FLAG + PID;
     }
 

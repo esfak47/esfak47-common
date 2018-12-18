@@ -30,13 +30,14 @@ import java.util.*;
 
 /**
  * JdkCompiler. (SPI, Singleton, ThreadSafe)
+ *
  * @author tonywang
  */
 public class JdkCompiler extends AbstractCompiler {
 
     private final JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
-    private final DiagnosticCollector<JavaFileObject> diagnosticCollector = new DiagnosticCollector<JavaFileObject>();
+    private final DiagnosticCollector<JavaFileObject> diagnosticCollector = new DiagnosticCollector<>();
 
     private final ClassLoaderImpl classLoader;
 
@@ -56,7 +57,7 @@ public class JdkCompiler extends AbstractCompiler {
                 && (!Objects.equals(Class.forName("sun.misc.Launcher$AppClassLoader"), loader.getClass()))) {
             try {
                 URLClassLoader urlClassLoader = (URLClassLoader) loader;
-                List<File> files = new ArrayList<File>();
+                List<File> files = new ArrayList<>();
                 for (URL url : urlClassLoader.getURLs()) {
                     files.add(new File(url.getFile()));
                 }
@@ -89,7 +90,7 @@ public class JdkCompiler extends AbstractCompiler {
     private static final class JavaFileObjectImpl extends SimpleJavaFileObject {
 
         private final CharSequence source;
-        private ByteArrayOutputStream bytecode;
+        private ByteArrayOutputStream byteCode;
 
         JavaFileObjectImpl(final String baseName, final CharSequence source) {
             super(ClassUtils.toURI(baseName + ClassUtils.JAVA_EXTENSION), Kind.SOURCE);
@@ -98,11 +99,6 @@ public class JdkCompiler extends AbstractCompiler {
 
         JavaFileObjectImpl(final String name, final Kind kind) {
             super(ClassUtils.toURI(name), kind);
-            source = null;
-        }
-
-        public JavaFileObjectImpl(URI uri, Kind kind) {
-            super(uri, kind);
             source = null;
         }
 
@@ -121,11 +117,11 @@ public class JdkCompiler extends AbstractCompiler {
 
         @Override
         public OutputStream openOutputStream() {
-            return bytecode = new ByteArrayOutputStream();
+            return byteCode = new ByteArrayOutputStream();
         }
 
-        public byte[] getByteCode() {
-            return bytecode.toByteArray();
+        byte[] getByteCode() {
+            return byteCode.toByteArray();
         }
     }
 
@@ -133,9 +129,9 @@ public class JdkCompiler extends AbstractCompiler {
 
         private final ClassLoaderImpl classLoader;
 
-        private final Map<URI, JavaFileObject> fileObjects = new HashMap<URI, JavaFileObject>();
+        private final Map<URI, JavaFileObject> fileObjects = new HashMap<>();
 
-        public JavaFileManagerImpl(JavaFileManager fileManager, ClassLoaderImpl classLoader) {
+        JavaFileManagerImpl(JavaFileManager fileManager, ClassLoaderImpl classLoader) {
             super(fileManager);
             this.classLoader = classLoader;
         }
@@ -150,8 +146,8 @@ public class JdkCompiler extends AbstractCompiler {
             return super.getFileForInput(location, packageName, relativeName);
         }
 
-        public void putFileForInput(StandardLocation location, String packageName, String relativeName,
-                                    JavaFileObject file) {
+        void putFileForInput(StandardLocation location, String packageName, String relativeName,
+                             JavaFileObject file) {
             fileObjects.put(uri(location, packageName, relativeName), file);
         }
 
@@ -161,8 +157,7 @@ public class JdkCompiler extends AbstractCompiler {
 
         @Override
         public JavaFileObject getJavaFileForOutput(Location location, String qualifiedName, Kind kind,
-                                                   FileObject outputFile)
-                throws IOException {
+                                                   FileObject outputFile) {
             JavaFileObject file = new JavaFileObjectImpl(qualifiedName, kind);
             classLoader.add(qualifiedName, file);
             return file;
@@ -185,15 +180,7 @@ public class JdkCompiler extends AbstractCompiler {
         public Iterable<JavaFileObject> list(Location location, String packageName, Set<Kind> kinds, boolean recurse)
                 throws IOException {
             Iterable<JavaFileObject> result = super.list(location, packageName, kinds, recurse);
-
-            ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-            List<URL> urlList = new ArrayList<>();
-            Enumeration<URL> e = contextClassLoader.getResources("com");
-            while (e.hasMoreElements()) {
-                urlList.add(e.nextElement());
-            }
-
-            ArrayList<JavaFileObject> files = new ArrayList<JavaFileObject>();
+            ArrayList<JavaFileObject> files = new ArrayList<>();
 
             if (location == StandardLocation.CLASS_PATH && kinds.contains(Kind.CLASS)) {
                 for (JavaFileObject file : fileObjects.values()) {
@@ -221,7 +208,7 @@ public class JdkCompiler extends AbstractCompiler {
 
     private final class ClassLoaderImpl extends ClassLoader {
 
-        private final Map<String, JavaFileObject> classes = new HashMap<String, JavaFileObject>();
+        private final Map<String, JavaFileObject> classes = new HashMap<>();
 
         ClassLoaderImpl(final ClassLoader parentClassLoader) {
             super(parentClassLoader);

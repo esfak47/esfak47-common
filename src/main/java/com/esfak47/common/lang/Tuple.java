@@ -1,5 +1,7 @@
 package com.esfak47.common.lang;
 
+import java.util.Objects;
+
 public class Tuple<V1, V2> {
 
     private final V1 v1;
@@ -33,10 +35,10 @@ public class Tuple<V1, V2> {
 
         Tuple<?, ?> tuple = (Tuple<?, ?>) o;
 
-        if (v1 != null ? !v1.equals(tuple.v1) : tuple.v1 != null) {
+        if (!Objects.equals(v1, tuple.v1)) {
             return false;
         }
-        if (v2 != null ? !v2.equals(tuple.v2) : tuple.v2 != null) {
+        if (!Objects.equals(v2, tuple.v2)) {
             return false;
         }
 

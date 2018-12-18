@@ -65,7 +65,6 @@ public class Promise<T> {
         Promise<R> promise = new Promise<>(completableFuture);
         promise.errorConsumer = this.errorConsumer;
         promise.executor = this.executor;
-        promise.executor = executor;
 
         return promise;
     }
@@ -76,8 +75,6 @@ public class Promise<T> {
         Promise<Void> promise = new Promise<>(completableFuture);
         promise.errorConsumer = this.errorConsumer;
         promise.executor = this.executor;
-        promise.executor = executor;
-
         return promise;
     }
 

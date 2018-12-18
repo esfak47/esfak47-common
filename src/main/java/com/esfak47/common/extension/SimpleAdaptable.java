@@ -1,8 +1,7 @@
 package com.esfak47.common.extension;
 
 /**
- * @author tony
- * @date 2018/4/25
+ * @author tony 2018/4/25
  */
 public interface SimpleAdaptable {
 

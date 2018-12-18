@@ -84,7 +84,7 @@ public final class ClassUtils {
      * @param type 所有类的超类型
      * @return Class
      */
-    public static Class getRawType(Type type) {
+    public static Class<?> getRawType(Type type) {
         // type is a normal class.
         if (type instanceof Class<?>) {
             return (Class<?>) type;
@@ -92,7 +92,7 @@ public final class ClassUtils {
             ParameterizedType parameterizedType = (ParameterizedType) type;
             Type rawType = parameterizedType.getRawType();
             Assert.isTrue(rawType instanceof Class, "The rawType is not Class.");
-            return (Class) rawType;
+            return (Class<?>) rawType;
         } else if (type instanceof GenericArrayType) {
             Type componentType = ((GenericArrayType) type).getGenericComponentType();
             return Array.newInstance(getRawType(componentType), 0).getClass();
