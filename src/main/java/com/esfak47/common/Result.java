@@ -56,7 +56,6 @@ public class Result<T> {
         return tResult;
 
     }
-
     
     public static Result<Void> success() {
         return new Result<>(true);
