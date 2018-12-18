@@ -81,7 +81,6 @@ public class Result<T> {
     public void setData(T data) {
         this.data = data;
     }
-
     public void ifPresent(Consumer<? super T> consumer) {
         if (data != null) {
             consumer.accept(data);
