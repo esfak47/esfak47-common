@@ -112,6 +112,7 @@ public class Result<T> {
         this.code = code;
     }
 
+
     public Throwable getThrowable() {
         return throwable;
     }
