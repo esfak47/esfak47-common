@@ -70,7 +70,7 @@ public final class SystemUtils {
      *
      * @return
      */
-    private static int getCurrentPid() {
+    public static int getCurrentPid() {
         // @since 1.4.8 优先获取应用自己配置的 PID
         String pidStr = ConfigUtils.getSystemProperty("LOCAL.PID");
         if (StringUtils.isNotBlank(pidStr) && StringUtils.isNumeric(pidStr)) {
