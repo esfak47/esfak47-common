@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * @date 2018/7/4
  */
 public class EagerEyeIdGenerator implements IdGenerator {
-    private static final Pattern pattern = Pattern.compile(
+    private static final Pattern PATTERN = Pattern.compile(
             "\\b((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.("
                     + "(?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\b");
     private static String IP_16 = "ffffffff";
@@ -21,11 +21,11 @@ public class EagerEyeIdGenerator implements IdGenerator {
         try {
             String e = SystemUtils.getLocalAddress();
             if (e != null) {
-                IP_16 = getIP_16(e);
-                IP_int = getIP_int(e);
+                IP_16 = getip16(e);
+                IP_int = getipInt(e);
             }
 
-            PID = getHexPid(SystemUtils.getCurrrentPid());
+            PID = getHexPid(SystemUtils.getCurrentPid());
         } catch (Throwable ignored) {
         }
 
@@ -50,16 +50,16 @@ public class EagerEyeIdGenerator implements IdGenerator {
     }
 
     private static String getTraceId(String ip, long timestamp, int nextId) {
-        char PID_FLAG = 100;
-        return ip + timestamp + nextId + PID_FLAG + PID;
+        char pidFlag = 100;
+        return ip + timestamp + nextId + pidFlag + PID;
     }
 
-    static String generate() {
+    private static String generate() {
         return getTraceId(IP_16, System.currentTimeMillis(), getNextId());
     }
 
     static String generate(String ip) {
-        return ip != null && !ip.isEmpty() && validate(ip) ? getTraceId(getIP_16(ip), System.currentTimeMillis(),
+        return ip != null && !ip.isEmpty() && validate(ip) ? getTraceId(getip16(ip), System.currentTimeMillis(),
                 getNextId()) : generate();
     }
 
@@ -68,18 +68,18 @@ public class EagerEyeIdGenerator implements IdGenerator {
     }
 
     static String generateIpv4Id(String ip) {
-        return ip != null && !ip.isEmpty() && validate(ip) ? getIP_int(ip) : IP_int;
+        return ip != null && !ip.isEmpty() && validate(ip) ? getipInt(ip) : IP_int;
     }
 
     private static boolean validate(String ip) {
         try {
-            return pattern.matcher(ip).matches();
+            return PATTERN.matcher(ip).matches();
         } catch (Throwable var2) {
             return false;
         }
     }
 
-    private static String getIP_16(String ip) {
+    private static String getip16(String ip) {
         String[] ips = ip.split("\\.");
         StringBuilder sb = new StringBuilder();
         for (String column : ips) {
@@ -94,7 +94,7 @@ public class EagerEyeIdGenerator implements IdGenerator {
         return sb.toString();
     }
 
-    private static String getIP_int(String ip) {
+    private static String getipInt(String ip) {
         return ip.replace(".", "");
     }
 

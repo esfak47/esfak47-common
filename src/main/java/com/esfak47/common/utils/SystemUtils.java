@@ -55,12 +55,12 @@ public final class SystemUtils {
                 Enumeration<InetAddress> addresses = ni.getInetAddresses();
                 while (addresses.hasMoreElements()) {
                     address = addresses.nextElement();
-                    if (!address.isLoopbackAddress() && address.getHostAddress().indexOf(":") == -1) {
+                    if (!address.isLoopbackAddress() && !address.getHostAddress().contains(":")) {
                         return address.getHostAddress();
                     }
                 }
             }
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
         }
         return "127.0.0.1";
     }
@@ -125,7 +125,7 @@ public final class SystemUtils {
     private static sun.misc.Unsafe doGetUnsafe() {
         try {
             return sun.misc.Unsafe.getUnsafe();
-        } catch (Throwable tryReflectionInstead) {}
+        } catch (Throwable ignored) {}
         try {
             return java.security.AccessController.doPrivileged
                 ((PrivilegedExceptionAction<Unsafe>)() -> {
@@ -167,15 +167,8 @@ public final class SystemUtils {
         return threadMXBean;
     }
 
-    private static final String toMbSize(long value) {
+    private static String toMbSize(long value) {
         return (value / 1024 / 1024) + "MB";
     }
 
-    public static int getCurrrentPid() {
-        return PID;
-    }
-
-    public static String getCurrrentPidString() {
-        return PID_STR;
-    }
 }

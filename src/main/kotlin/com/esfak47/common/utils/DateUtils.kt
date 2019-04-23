@@ -22,7 +22,7 @@ import java.util.*
 /**
  * 日期工具类，提供了日期格式化和日期解析功能。
  *
- * @author mzlion on 2016-04-16
+ * @author tony on 2016-04-16
  */
 object DateUtils {
 

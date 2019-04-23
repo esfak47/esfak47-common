@@ -3,6 +3,9 @@ package com.esfak47.common.utils;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * @author tonywang
+ */
 public class SimpleIdGenerator implements IdGenerator {
 
     private final AtomicLong mostSigBits = new AtomicLong(0);

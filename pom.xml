@@ -176,6 +176,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
+
                 <executions>
                     <execution>
                         <id>attach-sources</id>

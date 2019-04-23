@@ -21,7 +21,7 @@ import java.util.*
  * 日期计算工具类，该类主要值对`Date`增改查【添加、修改、获取年月日时分秒】。还提供了两个日期之间相差月、天数计算。
  * 如果需要使用日期格式化、解析请查看[DateUtils].
  *
- * @author mzlion on 2016-04-16
+ * @author tony on 2016-04-16
  */
 object DateCalcUtils {
 

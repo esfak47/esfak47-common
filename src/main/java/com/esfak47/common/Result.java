@@ -3,6 +3,7 @@ package com.esfak47.common;
 import com.esfak47.common.lang.Assert;
 import com.esfak47.common.lang.CodeMessageProvider;
 
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -13,21 +14,19 @@ import java.util.function.Consumer;
  * @author tony
  */
 public class Result<T> {
-    private final static Result FAIL = new Result(false);
 
     private int code = 20000;
     private String message;
 
     private boolean success;
     private T data;
-    private Throwable throwable;
 
     public Result(boolean success) {
         this.success = success;
     }
 
     public static <T> Result<T> fail() {
-        return FAIL;
+        return new Result<>(false);
     }
 
     public static <T> Result<T> failWithReason(CodeMessageProvider provider) {
@@ -42,7 +41,6 @@ public class Result<T> {
         Result<T> tResult = new Result<>(false);
         tResult.setData(null);
         tResult.setMessage(throwable.getMessage());
-        tResult.throwable = throwable;
         return tResult;
     }
 
@@ -56,7 +54,7 @@ public class Result<T> {
         return tResult;
 
     }
-    
+
     public static Result<Void> success() {
         return new Result<>(true);
     }
@@ -81,6 +79,7 @@ public class Result<T> {
     public void setData(T data) {
         this.data = data;
     }
+
     public void ifPresent(Consumer<? super T> consumer) {
         if (data != null) {
             consumer.accept(data);
@@ -111,8 +110,9 @@ public class Result<T> {
         this.code = code;
     }
 
-
-    public Throwable getThrowable() {
-        return throwable;
+    public Optional<T> toOptional() {
+        return Optional.ofNullable(this.data);
     }
+
+
 }

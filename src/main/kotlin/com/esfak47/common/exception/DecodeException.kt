@@ -18,7 +18,7 @@ package com.esfak47.common.exception
 /**
  * Thrown on an unrecoverable problem decode data.
  *
- * @author mzlion on 2016/6/7.
+ * @author tony on 2016/6/7.
  */
 class DecodeException
 /**

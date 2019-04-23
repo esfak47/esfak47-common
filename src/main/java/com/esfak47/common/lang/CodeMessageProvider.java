@@ -2,6 +2,9 @@ package com.esfak47.common.lang;
 
 import java.io.Serializable;
 
+/**
+ * @author tonywang
+ */
 public interface CodeMessageProvider extends Serializable {
     /**
      * 返回结果编号

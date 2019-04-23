@@ -18,7 +18,7 @@ package com.esfak47.common.exception
 /**
  * Thrown on reading property file
  *
- * @author mzlion
+ * @author tony
  */
 class PropertyResolverException
 /**
