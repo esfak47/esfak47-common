@@ -17,7 +17,7 @@
 package com.esfak47.common.compiler.support;
 
 import com.esfak47.common.compiler.Compiler;
-import com.esfak47.common.utils.ClassHelper;
+import com.esfak47.common.utils.reflection.ClassHelper;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

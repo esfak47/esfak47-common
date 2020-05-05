@@ -15,7 +15,7 @@
  */
 package com.esfak47.common.digest;
 
-import com.esfak47.common.io.ArrayUtils;
+import com.esfak47.common.utils.io.ArrayUtils;
 import com.esfak47.common.utils.StringUtils;
 
 import java.io.FilterOutputStream;

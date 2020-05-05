@@ -18,7 +18,7 @@ package com.esfak47.common.json.fastjson;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.PropertyFilter;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.esfak47.common.io.ArrayUtils;
+import com.esfak47.common.utils.io.ArrayUtils;
 import com.esfak47.common.json.AbstractTypeRef;
 import com.esfak47.common.lang.Assert;
 

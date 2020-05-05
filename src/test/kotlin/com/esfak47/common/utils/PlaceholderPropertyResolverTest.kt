@@ -1,5 +1,6 @@
 package com.esfak47.common.utils
 
+import com.esfak47.common.utils.properties.PlaceholderPropertyResolver
 import org.hamcrest.CoreMatchers.*
 import org.junit.Assert.assertThat
 import org.junit.Before

@@ -1,7 +1,7 @@
 package com.esfak47.common.extension;
 
 import com.esfak47.common.utils.CollectionUtils;
-import com.esfak47.common.utils.NetUtils;
+import com.esfak47.common.utils.system.NetUtils;
 import com.esfak47.common.utils.StringUtils;
 
 import java.io.Serializable;
