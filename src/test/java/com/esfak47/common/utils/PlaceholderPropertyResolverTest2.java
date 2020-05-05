@@ -1,5 +1,6 @@
 package com.esfak47.common.utils;
 
+import com.esfak47.common.utils.properties.PlaceholderPropertyResolver;
 import org.junit.Before;
 import org.junit.Test;
 

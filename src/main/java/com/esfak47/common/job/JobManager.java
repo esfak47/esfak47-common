@@ -1,6 +1,6 @@
 package com.esfak47.common.job;
 
-import com.esfak47.common.PageResult;
+import com.esfak47.common.lang.PageResult;
 import com.esfak47.common.extension.SPI;
 
 @SPI

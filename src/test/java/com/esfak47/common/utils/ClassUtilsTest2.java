@@ -1,9 +1,10 @@
 package com.esfak47.common.utils;
 
+import com.esfak47.common.utils.reflection.ClassUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.esfak47.common.utils.ClassUtils.isAssignable;
+import static com.esfak47.common.utils.reflection.ClassUtils.isAssignable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 

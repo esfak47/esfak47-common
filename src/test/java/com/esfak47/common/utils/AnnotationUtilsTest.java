@@ -3,6 +3,7 @@ package com.esfak47.common.utils;
 import com.esfak47.common.extension.Adaptive;
 import com.esfak47.common.extension.SPI;
 import com.esfak47.common.extension.SimpleAdaptive;
+import com.esfak47.common.utils.reflection.AnnotationUtils;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;

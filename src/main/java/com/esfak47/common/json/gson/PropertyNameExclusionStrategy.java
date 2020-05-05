@@ -15,7 +15,7 @@
  */
 package com.esfak47.common.json.gson;
 
-import com.esfak47.common.io.ArrayUtils;
+import com.esfak47.common.utils.io.ArrayUtils;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 

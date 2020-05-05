@@ -15,7 +15,7 @@
  */
 package com.esfak47.common.json;
 
-import com.esfak47.common.utils.ClassUtils;
+import com.esfak47.common.utils.reflection.ClassUtils;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

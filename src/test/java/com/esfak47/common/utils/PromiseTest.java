@@ -1,9 +1,11 @@
 package com.esfak47.common.utils;
 
-import com.esfak47.common.logger.Logger;
-import com.esfak47.common.logger.LoggerFactory;
+import com.esfak47.common.utils.thread.Promise;
+import com.esfak47.common.utils.thread.PromiseInterface;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.CompletionException;
 
@@ -48,7 +50,7 @@ public class PromiseTest {
         }).catchEx(throwable -> {
 
             Assert.assertTrue(throwable instanceof NullPointerException);
-            logger.error(throwable);
+            logger.error("assset error",throwable);
         }).then(Long::intValue).then(integer -> {
             logger.info(String.valueOf(integer));
         });
@@ -68,7 +70,7 @@ public class PromiseTest {
             }
 
         }).catchEx(throwable -> {
-            logger.error(throwable);
+            logger.error("catch error",throwable);
             Assert.assertTrue(throwable instanceof CompletionException);
 
         })

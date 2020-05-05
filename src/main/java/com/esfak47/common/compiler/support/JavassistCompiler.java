@@ -16,7 +16,7 @@
  */
 package com.esfak47.common.compiler.support;
 
-import com.esfak47.common.utils.ClassHelper;
+import com.esfak47.common.utils.reflection.ClassHelper;
 import javassist.*;
 
 import java.util.ArrayList;

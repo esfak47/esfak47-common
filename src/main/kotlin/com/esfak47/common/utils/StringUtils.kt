@@ -16,7 +16,7 @@
 
 package com.esfak47.common.utils
 
-import com.esfak47.common.io.UnsafeStringWriter
+import com.esfak47.common.utils.io.UnsafeStringWriter
 import java.io.PrintWriter
 import java.util.*
 import java.util.regex.Pattern

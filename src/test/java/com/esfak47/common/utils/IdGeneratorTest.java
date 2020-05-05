@@ -1,5 +1,6 @@
 package com.esfak47.common.utils;
 
+import com.esfak47.common.utils.id.IdGenerator;
 import org.junit.Assert;
 import org.junit.Test;
 
