@@ -215,10 +215,10 @@
         </plugins>
     </build>
     <distributionManagement>
-        <repository>
-            <id>bintray-esfak47-maven</id>
-            <name>esfak47-maven</name>
-            <url>https://api.bintray.com/maven/esfak47/maven/core/;publish=1</url>
-        </repository>
+   <repository>
+     <id>github</id>
+     <name>GitHub OWNER Apache Maven Packages</name>
+     <url>https://maven.pkg.github.com/esfak47/esfak47-common</url>
+   </repository>
     </distributionManagement>
 </project>
